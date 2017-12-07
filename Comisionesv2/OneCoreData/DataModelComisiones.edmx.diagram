@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fd40e33c9e4d4d37a180cd96911c0d4d" Name="Diagram1">
+        <EntityTypeShape EntityType="COMISIONESModel.com_empresas" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="COMISIONESModel.com_periodos" Width="1.5" PointX="0.625" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="COMISIONESModel.com_relConceptoVendedor" Width="3.5" PointX="6.5" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="COMISIONESModel.com_bitacora" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="COMISIONESModel.com_configPeriodos" Width="1.5" PointX="9.375" PointY="6.5" />
+        <EntityTypeShape EntityType="COMISIONESModel.com_vendedores" Width="1.5" PointX="0.5" PointY="4.25" />
+        <AssociationConnector Association="COMISIONESModel.FK_com_periodos_com_vendedores" />
+        <EntityTypeShape EntityType="COMISIONESModel.com_clientesHistoricoPeriodos" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="COMISIONESModel.com_Descuentos" Width="1.5" PointX="5.125" PointY="0.5" />
+        <AssociationConnector Association="COMISIONESModel.FK_com_Descuentos_com_empresas" />
+        <AssociationConnector Association="COMISIONESModel.FK_com_Descuentos_com_vendedores" />
+        <EntityTypeShape EntityType="COMISIONESModel.com_Conceptos" Width="1.5" PointX="7.375" PointY="12.625" />
+        <EntityTypeShape EntityType="COMISIONESModel.com_DescuentoConceptoVendedor" Width="1.5" PointX="8" PointY="0.75" />
+        <EntityTypeShape EntityType="COMISIONESModel.com_EmpresaConceptos" Width="1.5" PointX="9.375" PointY="12.625" />
+        <AssociationConnector Association="COMISIONESModel.FK_com_AgregarDescuento_com_empresas" />
+        <AssociationConnector Association="COMISIONESModel.FK_com_AgregarDescuento_com_vendedores" />
+        <EntityTypeShape EntityType="COMISIONESModel.com_clientesComConfig" Width="1.5" PointX="3" PointY="5.25" />
+        <AssociationConnector Association="COMISIONESModel.FK_com_clientesComConfig_com_clientesComConfig" />
+        <AssociationConnector Association="COMISIONESModel.FK_com_clientesComConfig_com_empresas" />
+        <AssociationConnector Association="COMISIONESModel.FK_com_clientesComConfig_com_vendedores" />
+        <AssociationConnector Association="COMISIONESModel.FK_com_relConceptoVendedor_com_clientesComConfig" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

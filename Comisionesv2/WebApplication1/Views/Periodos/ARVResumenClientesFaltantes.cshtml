@@ -1,0 +1,71 @@
+﻿@using OneCoreData
+@using WebApplication1.Utilidades;
+@{
+    COMISIONESEntities db = new COMISIONESEntities();
+    var Empresas = (List<com_empresas>)ViewBag.qryEmpresas;
+}
+    
+    <div class="widget-body">
+        <div class="widget-main">
+            <div class="dd dd-draghandle">
+
+                <div id="accordion" class="accordion-style1 panel-group">
+
+                    @{
+                        foreach (var Empresa in Empresas)
+                        {
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_@Empresa.strNombreEmpresa" aria-expanded="false">
+                                            <i class="bigger-110 ace-icon fa fa-angle-right" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
+                                            @Empresa.strNombreEmpresa
+                                        </a>
+                                    </h4>
+                                </div>
+
+                                <div class="panel-collapse collapse" id="collapse_@Empresa.strNombreEmpresa" aria-expanded="false" style="height: 0px;">
+                                    <div class="panel-body">
+                                        <ol class="dd-list">
+                                            @{
+                                                var ClientesConfig = db.com_clientesComConfig.Select(p => p).Where(p => p.IdEmpresa == Empresa.IdEmpresa).ToList();
+                                                var ClientesFaltantes = new List<string>();
+                                                using (var ctx = new ELIEntities(Utilidades.mtdRecuperaCadenaConexion(Convert.ToInt32(Empresa.IdEmpresa))))
+                                                {
+                                                    DateTime dtFechaInicio_Real = ViewBag.dtFechaInicio_Real;
+                                                    DateTime tdFechaFin_Real = ViewBag.tdFechaFin_Real;
+                                                    var Clientes = ctx.RM00101.ToList();
+
+                                                    //var ClientesFaltantes2 = Clientes.Where(p => !ClientesConfig.Any(p2 => p2.idCliente.Equals(p.CUSTNMBR.Trim())));
+                                                    //var ids = Clientes.Select(x => x.CUSTNMBR).Except(ClientesConfig.Select(x => x.idCliente));
+
+                                                    var idClientes = new HashSet<string>(ClientesConfig.Select(x => x.idCliente));
+                                                    ClientesFaltantes = (from p in Clientes.Where(x => !idClientes.Contains(x.CUSTNMBR.Trim())) select p.CUSTNAME).ToList();
+                                                }
+
+                                                foreach (string cliente in ClientesFaltantes)
+                                                {
+                                            <li class="dd-item dd2-item" data-id="13">
+                                                <div class="dd-handle dd2-handle">
+                                                    <i class="normal-icon ace-icon fa fa-star orange2 bigger-130"></i>
+
+                                                    <i class="drag-icon ace-icon fa fa-arrows bigger-125"></i>
+                                                </div>
+                                                <div class="dd2-content"><div class="text-muted" style="display:inline;">Nuevo cliente </div>@cliente</div>
+                                            </li>
+                                                }
+                                            }
+
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+
+                                                }
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+

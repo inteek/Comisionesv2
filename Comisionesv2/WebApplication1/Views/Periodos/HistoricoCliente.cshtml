@@ -1,0 +1,87 @@
+﻿@model IEnumerable<OneCoreData.ResumenHistorico>
+    @{
+        Layout = null;
+    }
+@{ int contador = 0; }
+
+
+   <ol class="dd-list">
+    @foreach (var str in ViewBag.Emp)
+    {
+
+        <li class="dd-item dd2-item" data-id="15">
+            <button data-action="collapse" type="button">Collapse</button><button data-action="expand" type="button" style="display: none;">Expand</button>
+            <div class="dd-handle dd2-handle">
+                <i class="normal-icon ace-icon fa fa-users orange bigger-130"></i>
+
+                <i class="drag-icon ace-icon fa fa-arrows bigger-125"></i>
+            </div>
+            <div class="dd2-content">@Html.Raw(str)</div>
+            <ol class="dd-list">
+                @{
+                    var ClientesEmpresas = Model.Where(p => p.NOMBRE_EMPRESA.Equals(str)).GroupBy(x => new { x.ID_CLIENTE });
+                    foreach (var clienteperiodo in ClientesEmpresas)
+                    {
+                        var periodo = clienteperiodo.OrderBy(p => p.PERIODO);
+                        if (periodo.Count() > 1)
+                        {
+                            var ultimosDosPeriodos = periodo.OrderByDescending(p => p.PERIODO).Take(2);
+                            var diasCredito = ultimosDosPeriodos.ElementAt(0).DIAS_CREDITO - ultimosDosPeriodos.ElementAt(1).DIAS_CREDITO;
+                            var diasRetencion = ultimosDosPeriodos.ElementAt(0).DIAS_RETENCION - ultimosDosPeriodos.ElementAt(1).DIAS_RETENCION;
+                            var diasGracia = ultimosDosPeriodos.ElementAt(0).DIAS_GRACIA - ultimosDosPeriodos.ElementAt(1).DIAS_GRACIA;
+
+                            if (diasGracia == 0 && diasRetencion == 0 && diasGracia == 0)
+                            {
+
+                            }
+                            else
+                            {
+                                contador = contador + 1;
+                                <li class="dd-item dd2-item">
+                                    <div class="dd-handle dd2-handle">
+                                        <i class="normal-icon ace-icon fa fa-user red bigger-130"></i>
+
+                                        <i class="drag-icon ace-icon fa fa-arrows bigger-125"></i>
+                                    </div>
+                                    <div class="dd2-content">@periodo.FirstOrDefault().NOMBRE_CLIENTE | Periodo (@ultimosDosPeriodos.ElementAt(1).PERIODO → @ultimosDosPeriodos.ElementAt(0).PERIODO)</div>
+                                </li>
+                                <li class="dd-item dd2-item">
+                                    <div class="dd-handle dd2-handle">
+                                        <i class="normal-icon ace-icon fa fa-cogs blue bigger-130"></i>
+
+                                        <i class="drag-icon ace-icon fa fa-arrows bigger-125"></i>
+                                    </div>
+                                    <div class="dd2-content"><b style="color:#41718e"> D. Crédito:</b> <b>@ultimosDosPeriodos.ElementAt(0).DIAS_CREDITO</b> ( @if (diasCredito < 0)
+                                    { <img src="~/assets/img/Down_red_arrow.png" height="12" /> <b style="color: red">@diasCredito</b> } @if (diasCredito > 0)
+                                    { <img src="~/assets/img/Up_green_arrow.png" height="12" /> <b style="color: green">@diasCredito</b> } @if (diasCredito == 0)
+                                    { @diasCredito } ) | <b style="color:#41718e"> D. Retencion:</b> <b>@ultimosDosPeriodos.ElementAt(0).DIAS_RETENCION</b> ( @if (diasRetencion < 0)
+                                    { <img src="~/assets/img/Down_red_arrow.png" height="12" /> <b style="color: red">@diasRetencion</b> } @if (diasRetencion > 0)
+                                    { <img src="~/assets/img/Up_green_arrow.png" height="12" /> <b style="color: green">@diasRetencion</b> } @if (diasRetencion == 0)
+                                    { @diasRetencion } ) | <b style="color:#41718e"> D. Gracia:</b> <b>@ultimosDosPeriodos.ElementAt(0).DIAS_GRACIA</b> ( @if (diasGracia < 0)
+                                    { <img src="~/assets/img/Down_red_arrow.png" height="12" /> <b style="color: red">@diasGracia</b> } @if (diasGracia > 0)
+                                    { <img src="~/assets/img/Up_green_arrow.png" height="12" /> <b style="color: green">@diasGracia</b> } @if (diasGracia == 0)
+                                    { @diasGracia } ) </div>
+                                </li>
+                                
+                            }
+                        }
+                    }
+                }
+            </ol>
+        </li>
+    }
+
+</ol>
+
+@if (contador == 0)
+{
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="ace-icon fa fa-times"></i>
+        </button>
+        <strong>Aviso!</strong>
+
+        No hay cambios detectados en los clientes del periodo.
+        <br>
+    </div>
+}

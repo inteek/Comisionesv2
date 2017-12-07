@@ -1,0 +1,34 @@
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EncriptaConexionesEmpresas.exe.config
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EncriptaConexionesEmpresas.exe
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EncriptaConexionesEmpresas.pdb
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EntityFramework.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EntityFramework.SqlServer.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\OneCoreData.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\OneCoreData.pdb
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EntityFramework.xml
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EntityFramework.SqlServer.xml
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\es\EntityFramework.resources.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\es\EntityFramework.SqlServer.resources.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Release\EncriptaConexionesEmpresas.csprojResolveAssemblyReference.cache
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Release\EncriptaConexionesEmpresas.frmConexionesComisiones.resources
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Release\EncriptaConexionesEmpresas.Properties.Resources.resources
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Release\EncriptaConexionesEmpresas.csproj.GenerateResource.Cache
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Release\EncriptaConexionesEmpresas.exe
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Release\EncriptaConexionesEmpresas.pdb
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EncriptaConexionesEmpresas.exe.config
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EncriptaConexionesEmpresas.exe
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EncriptaConexionesEmpresas.pdb
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EntityFramework.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\OneCoreData.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\OneCoreData.pdb
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EntityFramework.xml
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\es\EntityFramework.resources.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\bin\Release\es\EntityFramework.SqlServer.resources.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Release\EncriptaConexionesEmpresas.csprojResolveAssemblyReference.cache
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Release\EncriptaConexionesEmpresas.frmConexionesComisiones.resources
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Release\EncriptaConexionesEmpresas.Properties.Resources.resources
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Release\EncriptaConexionesEmpresas.csproj.GenerateResource.Cache
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Release\EncriptaConexionesEmpresas.exe
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Release\EncriptaConexionesEmpresas.pdb

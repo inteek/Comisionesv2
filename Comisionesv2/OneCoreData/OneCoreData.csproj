@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BE38B22E-3A0B-4CD5-982C-528FBC4E7681}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OneCoreData</RootNamespace>
+    <AssemblyName>OneCoreData</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AA140210.cs">
+      <DependentUpon>DataModelELI.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AA710410.cs">
+      <DependentUpon>DataModelELI.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AuxModels.cs" />
+    <Compile Include="CATCLAVE_PEDIMENTO.cs">
+      <DependentUpon>DataModelELI.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CatRoles.cs">
+      <DependentUpon>DataModelVertical.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CatUsuarios.cs">
+      <DependentUpon>DataModelVertical.tt</DependentUpon>
+    </Compile>
+    <Compile Include="COMISIONES_PATENTE.cs">
+      <DependentUpon>DataModelRPF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_bitacora.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_clientesComConfig.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_clientesHistoricoPeriodos.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_Conceptos.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_configPeriodos.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_DescuentoConceptoVendedor.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_Descuentos.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_EmpresaConceptos.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_empresas.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_periodos.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_relConceptoVendedor.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_vendedores.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="csp_ConsultarFacturas_Result.cs" />
+    <Compile Include="csp_ConsultaStatusFacturas_Result.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="csp_detalleComisiones_Result.cs">
+      <DependentUpon>DataModelELI.tt</DependentUpon>
+    </Compile>
+    <Compile Include="csp_detalleRetenciones_Result.cs">
+      <DependentUpon>DataModelELI.tt</DependentUpon>
+    </Compile>
+    <Compile Include="csp_detalleRetenciones_Result1.cs">
+      <DependentUpon>DataModelELI.tt</DependentUpon>
+    </Compile>
+    <Compile Include="csp_resumenComisionesEquipoPie_Result.cs">
+      <DependentUpon>DataModelELI.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelComisiones.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelComisiones.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelComisiones.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelComisiones.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelComisiones.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelEILO.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelEILO.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelEILO.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelEILO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelEILO.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelEILO.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelELI.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelELI.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelELI.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelELI.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelELI.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelELI.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelRPF.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelRPF.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelRPF.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelRPF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelRPF.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelRPF.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelVertical.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelVertical.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelVertical.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelVertical.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelVertical.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelVertical.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ELIEntities.cs" />
+    <Compile Include="FacturasStatus.cs" />
+    <Compile Include="Models\retencionesModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelUsuarioPantalla.cs">
+      <DependentUpon>DataModelVertical.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RelUsuarioRol.cs">
+      <DependentUpon>DataModelVertical.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResumenHistorico.cs" />
+    <Compile Include="RM00101.cs">
+      <DependentUpon>DataModelELI.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RM20101.cs">
+      <DependentUpon>DataModelELI.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_COMISIONES_CONSULTAR_FACTURAS_COMISIONABLES_Result.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_COMISIONES_CONSULTAR_FACTURAS_RETENIDAS_Result.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_COMISIONES_CONSULTAR_HISTORIAL_PERIODOS_Result.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="connections.config" />
+    <EntityDeploy Include="DataModelELI.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataModelELI.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="DataModelComisiones.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataModelComisiones.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataModelComisiones.edmx.diagram">
+      <DependentUpon>DataModelComisiones.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="DataModelEILO.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataModelEILO.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataModelEILO.edmx.diagram">
+      <DependentUpon>DataModelEILO.edmx</DependentUpon>
+    </None>
+    <None Include="DataModelELI.edmx.diagram">
+      <DependentUpon>DataModelELI.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="DataModelVertical.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataModelVertical.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="DataModelRPF.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataModelRPF.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataModelRPF.edmx.diagram">
+      <DependentUpon>DataModelRPF.edmx</DependentUpon>
+    </None>
+    <None Include="DataModelVertical.edmx.diagram">
+      <DependentUpon>DataModelVertical.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DataModelComisiones.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModelComisiones.edmx</DependentUpon>
+      <LastGenOutput>DataModelComisiones.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModelComisiones.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModelComisiones.edmx</DependentUpon>
+      <LastGenOutput>DataModelComisiones.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModelEILO.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModelEILO.edmx</DependentUpon>
+      <LastGenOutput>DataModelEILO.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModelEILO.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModelEILO.edmx</DependentUpon>
+      <LastGenOutput>DataModelEILO.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModelELI.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModelELI.edmx</DependentUpon>
+      <LastGenOutput>DataModelELI.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModelELI.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModelELI.edmx</DependentUpon>
+      <LastGenOutput>DataModelELI.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModelRPF.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModelRPF.edmx</DependentUpon>
+      <LastGenOutput>DataModelRPF.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModelRPF.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModelRPF.edmx</DependentUpon>
+      <LastGenOutput>DataModelRPF.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModelVertical.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModelVertical.edmx</DependentUpon>
+      <LastGenOutput>DataModelVertical.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModelVertical.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModelVertical.edmx</DependentUpon>
+      <LastGenOutput>DataModelVertical.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

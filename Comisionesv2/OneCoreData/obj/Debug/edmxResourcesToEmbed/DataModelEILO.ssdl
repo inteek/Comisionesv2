@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EILOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="COMISIONES_PATENTE">
+    <Key>
+      <PropertyRef Name="ID_PATENTE" />
+    </Key>
+    <Property Name="ID_PATENTE" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="ACTIVO" Type="bit" Nullable="false" />
+    <Property Name="USUARIO_ALTA" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="USUARIO_MODIFICO" Type="nvarchar" MaxLength="30" />
+    <Property Name="FECHA_ALTA" Type="datetime" Nullable="false" />
+    <Property Name="FECHA_MODIFICO" Type="datetime" />
+  </EntityType>
+  <EntityContainer Name="EILOModelStoreContainer">
+    <EntitySet Name="COMISIONES_PATENTE" EntityType="Self.COMISIONES_PATENTE" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

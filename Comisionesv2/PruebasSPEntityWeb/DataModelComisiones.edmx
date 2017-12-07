@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="COMISIONESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="csp_ConsultarFacturas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idEmpresa" Type="int" Mode="In" />
+          <Parameter Name="Empresa" Type="nvarchar" Mode="In" />
+          <Parameter Name="idVendedor" Type="varchar" Mode="In" />
+          <Parameter Name="Periodo" Type="int" Mode="In" />
+          <Parameter Name="fechaInicio" Type="date" Mode="In" />
+          <Parameter Name="fechaFin" Type="date" Mode="In" />
+          <Parameter Name="Clientes" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="COMISIONESModelStoreContainer" />
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="COMISIONESModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="COMISIONESEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="csp_ConsultarFacturas" ReturnType="Collection(COMISIONESModel.csp_ConsultarFacturas_Result)">
+            <Parameter Name="idEmpresa" Mode="In" Type="Int32" />
+            <Parameter Name="Empresa" Mode="In" Type="String" />
+            <Parameter Name="idVendedor" Mode="In" Type="String" />
+            <Parameter Name="Periodo" Mode="In" Type="Int32" />
+            <Parameter Name="fechaInicio" Mode="In" Type="DateTime" />
+            <Parameter Name="fechaFin" Mode="In" Type="DateTime" />
+            <Parameter Name="Clientes" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="csp_ConsultarFacturas_Result">
+          <Property Type="String" Name="CUSTNMBR" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="CUSTNAME" Nullable="true" MaxLength="65" />
+          <Property Type="String" Name="CUSTNMBR2" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="SOPNUMBE" Nullable="true" MaxLength="21" />
+          <Property Type="DateTime" Name="DATEFACSOP" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="DATEENVIO" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="DATEPAGO" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="DIAS" Nullable="true" />
+          <Property Type="String" Name="SLPRSNID" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="ITEMNMBR" Nullable="true" MaxLength="31" />
+          <Property Type="String" Name="ITEMDESC" Nullable="true" MaxLength="101" />
+          <Property Type="Decimal" Name="UNITPRCE" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="ORUNTPRC" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="XTNDPRCE" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="OXTNDPRC" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="REMPRICE" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="String" Name="PEDNMBR" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="ADUASECC" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="IMPOEXP" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="CLPEID" Nullable="true" MaxLength="3" />
+          <Property Type="Decimal" Name="TCFACSOP" Nullable="true" Precision="19" Scale="7" />
+          <Property Type="Decimal" Name="TCPED" Nullable="true" Precision="19" Scale="7" />
+          <Property Type="Decimal" Name="UNITCOST" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="SUBTOTAL" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="TOTAL" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="ORTRXAMT" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="CURTRXAM" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="PAGADO" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="String" Name="USER2ENT" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="REFRENCE" Nullable="true" MaxLength="31" />
+          <Property Type="Int16" Name="VOIDSTTS" Nullable="true" />
+          <Property Type="Int16" Name="SOPTYPE" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="COMISIONESModelStoreContainer" CdmEntityContainer="COMISIONESEntities" >
+          <FunctionImportMapping FunctionImportName="csp_ConsultarFacturas" FunctionName="COMISIONESModel.Store.csp_ConsultarFacturas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="COMISIONESModel.csp_ConsultarFacturas_Result">
+                <ScalarProperty Name="CUSTNMBR" ColumnName="CUSTNMBR" />
+                <ScalarProperty Name="CUSTNAME" ColumnName="CUSTNAME" />
+                <ScalarProperty Name="CUSTNMBR2" ColumnName="CUSTNMBR2" />
+                <ScalarProperty Name="SOPNUMBE" ColumnName="SOPNUMBE" />
+                <ScalarProperty Name="DATEFACSOP" ColumnName="DATEFACSOP" />
+                <ScalarProperty Name="DATEENVIO" ColumnName="DATEENVIO" />
+                <ScalarProperty Name="DATEPAGO" ColumnName="DATEPAGO" />
+                <ScalarProperty Name="DIAS" ColumnName="DIAS" />
+                <ScalarProperty Name="SLPRSNID" ColumnName="SLPRSNID" />
+                <ScalarProperty Name="ITEMNMBR" ColumnName="ITEMNMBR" />
+                <ScalarProperty Name="ITEMDESC" ColumnName="ITEMDESC" />
+                <ScalarProperty Name="UNITPRCE" ColumnName="UNITPRCE" />
+                <ScalarProperty Name="ORUNTPRC" ColumnName="ORUNTPRC" />
+                <ScalarProperty Name="XTNDPRCE" ColumnName="XTNDPRCE" />
+                <ScalarProperty Name="OXTNDPRC" ColumnName="OXTNDPRC" />
+                <ScalarProperty Name="REMPRICE" ColumnName="REMPRICE" />
+                <ScalarProperty Name="PEDNMBR" ColumnName="PEDNMBR" />
+                <ScalarProperty Name="ADUASECC" ColumnName="ADUASECC" />
+                <ScalarProperty Name="IMPOEXP" ColumnName="IMPOEXP" />
+                <ScalarProperty Name="CLPEID" ColumnName="CLPEID" />
+                <ScalarProperty Name="TCFACSOP" ColumnName="TCFACSOP" />
+                <ScalarProperty Name="TCPED" ColumnName="TCPED" />
+                <ScalarProperty Name="UNITCOST" ColumnName="UNITCOST" />
+                <ScalarProperty Name="SUBTOTAL" ColumnName="SUBTOTAL" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="ORTRXAMT" ColumnName="ORTRXAMT" />
+                <ScalarProperty Name="CURTRXAM" ColumnName="CURTRXAM" />
+                <ScalarProperty Name="PAGADO" ColumnName="PAGADO" />
+                <ScalarProperty Name="USER2ENT" ColumnName="USER2ENT" />
+                <ScalarProperty Name="REFRENCE" ColumnName="REFRENCE" />
+                <ScalarProperty Name="VOIDSTTS" ColumnName="VOIDSTTS" />
+                <ScalarProperty Name="SOPTYPE" ColumnName="SOPTYPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

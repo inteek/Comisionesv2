@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Catálogo Cliente-Vendedor";
+}
+
+<div class="main-content">
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="page-header">
+                <h1>
+                    Catálogo Cliente-Vendedor
+                    <small>
+                        <i class="ace-icon fa fa-angle-double-right"></i>
+                        Comisiones
+                    </small>
+                </h1>
+            </div><!-- /.page-header -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- PAGE CONTENT BEGINS -->
+
+                    <div class="widget-box">
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div id="fuelux-wizard-container">
+                                    @*<hr />*@
+                                    <div class="step-content pos-rel">
+                                        <div class="step-pane active" data-step="1">
+
+                                            <form class="form-horizontal" id="resumen-form" method="get">
+
+                                                @using (Html.BeginForm())
+                                                {
+
+                                                    @Html.AntiForgeryToken()
+
+                                                    <div class="form-group"></div>
+
+                                                    <div id="div_ClienteVendedor" style="overflow-x: auto; overflow-y: auto; ">
+
+
+                                                    </div>
+                                                }
+
+                                            </form>
+
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div>
+
+
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.page-content -->
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="@Url.Content("~/assets/js/jquery.js")"></script>
+<script src="@Url.Content("~/assets/js/bootstrap.js")"></script>
+<script src="@Url.Content("~/assets/js/select2.js")"></script>
+
+<script src="@Url.Content("~/assets/js/fuelux/fuelux.wizard.js")"></script>
+<script src="@Url.Content("~/assets/js/ace/elements.wizard.js")"></script>
+
+<script src="@Url.Content("~/assets/js/jquery.maskedinput.js")"></script>
+<script src="@Url.Content("~/assets/js/moment.min.js")"></script>
+<script src="@Url.Content("~/assets/js/daterangepicker.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+<script src="@Url.Content("~/assets/js/bootbox.js")"></script>
+
+
+

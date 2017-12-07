@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VERTICAL_V2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CatRoles">
+          <Key>
+            <PropertyRef Name="Id_Rol" />
+          </Key>
+          <Property Name="Id_Rol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rol" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="CTL_Alta" Type="datetime" Nullable="false" />
+          <Property Name="Usuario_Alta" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CTL_Cambio" Type="datetime" />
+          <Property Name="Usuario_Cambio" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CatUsuarios">
+          <Key>
+            <PropertyRef Name="Id_Usuario" />
+          </Key>
+          <Property Name="Id_Usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="200" />
+          <Property Name="Oficina" Type="nvarchar" MaxLength="50" />
+          <Property Name="Skin" Type="nvarchar" MaxLength="50" />
+          <Property Name="Observaciones" Type="text" />
+          <Property Name="Activo" Type="bit" />
+          <Property Name="Correo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CTL_ALTA" Type="datetime" Nullable="false" />
+          <Property Name="USER_ALTA" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CTL_CAMBIO" Type="datetime" />
+          <Property Name="USER_CAMBIO" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id_Empresa" Type="int" />
+        </EntityType>
+        <EntityType Name="RelUsuarioPantalla">
+          <Key>
+            <PropertyRef Name="Id_Empresa" />
+            <PropertyRef Name="Id_Usuario" />
+            <PropertyRef Name="Id_Pantalla" />
+          </Key>
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="CTL_Alta" Type="datetime" Nullable="false" />
+          <Property Name="Usuario_Alta" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CTL_Cambio" Type="datetime" />
+          <Property Name="Usuario_Cambio" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id_Empresa" Type="int" Nullable="false" />
+          <Property Name="Id_Usuario" Type="int" Nullable="false" />
+          <Property Name="Id_Pantalla" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelUsuarioRol">
+          <Key>
+            <PropertyRef Name="Id_Empresa" />
+            <PropertyRef Name="Id_Usuario" />
+            <PropertyRef Name="Id_Rol" />
+          </Key>
+          <Property Name="Id_Empresa" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="CTL_Alta" Type="datetime" Nullable="false" />
+          <Property Name="Usuario_Alta" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CTL_Cambio" Type="datetime" />
+          <Property Name="Usuario_Cambio" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id_Usuario" Type="int" Nullable="false" />
+          <Property Name="Id_Rol" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_RelUsuarioPantalla_CatUsuarios">
+          <End Role="CatUsuarios" Type="Self.CatUsuarios" Multiplicity="1" />
+          <End Role="RelUsuarioPantalla" Type="Self.RelUsuarioPantalla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatUsuarios">
+              <PropertyRef Name="Id_Usuario" />
+            </Principal>
+            <Dependent Role="RelUsuarioPantalla">
+              <PropertyRef Name="Id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelUsuarioRol_CatRoles">
+          <End Role="CatRoles" Type="Self.CatRoles" Multiplicity="1" />
+          <End Role="RelUsuarioRol" Type="Self.RelUsuarioRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatRoles">
+              <PropertyRef Name="Id_Rol" />
+            </Principal>
+            <Dependent Role="RelUsuarioRol">
+              <PropertyRef Name="Id_Rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelUsuarioRol_CatUsuarios">
+          <End Role="CatUsuarios" Type="Self.CatUsuarios" Multiplicity="1" />
+          <End Role="RelUsuarioRol" Type="Self.RelUsuarioRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatUsuarios">
+              <PropertyRef Name="Id_Usuario" />
+            </Principal>
+            <Dependent Role="RelUsuarioRol">
+              <PropertyRef Name="Id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VERTICAL_V2ModelStoreContainer">
+          <EntitySet Name="CatRoles" EntityType="Self.CatRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatUsuarios" EntityType="Self.CatUsuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelUsuarioPantalla" EntityType="Self.RelUsuarioPantalla" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelUsuarioRol" EntityType="Self.RelUsuarioRol" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_RelUsuarioPantalla_CatUsuarios" Association="Self.FK_RelUsuarioPantalla_CatUsuarios">
+            <End Role="CatUsuarios" EntitySet="CatUsuarios" />
+            <End Role="RelUsuarioPantalla" EntitySet="RelUsuarioPantalla" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelUsuarioRol_CatRoles" Association="Self.FK_RelUsuarioRol_CatRoles">
+            <End Role="CatRoles" EntitySet="CatRoles" />
+            <End Role="RelUsuarioRol" EntitySet="RelUsuarioRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelUsuarioRol_CatUsuarios" Association="Self.FK_RelUsuarioRol_CatUsuarios">
+            <End Role="CatUsuarios" EntitySet="CatUsuarios" />
+            <End Role="RelUsuarioRol" EntitySet="RelUsuarioRol" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VERTICAL_V2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CatRoles">
+          <Key>
+            <PropertyRef Name="Id_Rol" />
+          </Key>
+          <Property Name="Id_Rol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="CTL_Alta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuario_Alta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CTL_Cambio" Type="DateTime" Precision="3" />
+          <Property Name="Usuario_Cambio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RelUsuarioRol" Relationship="Self.FK_RelUsuarioRol_CatRoles" FromRole="CatRoles" ToRole="RelUsuarioRol" />
+        </EntityType>
+        <EntityType Name="CatUsuarios">
+          <Key>
+            <PropertyRef Name="Id_Usuario" />
+          </Key>
+          <Property Name="Id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Oficina" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Skin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CTL_ALTA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="USER_ALTA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CTL_CAMBIO" Type="DateTime" Precision="3" />
+          <Property Name="USER_CAMBIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Empresa" Type="Int32" />
+          <NavigationProperty Name="RelUsuarioPantalla" Relationship="Self.FK_RelUsuarioPantalla_CatUsuarios" FromRole="CatUsuarios" ToRole="RelUsuarioPantalla" />
+          <NavigationProperty Name="RelUsuarioRol" Relationship="Self.FK_RelUsuarioRol_CatUsuarios" FromRole="CatUsuarios" ToRole="RelUsuarioRol" />
+        </EntityType>
+        <EntityType Name="RelUsuarioPantalla">
+          <Key>
+            <PropertyRef Name="Id_Empresa" />
+            <PropertyRef Name="Id_Usuario" />
+            <PropertyRef Name="Id_Pantalla" />
+          </Key>
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="CTL_Alta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuario_Alta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CTL_Cambio" Type="DateTime" Precision="3" />
+          <Property Name="Usuario_Cambio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Empresa" Type="Int32" Nullable="false" />
+          <Property Name="Id_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="Id_Pantalla" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CatUsuarios" Relationship="Self.FK_RelUsuarioPantalla_CatUsuarios" FromRole="RelUsuarioPantalla" ToRole="CatUsuarios" />
+        </EntityType>
+        <EntityType Name="RelUsuarioRol">
+          <Key>
+            <PropertyRef Name="Id_Empresa" />
+            <PropertyRef Name="Id_Usuario" />
+            <PropertyRef Name="Id_Rol" />
+          </Key>
+          <Property Name="Id_Empresa" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="CTL_Alta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuario_Alta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CTL_Cambio" Type="DateTime" Precision="3" />
+          <Property Name="Usuario_Cambio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="Id_Rol" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CatRoles" Relationship="Self.FK_RelUsuarioRol_CatRoles" FromRole="RelUsuarioRol" ToRole="CatRoles" />
+          <NavigationProperty Name="CatUsuarios" Relationship="Self.FK_RelUsuarioRol_CatUsuarios" FromRole="RelUsuarioRol" ToRole="CatUsuarios" />
+        </EntityType>
+        <Association Name="FK_RelUsuarioRol_CatRoles">
+          <End Role="CatRoles" Type="Self.CatRoles" Multiplicity="1" />
+          <End Role="RelUsuarioRol" Type="Self.RelUsuarioRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatRoles">
+              <PropertyRef Name="Id_Rol" />
+            </Principal>
+            <Dependent Role="RelUsuarioRol">
+              <PropertyRef Name="Id_Rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelUsuarioPantalla_CatUsuarios">
+          <End Role="CatUsuarios" Type="Self.CatUsuarios" Multiplicity="1" />
+          <End Role="RelUsuarioPantalla" Type="Self.RelUsuarioPantalla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatUsuarios">
+              <PropertyRef Name="Id_Usuario" />
+            </Principal>
+            <Dependent Role="RelUsuarioPantalla">
+              <PropertyRef Name="Id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelUsuarioRol_CatUsuarios">
+          <End Role="CatUsuarios" Type="Self.CatUsuarios" Multiplicity="1" />
+          <End Role="RelUsuarioRol" Type="Self.RelUsuarioRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatUsuarios">
+              <PropertyRef Name="Id_Usuario" />
+            </Principal>
+            <Dependent Role="RelUsuarioRol">
+              <PropertyRef Name="Id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VERTICAL_V2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CatRoles" EntityType="Self.CatRoles" />
+          <EntitySet Name="CatUsuarios" EntityType="Self.CatUsuarios" />
+          <EntitySet Name="RelUsuarioPantalla" EntityType="Self.RelUsuarioPantalla" />
+          <EntitySet Name="RelUsuarioRol" EntityType="Self.RelUsuarioRol" />
+          <AssociationSet Name="FK_RelUsuarioRol_CatRoles" Association="Self.FK_RelUsuarioRol_CatRoles">
+            <End Role="CatRoles" EntitySet="CatRoles" />
+            <End Role="RelUsuarioRol" EntitySet="RelUsuarioRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelUsuarioPantalla_CatUsuarios" Association="Self.FK_RelUsuarioPantalla_CatUsuarios">
+            <End Role="CatUsuarios" EntitySet="CatUsuarios" />
+            <End Role="RelUsuarioPantalla" EntitySet="RelUsuarioPantalla" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelUsuarioRol_CatUsuarios" Association="Self.FK_RelUsuarioRol_CatUsuarios">
+            <End Role="CatUsuarios" EntitySet="CatUsuarios" />
+            <End Role="RelUsuarioRol" EntitySet="RelUsuarioRol" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VERTICAL_V2ModelStoreContainer" CdmEntityContainer="VERTICAL_V2Entities">
+          <EntitySetMapping Name="CatRoles">
+            <EntityTypeMapping TypeName="VERTICAL_V2Model.CatRoles">
+              <MappingFragment StoreEntitySet="CatRoles">
+                <ScalarProperty Name="Id_Rol" ColumnName="Id_Rol" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="CTL_Alta" ColumnName="CTL_Alta" />
+                <ScalarProperty Name="Usuario_Alta" ColumnName="Usuario_Alta" />
+                <ScalarProperty Name="CTL_Cambio" ColumnName="CTL_Cambio" />
+                <ScalarProperty Name="Usuario_Cambio" ColumnName="Usuario_Cambio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatUsuarios">
+            <EntityTypeMapping TypeName="VERTICAL_V2Model.CatUsuarios">
+              <MappingFragment StoreEntitySet="CatUsuarios">
+                <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Oficina" ColumnName="Oficina" />
+                <ScalarProperty Name="Skin" ColumnName="Skin" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="CTL_ALTA" ColumnName="CTL_ALTA" />
+                <ScalarProperty Name="USER_ALTA" ColumnName="USER_ALTA" />
+                <ScalarProperty Name="CTL_CAMBIO" ColumnName="CTL_CAMBIO" />
+                <ScalarProperty Name="USER_CAMBIO" ColumnName="USER_CAMBIO" />
+                <ScalarProperty Name="Id_Empresa" ColumnName="Id_Empresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelUsuarioPantalla">
+            <EntityTypeMapping TypeName="VERTICAL_V2Model.RelUsuarioPantalla">
+              <MappingFragment StoreEntitySet="RelUsuarioPantalla">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="CTL_Alta" ColumnName="CTL_Alta" />
+                <ScalarProperty Name="Usuario_Alta" ColumnName="Usuario_Alta" />
+                <ScalarProperty Name="CTL_Cambio" ColumnName="CTL_Cambio" />
+                <ScalarProperty Name="Usuario_Cambio" ColumnName="Usuario_Cambio" />
+                <ScalarProperty Name="Id_Empresa" ColumnName="Id_Empresa" />
+                <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+                <ScalarProperty Name="Id_Pantalla" ColumnName="Id_Pantalla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelUsuarioRol">
+            <EntityTypeMapping TypeName="VERTICAL_V2Model.RelUsuarioRol">
+              <MappingFragment StoreEntitySet="RelUsuarioRol">
+                <ScalarProperty Name="Id_Empresa" ColumnName="Id_Empresa" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="CTL_Alta" ColumnName="CTL_Alta" />
+                <ScalarProperty Name="Usuario_Alta" ColumnName="Usuario_Alta" />
+                <ScalarProperty Name="CTL_Cambio" ColumnName="CTL_Cambio" />
+                <ScalarProperty Name="Usuario_Cambio" ColumnName="Usuario_Cambio" />
+                <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+                <ScalarProperty Name="Id_Rol" ColumnName="Id_Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

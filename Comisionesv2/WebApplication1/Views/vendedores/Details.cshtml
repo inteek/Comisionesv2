@@ -1,0 +1,114 @@
+﻿@model OneCoreData.com_vendedores
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>com_vendedores</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.strNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.strApellidoP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strApellidoP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.strApellidoM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strApellidoM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.strDireccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strDireccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.strTipoVendedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strTipoVendedor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.strTelefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strTelefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.strEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.boolActivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.boolActivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtFechaAlta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtFechaAlta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtFechaModifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtFechaModifica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idUsuarioAlta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idUsuarioAlta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idUsuarioModifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idUsuarioModifica)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idCodigoVendedor }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

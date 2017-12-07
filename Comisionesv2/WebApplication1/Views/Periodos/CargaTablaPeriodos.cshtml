@@ -1,0 +1,139 @@
+﻿@model IEnumerable<OneCoreData.SP_COMISIONES_CONSULTAR_HISTORIAL_PERIODOS_Result>
+
+@{ 
+    Layout = null;
+}
+
+<table id="simple-table" class="table  table-bordered table-hover">
+    <thead>
+        <tr>
+            <th class="detail-col">Vendedor</th>
+            <th>Periodo</th>
+            <th>Rango Fechas</th>
+            <th class="hidden-480">Estatus</th>
+
+            <th>
+                <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+                Recalcular Periodo
+            </th>
+            <th class="hidden-480">Estatus Periodo</th>
+
+            <th>Ver Periodo</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="hidden" value="@Html.DisplayFor(modelItem => item.idConfiguracionPeriodo)" id="hdnIdConfiguracionPeriodo" />
+                    <input type="hidden" value="@Html.DisplayFor(modelItem => item.idVendedor)" id="hdnIdVendedor" />
+                    @Html.DisplayFor(modelItem => item.Vendedor)
+                </td>
+
+                <td>
+                   @Html.DisplayFor(modelItem => item.Periodo)
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Rango_Fechas)</td>
+                <td>@Html.DisplayFor(modelItem => item.Estatus)</td>
+                <td>
+                    @if (item.Estatus.Equals("Abierto"))
+                    {
+                        <button class="btn btn-sm btn-warning" onclick="ReCalcularPeriodo('@item.idVendedor', '@item.Periodo','@item.fechaInicio','@item.fechaFin','@item.idConfiguracionPeriodo')" style="font-size:smaller; padding:1px;">
+                            <i class="ace-icon fa fa-cogs bigger-110"></i>
+                            <span class="bigger-110 no-text-shadow">Recalcular Periodo</span>
+                        </button>
+
+                    }
+                </td>
+
+                <td>
+                    @if (item.Estatus.Equals("Abierto"))
+                    {
+                        <button class="btn btn-sm btn-danger" onclick="CerrarAbrirPeriodo('@item.idConfiguracionPeriodo',0)" style="font-size:smaller; padding:1px;">
+                            <i class="ace-icon fa fa-lock bigger-110"></i>
+                            <span class="bigger-110 no-text-shadow">Cerrar periodo</span>
+                        </button>
+
+                    }
+                    else
+                    {
+                        <button class="btn btn-sm btn-success" onclick="CerrarAbrirPeriodo('@item.idConfiguracionPeriodo',1)" style="font-size:smaller; padding:1px;">
+                            <i class="ace-icon fa fa-unlock bigger-110"></i>
+                            <span class="bigger-110 no-text-shadow">Abrir periodo</span>
+                        </button>
+                    }
+
+                </td>
+
+                <td>
+                    @*<div class="hidden-sm hidden-xs btn-group">
+                        <button class="btn btn-xs btn-default" data-rel="popover" data-placement="left" data-original-title="<i class='ace-icon fa fa-book blue'></i> Ver un reporte" data-content="<ul><li><a href='#'>Resumen de comisiones por cliente</a></li><li><a href='#'>Detalle de comisiones por cliente</a></li><li><a href='#'>Reporte no comisionable</a></li><li><a href='#'>Reporte de retención</a></li><li><a href='#'>Resumen de comisiones por equipo</a></li></ul>">
+                            <i class="ace-icon fa fa-eye bigger-120"></i>
+                        </button>
+                    </div>*@
+                    @{
+                        string fechaInicio = item.fechaInicio.ToString();
+                        fechaInicio = fechaInicio.Substring(0, 10);
+
+                        string fechaFin = item.fechaFin.ToString();
+                        fechaFin = fechaFin.Substring(0, 10);
+
+                        string fechaInicioString = "\"" + fechaInicio + "\"";
+                        string fechaFinString = "\"" + fechaFin + "\"";
+
+                        string vendedor = "\"" + item.Vendedor + "\"";
+
+                        string ResumenComClientes = "LlamarReporte(" + item.idVendedor + "," + vendedor + "," + item.Periodo + "," + fechaInicioString + "," + fechaFinString + "," + 1 + ")";
+                        string DetalleComClientes = "LlamarReporte(" + item.idVendedor + "," + vendedor + "," + item.Periodo + "," + fechaInicioString + "," + fechaFinString + "," + 2 + ")";
+                        string NoComisionable = "LlamarReporte(" + item.idVendedor + "," + vendedor + "," + item.Periodo + "," + fechaInicioString + "," + fechaFinString + "," + 3 + ")";
+                        string Retenciones = "LlamarReporte(" + item.idVendedor + "," + vendedor + "," + item.Periodo + "," + fechaInicioString + "," + fechaFinString + "," + 4 + ")";
+                        string PorEquipo = "LlamarReporte(" + item.idVendedor + "," + vendedor + "," + item.Periodo + "," + fechaInicioString + "," + fechaFinString + "," + 5 + ")";
+                    }
+                    <span class="btn btn-sm btn-info" data-container="body" data-toggle="clickover" style="font-size:smaller; padding:1px;" data-rel="popover" data-placement="left" data-original-title="<i class='ace-icon fa fa-book blue'></i> Selecciona un reporte" data-content="<ul><li class='closePop'><a href='#' onclick='@ResumenComClientes'>Resumen de comisiones por cliente</a></li><li class='closePop'><a href='#' onclick='@DetalleComClientes'>Detalle de comisiones por cliente</a></li><li class='closePop'><a href='#' onclick='@NoComisionable'>Reporte no comisionable</a></li><li class='closePop'><a href='#' onclick='@Retenciones'>Reporte de retención</a></li><li class='closePop'><a href='#' onclick='@PorEquipo'>Resumen de comisiones por equipo</a></li></ul>"><i class="ace-icon fa fa-eye icon-only bigger-110"></i></span>
+
+                    @*<div class="hidden-md hidden-lg">
+                        <div class="inline pos-rel">
+                            <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+                                <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                                <li>
+                                    <a href="#" class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
+                                        <span class="blue">
+                                            <i class="ace-icon fa fa-search-plus bigger-120"></i>
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">
+                                        <span class="green">
+                                            <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
+                                        <span class="red">
+                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>*@
+                </td>
+            </tr>
+        }
+        
+
+    </tbody>
+</table>
+
+<script>
+    $('[data-rel=popover]').popover({ html: true });
+</script>

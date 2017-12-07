@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RPFModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="RPFEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="csp_detalleComisiones" ReturnType="Collection(RPFModel.csp_detalleComisiones_Result1)">
+      <Parameter Name="idVendedor" Mode="In" Type="String" />
+      <Parameter Name="Periodo" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="csp_detalleComisiones_Result">
+    <Property Type="String" Name="SLPRSNID" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="ITEMNMBR" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="XTNDPRCE" Nullable="true" Precision="19" Scale="2" />
+    <Property Type="Decimal" Name="COMISION" Nullable="true" Precision="19" Scale="2" />
+    <Property Type="Decimal" Name="SUBTOTAL" Nullable="true" Precision="19" Scale="2" />
+    <Property Type="Decimal" Name="TOTAL" Nullable="false" Precision="18" Scale="5" />
+    <Property Type="String" Name="SOPNUMBE" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CUSTNMBR" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="GrupoNombre" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="ADUASECC" Nullable="false" MaxLength="5" />
+    <Property Type="String" Name="REFRENCE" Nullable="false" MaxLength="31" />
+    <Property Type="String" Name="IMPOEXP" Nullable="false" MaxLength="5" />
+    <Property Type="String" Name="CLPEID" Nullable="false" MaxLength="5" />
+    <Property Type="Decimal" Name="TCFACSOP" Nullable="false" Precision="18" Scale="5" />
+    <Property Type="Decimal" Name="TCPED" Nullable="true" Precision="19" Scale="2" />
+    <Property Type="Int32" Name="DIAS" Nullable="false" />
+    <Property Type="DateTime" Name="DATEFACTURA" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="DATEPAGO" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="RETENCION" Nullable="true" />
+    <Property Type="Boolean" Name="ACTIVO" Nullable="true" />
+    <Property Type="DateTime" Name="DATESYS" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="DATEMODIFY" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="DATEENVIO" Nullable="false" Precision="23" />
+    <Property Type="Boolean" Name="COMISIONAR" Nullable="true" />
+    <Property Type="Int32" Name="PERIODO" Nullable="true" />
+    <Property Type="DateTime" Name="FECHAINICIO" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="FECHAFIN" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="SOPTYPE" Nullable="true" />
+    <Property Type="String" Name="RENDICION" Nullable="false" />
+    <Property Type="Boolean" Name="PERIO_LIBERA_RETENC" Nullable="true" />
+    <Property Type="Int32" Name="ID_RULE" Nullable="true" />
+    <Property Type="String" Name="NOTA" Nullable="false" />
+    <Property Type="String" Name="CUSTNAME" Nullable="true" MaxLength="65" />
+  </ComplexType>
+  <ComplexType Name="csp_detalleComisiones_Result1">
+    <Property Type="String" Name="SLPRSNID" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="ITEMNMBR" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="XTNDPRCE" Nullable="true" Precision="19" Scale="2" />
+    <Property Type="Decimal" Name="COMISION" Nullable="true" Precision="19" Scale="2" />
+    <Property Type="Decimal" Name="SUBTOTAL" Nullable="true" Precision="19" Scale="2" />
+    <Property Type="Decimal" Name="TOTAL" Nullable="false" Precision="18" Scale="5" />
+    <Property Type="String" Name="SOPNUMBE" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CUSTNMBR" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="GrupoNombre" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="ADUASECC" Nullable="false" MaxLength="5" />
+    <Property Type="String" Name="REFRENCE" Nullable="false" MaxLength="31" />
+    <Property Type="String" Name="IMPOEXP" Nullable="false" MaxLength="5" />
+    <Property Type="String" Name="CLPEID" Nullable="false" MaxLength="5" />
+    <Property Type="Decimal" Name="TCFACSOP" Nullable="false" Precision="18" Scale="5" />
+    <Property Type="Decimal" Name="TCPED" Nullable="true" Precision="19" Scale="2" />
+    <Property Type="Int32" Name="DIAS" Nullable="false" />
+    <Property Type="DateTime" Name="DATEFACTURA" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="DATEPAGO" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="RETENCION" Nullable="true" />
+    <Property Type="Boolean" Name="ACTIVO" Nullable="true" />
+    <Property Type="DateTime" Name="DATESYS" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="DATEMODIFY" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="DATEENVIO" Nullable="false" Precision="23" />
+    <Property Type="Boolean" Name="COMISIONAR" Nullable="true" />
+    <Property Type="Int32" Name="PERIODO" Nullable="true" />
+    <Property Type="DateTime" Name="FECHAINICIO" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="FECHAFIN" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="SOPTYPE" Nullable="true" />
+    <Property Type="String" Name="RENDICION" Nullable="false" />
+    <Property Type="Boolean" Name="PERIO_LIBERA_RETENC" Nullable="true" />
+    <Property Type="Int32" Name="ID_RULE" Nullable="true" />
+    <Property Type="String" Name="NOTA" Nullable="false" />
+    <Property Type="String" Name="CUSTNAME" Nullable="true" MaxLength="65" />
+  </ComplexType>
+</Schema>

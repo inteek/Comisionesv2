@@ -1,0 +1,57 @@
+﻿.widths-100{
+    width:100px;
+}
+
+.widths-200{
+    width:200px;
+}
+
+.widths-220{
+    width:220px;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.widths-300{
+    width:300px;
+}
+
+.zero-padding{
+    padding: 0px;
+}
+
+.no-padding-left{
+    padding-left: 0px;
+}
+
+@media screen and (max-width: 1200px) {
+    .fixed-width {
+        width: 160px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .fixed-width {
+        width: 250px;
+    }
+}
+
+.rojo{
+    color:red;
+}
+
+.select-33{
+    height: 33px;
+}
+
+.uppercase{
+    text-transform:uppercase;
+}
+
+.span-input{
+    background-color: #307ecc;
+    border-color: #307ecc;
+    color: #fff;
+}

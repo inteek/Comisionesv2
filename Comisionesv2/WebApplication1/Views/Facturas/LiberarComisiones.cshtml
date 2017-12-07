@@ -1,0 +1,242 @@
+﻿@model IEnumerable<OneCoreData.com_vendedores>
+
+@{
+    ViewBag.Title = "Liberaciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="@Url.Action("Index", "Home")">Principal</a>
+                </li>
+                <li> <a href="#">Liberar facturas comisionables y no comisionables</a> </li>
+            </ul><!-- /.breadcrumb -->
+        </div><!--End breadcrumb-->
+
+        <div class="page-content">
+            <div class="page-header">
+                <h1>
+                    Liberaciones
+                    <small>
+                        <i class="ace-icon fa fa-angle-double-right"></i>
+                        Facturas comisionables y no comisionables
+                    </small>
+                </h1>
+            </div><!--End page-header -->
+
+            <div class="row" style="margin-bottom:5px;">
+                <div class="form-group">
+
+                    <label class="col-sm-1 control-label no-padding-right text-left">Vendedor</label>
+                    <div class="col-xs-3">
+                        <select class="form-control" id="idVendedor">
+                            @foreach (var vendedor in Model)
+                            {
+                                <option value="@Html.DisplayFor(modelItem => vendedor.idCodigoVendedor)">
+                                    @Html.DisplayFor(modelItem => vendedor.idCodigoVendedor)
+                                    @Html.DisplayFor(modelItem => vendedor.strNombre)
+                                    @Html.DisplayFor(modelItem => vendedor.strApellidoP)
+                                    @Html.DisplayFor(modelItem => vendedor.strApellidoM)
+                                </option>;
+                            }
+                        </select>
+                    </div>
+                    <div class="col-xs-2 pull-left">
+                        @Html.DropDownList("txtPeriodo", (SelectList)ViewBag.BagPeriodos, "-- Selecciona periodo --", new { @class = "input-large valid select-33" })
+                        @*<input type="number" onkeydown="limit(this);" onkeyup="limit(this);"  placeholder="Periodo: Ej. 117" class="form-control" id="txtPeriodo">*@
+                    </div>
+
+                    <div class="col-xs-3">
+                        <div style="margin-left: 0px;">
+                            <div class="radio" style="margin-top:0px;">
+                                <label>
+                                    <input id="rbCom" name="rbComisionable" type="radio" class="ace" value="1" checked>
+                                    <span class="lbl">Comisionables</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="radio" style="margin-top:0px;">
+                                <label>
+                                    <input name="rbComisionable" type="radio" class="ace" value="0">
+                                    <span class="lbl">No comisionables</span>
+                                </label>
+                            </div>
+                       </div>
+                    </div>
+                    <span class="col-xs-1">
+                        <button class="btn btn-primary btn-sm" id="btnBuscarPorVendedor" onclick="buscarComisiones()">
+                            <i class="ace-icon glyphicon glyphicon-search"></i>
+                            Buscar
+                        </button>
+                    </span>
+
+                    <span class="col-xs-1">
+                        <button class="btn btn-primary btn-sm " id="btnLiberar">
+                            <i class="ace-icon fa  fa-unlock bigger-125"></i>
+                            Liberar seleccionadas
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-header">
+                        Resultados obtenidos
+                    </div>
+                    <div>
+                        <div id="tablaComisiones">
+
+                            <table id="dynamic-table-com" class="table table-striped table-bordered table-hover">
+                                @*<tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                </tr>*@
+                            </table>
+                        </div>
+                    </div>
+                </div><!--End col-->
+            </div><!--End row-->
+        </div><!--End page-content-->
+    </div><!--End main-content-inner-->
+</div><!--End main-content-->
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<!--[if !IE]> -->
+<script type="text/javascript">
+            var jquerymobile = '@Url.Content("~/assets/js/jquery.mobile.custom.js")'
+            if ('ontouchstart' in document.documentElement) document.write("<script src='" + jquerymobile + "'>" + "<" + "/script>");
+</script>
+
+<!-- ace settings handler -->
+<!-- ace settings handler -->
+<script src="@Url.Content("~/assets/js/ace-extra.js")"></script>
+
+<script src="@Url.Content("~/assets/js/jquery.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/Exportar/datatables.js")"></script>
+<script src="@Url.Content("~/assets/js/dataTables/extensions/TableTools/js/dataTables.tableTools.js")"></script>
+<script src="@Url.Content("~/assets/js/dataTables/jquery.dataTables.js")"></script>
+<script src="@Url.Content("~/assets/js/dataTables/jquery.dataTables.bootstrap.js")"></script>
+
+<script src="@Url.Content("~/assets/js/dataTables/extensions/ColVis/js/dataTables.colVis.js")"></script>
+<script src="@Url.Content("~/assets/js/jquery.table2excel.js")"></script>
+<script src="@Url.Content("~/assets/js/bootstrap.js")"></script>
+
+<script src="@Url.Content("~/Scripts/jsFacturas/jsFacturasComisiones.js")"></script>
+
+<script>
+    $('#btnLiberar').on('click', function () {
+        //var table = row.closest('#dynamic-table').DataTable();
+        //debugger
+        //var table = $('#dynamic-table').DataTable();
+        //var ids = $.map(table.rows('.selected').data(), function (item) {
+        //    return item[0]
+        //});
+        //console.log(ids)
+        //alert(table.rows('.selected').data().length + ' row(s) selected');
+        debugger
+        var dynamic = $("#dynamic-table").DataTable();
+        
+        var filasSeleccionadas = dynamic.rows('.success').data();
+
+        if (filasSeleccionadas.length > 0) {
+            var facturas = "";
+            $.each(filasSeleccionadas, function () {
+                facturas = facturas + this[1] + "-" + this[11] + "-" + this[3] + "-" + $("#idVendedor").val() + "-" + $("#txtPeriodo").val() + ","
+            });
+            facturas = facturas.substring(0, facturas.length - 1);
+            // ELI - DEX_ROW_ID - SOPNUMBE - IDVENDEDOR - PERIODO
+             //alert("Esto es lo que se enviaria al SP: " + facturas);
+
+            //facturas = "";
+            $.ajax({
+                url: '/comisiones/Facturas/envioFacturasComisiones',
+                type: "POST",
+                data: { facturas: facturas },
+                dataType: "JSON",
+                success: function SuccessCallback(response) {
+                    debugger
+                    if (!response.error) {
+                        swal({
+                            title: "Guardar!",
+                            text: response.msg,
+                            type: "success",
+                            confirmButtonClass: 'btn-success',
+                            confirmButtonText: 'ok!'
+                        },
+                                              function (isConfirm) {
+                                                  if (isConfirm) {
+                                                      $("#tablaComisiones").html('<div style="width:100%; text-align:center;"><h3>Adquiriendo datos...</h3><img src="../../assets/images/103.gif"></div>');
+
+                                                      var radioValue = $("input[name='rbComisionable']:checked").val();
+                                                      $("#tablaComisiones").load("/comisiones/Facturas/ObtenerComisiones?vendedor=" + $("#idVendedor").val() + "&periodo=" + $("#txtPeriodo").val() + "&tipo=" + radioValue);
+                                                  }
+                                              });
+                    }
+                    else {
+                        swal({
+                            title: "Error!",
+                            text: response.msg,
+                            type: "error",
+                            confirmButtonClass: 'btn-error',
+                            confirmButtonText: 'ok'
+                        },
+                                            function (isConfirm) {
+                                                if (isConfirm) {
+
+                                                }
+                                            });
+                    }
+
+
+                },
+                error: function (response) {
+                    debugger
+                    alert("error") // I'm always get this.
+                }
+            });
+        }
+        else {
+            swal({
+                title: "Aviso!",
+                text: "No hay registros seleccionados",
+                type: "error",
+                confirmButtonClass: 'btn-error',
+                confirmButtonText: 'ok'
+            },
+                                            function (isConfirm) {
+                                                if (isConfirm) {
+
+                                                }
+                                            });
+        }
+    });
+
+    //var max_chars = 4;
+
+    //$('#txtPeriodo').keydown(function (e) {
+    //    if ($(this).val().length >= max_chars) {
+    //        $(this).val($(this).val().substr(0, max_chars));
+    //    }
+    //});
+
+    //$('#txtPeriodo').keyup(function (e) {
+    //    if ($(this).val().length >= max_chars) {
+    //        $(this).val($(this).val().substr(0, max_chars));
+    //    }
+    //});
+
+</script>
+
+

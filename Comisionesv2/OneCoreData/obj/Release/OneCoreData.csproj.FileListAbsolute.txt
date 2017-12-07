@@ -1,0 +1,17 @@
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Release\OneCoreData.dll.config
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Release\OneCoreData.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Release\OneCoreData.pdb
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Release\EntityFramework.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Release\EntityFramework.xml
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Release\es\EntityFramework.resources.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Release\OneCoreData.csprojResolveAssemblyReference.cache
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Release\OneCoreData.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Release\OneCoreData.pdb
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Release\OneCoreData.dll.config
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Release\OneCoreData.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Release\OneCoreData.pdb
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Release\EntityFramework.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Release\EntityFramework.xml
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Release\es\EntityFramework.resources.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Release\OneCoreData.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Release\OneCoreData.pdb

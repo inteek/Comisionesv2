@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RPFModelStoreContainer" CdmEntityContainer="RPFEntities">
+    <EntitySetMapping Name="COMISIONES_PATENTE">
+      <EntityTypeMapping TypeName="RPFModel.COMISIONES_PATENTE">
+        <MappingFragment StoreEntitySet="COMISIONES_PATENTE">
+          <ScalarProperty Name="ID_PATENTE" ColumnName="ID_PATENTE" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+          <ScalarProperty Name="USUARIO_ALTA" ColumnName="USUARIO_ALTA" />
+          <ScalarProperty Name="USUARIO_MODIFICO" ColumnName="USUARIO_MODIFICO" />
+          <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+          <ScalarProperty Name="FECHA_MODIFICO" ColumnName="FECHA_MODIFICO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

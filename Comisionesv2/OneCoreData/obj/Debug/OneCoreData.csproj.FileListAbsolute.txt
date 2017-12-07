@@ -1,0 +1,50 @@
+C:\Users\Miguel Ruiz\documents\visual studio 2015\Projects\WebApplication1\OneCoreData\bin\Debug\OneCoreData.dll.config
+C:\Users\Miguel Ruiz\documents\visual studio 2015\Projects\WebApplication1\OneCoreData\bin\Debug\OneCoreData.dll
+C:\Users\Miguel Ruiz\documents\visual studio 2015\Projects\WebApplication1\OneCoreData\bin\Debug\OneCoreData.pdb
+C:\Users\Miguel Ruiz\documents\visual studio 2015\Projects\WebApplication1\OneCoreData\bin\Debug\EntityFramework.dll
+C:\Users\Miguel Ruiz\documents\visual studio 2015\Projects\WebApplication1\OneCoreData\bin\Debug\EntityFramework.xml
+C:\Users\Miguel Ruiz\documents\visual studio 2015\Projects\WebApplication1\OneCoreData\obj\Debug\OneCoreData.dll
+C:\Users\Miguel Ruiz\documents\visual studio 2015\Projects\WebApplication1\OneCoreData\obj\Debug\OneCoreData.pdb
+C:\Users\Miguel Ruiz\documents\visual studio 2015\Projects\WebApplication1\OneCoreData\obj\Debug\OneCoreData.csprojResolveAssemblyReference.cache
+C:\Users\Miguel Ruiz\Documents\One Core\Workspaces OneCore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.dll.config
+C:\Users\Miguel Ruiz\Documents\One Core\Workspaces OneCore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.dll
+C:\Users\Miguel Ruiz\Documents\One Core\Workspaces OneCore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.pdb
+C:\Users\Miguel Ruiz\Documents\One Core\Workspaces OneCore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\EntityFramework.dll
+C:\Users\Miguel Ruiz\Documents\One Core\Workspaces OneCore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\EntityFramework.xml
+C:\Users\Miguel Ruiz\Documents\One Core\Workspaces OneCore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.csprojResolveAssemblyReference.cache
+C:\Users\Miguel Ruiz\Documents\One Core\Workspaces OneCore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.dll
+C:\Users\Miguel Ruiz\Documents\One Core\Workspaces OneCore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.pdb
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.dll.config
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.pdb
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\EntityFramework.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\EntityFramework.xml
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\es\EntityFramework.resources.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.csprojResolveAssemblyReference.cache
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.dll
+D:\Proyectos Onecore\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.pdb
+C:\Users\Claudia\Documents\Claudia Razo\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.dll.config
+C:\Users\Claudia\Documents\Claudia Razo\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.dll
+C:\Users\Claudia\Documents\Claudia Razo\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.pdb
+C:\Users\Claudia\Documents\Claudia Razo\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\EntityFramework.dll
+C:\Users\Claudia\Documents\Claudia Razo\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\EntityFramework.xml
+C:\Users\Claudia\Documents\Claudia Razo\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\es\EntityFramework.resources.dll
+C:\Users\Claudia\Documents\Claudia Razo\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.dll
+C:\Users\Claudia\Documents\Claudia Razo\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.pdb
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.dll.config
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.pdb
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\EntityFramework.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\EntityFramework.xml
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\es\EntityFramework.resources.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.dll
+C:\Users\Juan\Documents\APPRICOM\[COMISION_V2]\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.pdb
+C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.dll.config
+C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.dll
+C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.pdb
+C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\EntityFramework.dll
+C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\EntityFramework.xml
+C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\Debug\es\EntityFramework.resources.dll
+C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.dll
+C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.pdb
+C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.csprojResolveAssemblyReference.cache

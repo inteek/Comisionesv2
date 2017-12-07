@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="COMISIONESModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="com_clientesComConfig">
+    <Key>
+      <PropertyRef Name="idClienteConfig" />
+    </Key>
+    <Property Name="idClienteConfig" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdEmpresa" Type="Int32" Nullable="false" />
+    <Property Name="idCliente" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="strNombreCliente" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="idCodigoVendedor" Type="Int32" Nullable="false" />
+    <Property Name="idAduana" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="strNombreAduana" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="strTipoOp" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="idPedimento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="intDiasCredito" Type="Int32" Nullable="false" />
+    <Property Name="intDiasRetencion" Type="Int32" Nullable="false" />
+    <Property Name="intDiasGracia" Type="Int32" Nullable="false" />
+    <Property Name="strTipoCosto" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="strIntercia" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="strNotificacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="boolActivo" Type="Boolean" Nullable="false" />
+    <Property Name="dtFechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="dtFechaModifica" Type="DateTime" Precision="3" />
+    <Property Name="idUsuarioAlta" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idUsuarioModifica" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="idVendedor" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="com_empresas" Relationship="Self.FK_com_clientesComConfig_com_empresas" FromRole="com_clientesComConfig" ToRole="com_empresas" />
+    <NavigationProperty Name="com_relConceptoVendedor" Relationship="COMISIONESModel.FK_com_relConceptoVendedor_com_clientesComConfig" FromRole="com_clientesComConfig" ToRole="com_relConceptoVendedor" />
+    <Property Name="strClavePedimento" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="com_clientesComConfig1" Relationship="COMISIONESModel.FK_com_clientesComConfig_com_clientesComConfig" FromRole="com_clientesComConfig" ToRole="com_clientesComConfig1" />
+    <NavigationProperty Name="com_clientesComConfig2" Relationship="COMISIONESModel.FK_com_clientesComConfig_com_clientesComConfig" FromRole="com_clientesComConfig1" ToRole="com_clientesComConfig" />
+    <NavigationProperty Name="com_vendedores" Relationship="COMISIONESModel.FK_com_clientesComConfig_com_vendedores" FromRole="com_clientesComConfig" ToRole="com_vendedores" />
+    <Property Name="dDescuentoFijo" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="strTipoCambio" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="com_empresas">
+    <Key>
+      <PropertyRef Name="IdEmpresa" />
+    </Key>
+    <Property Name="IdEmpresa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="strNombreEmpresa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="boolActivo" Type="Boolean" Nullable="false" />
+    <Property Name="dtFechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="dtFechaModifica" Type="DateTime" Precision="3" />
+    <Property Name="idUsuarioAlta" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idUsuarioModifica" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="strCadenaConexion" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="com_clientesComConfig" Relationship="Self.FK_com_clientesComConfig_com_empresas" FromRole="com_empresas" ToRole="com_clientesComConfig" />
+    <NavigationProperty Name="com_Descuentos" Relationship="COMISIONESModel.FK_com_Descuentos_com_empresas" FromRole="com_empresas" ToRole="com_Descuentos" />
+  </EntityType>
+  <EntityType Name="com_periodos">
+    <Key>
+      <PropertyRef Name="idPeriodo" />
+    </Key>
+    <Property Name="idPeriodo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idCodigoVendedor" Type="Int32" Nullable="false" />
+    <Property Name="strNumPeriodo" Type="Int32" Nullable="false" />
+    <Property Name="strAño" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="dtFechaInicio" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="dtFechaFin" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="boolActivo" Type="Boolean" Nullable="false" />
+    <Property Name="dtFechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="dtFechaModifica" Type="DateTime" Precision="3" />
+    <Property Name="idUsuarioAlta" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idUsuarioModifica" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="com_vendedores" Relationship="COMISIONESModel.FK_com_periodos_com_vendedores" FromRole="com_periodos" ToRole="com_vendedores" />
+  </EntityType>
+  <EntityType Name="com_relConceptoVendedor">
+    <Key>
+      <PropertyRef Name="idRelConceptoVendedor" />
+    </Key>
+    <Property Name="idRelConceptoVendedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idClienteConfig" Type="Int32" Nullable="false" />
+    <Property Name="idConcepto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="strConcepto" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="strCostoVenta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="dcmComision" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="boolActivo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="com_clientesComConfig" Relationship="COMISIONESModel.FK_com_relConceptoVendedor_com_clientesComConfig" FromRole="com_relConceptoVendedor" ToRole="com_clientesComConfig" />
+  </EntityType>
+  <Association Name="FK_com_clientesComConfig_com_empresas">
+    <End Role="com_empresas" Type="Self.com_empresas" Multiplicity="1" />
+    <End Role="com_clientesComConfig" Type="Self.com_clientesComConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_empresas">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="com_clientesComConfig">
+        <PropertyRef Name="IdEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="COMISIONESEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="com_clientesComConfig" EntityType="Self.com_clientesComConfig" />
+    <EntitySet Name="com_empresas" EntityType="Self.com_empresas" />
+    <EntitySet Name="com_periodos" EntityType="Self.com_periodos" />
+    <EntitySet Name="com_relConceptoVendedor" EntityType="Self.com_relConceptoVendedor" />
+    <AssociationSet Name="FK_com_clientesComConfig_com_empresas" Association="Self.FK_com_clientesComConfig_com_empresas">
+      <End Role="com_empresas" EntitySet="com_empresas" />
+      <End Role="com_clientesComConfig" EntitySet="com_clientesComConfig" />
+    </AssociationSet>
+    <AssociationSet Name="FK_com_relConceptoVendedor_com_clientesComConfig" Association="COMISIONESModel.FK_com_relConceptoVendedor_com_clientesComConfig">
+      <End Role="com_clientesComConfig" EntitySet="com_clientesComConfig" />
+      <End Role="com_relConceptoVendedor" EntitySet="com_relConceptoVendedor" />
+    </AssociationSet>
+    <FunctionImport Name="csp_ConsultarFacturas" ReturnType="Collection(String)">
+      <Parameter Name="idEmpresa" Mode="In" Type="Int32" />
+      <Parameter Name="Empresa" Mode="In" Type="String" />
+      <Parameter Name="idVendedor" Mode="In" Type="String" />
+      <Parameter Name="Periodo" Mode="In" Type="Int32" />
+      <Parameter Name="fechaInicio" Mode="In" Type="DateTime" />
+      <Parameter Name="fechaFin" Mode="In" Type="DateTime" />
+      <Parameter Name="Clientes" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="com_bitacora" EntityType="COMISIONESModel.com_bitacora" />
+    <FunctionImport Name="SP_COMISIONES_CONSULTAR_HISTORIAL_PERIODOS" ReturnType="Collection(COMISIONESModel.SP_COMISIONES_CONSULTAR_HISTORIAL_PERIODOS_Result)">
+      <Parameter Name="idVendedor" Mode="In" Type="String" />
+      <Parameter Name="Periodo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_COMISIONES_ACTUALIZAR_PERIODO" ReturnType="Collection(String)">
+      <Parameter Name="idConfiguracionPeriodo" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_COMISIONES_RECALCULAR_PERIODO" ReturnType="Collection(String)">
+      <Parameter Name="idVendedor" Mode="In" Type="String" />
+      <Parameter Name="Periodo" Mode="In" Type="Int32" />
+      <Parameter Name="fechaInicio" Mode="In" Type="DateTime" />
+      <Parameter Name="fechaFin" Mode="In" Type="DateTime" />
+      <Parameter Name="idConfiguracionPeriodo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="com_configPeriodos" EntityType="COMISIONESModel.com_configPeriodos" />
+    <FunctionImport Name="SP_COMISIONES_CONSULTAR_FACTURAS_COMISIONABLES" ReturnType="Collection(COMISIONESModel.SP_COMISIONES_CONSULTAR_FACTURAS_COMISIONABLES_Result)">
+      <Parameter Name="idVendedor" Mode="In" Type="String" />
+      <Parameter Name="Periodo" Mode="In" Type="Int32" />
+      <Parameter Name="Comisionar" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_COMISIONES_CONSULTAR_FACTURAS_RETENIDAS" ReturnType="Collection(COMISIONESModel.SP_COMISIONES_CONSULTAR_FACTURAS_RETENIDAS_Result)">
+      <Parameter Name="idVendedor" Mode="In" Type="String" />
+      <Parameter Name="Periodo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_COMISIONES_LIBERAR_COMISION" ReturnType="Collection(String)">
+      <Parameter Name="Facturas" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_COMISIONES_LIBERAR_FACTURA_RETENIDA" ReturnType="Collection(String)">
+      <Parameter Name="Facturas" Mode="In" Type="String" />
+      <Parameter Name="NOTA" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="com_vendedores" EntityType="COMISIONESModel.com_vendedores" />
+    <AssociationSet Name="FK_com_clientesComConfig_com_clientesComConfig" Association="COMISIONESModel.FK_com_clientesComConfig_com_clientesComConfig">
+      <End Role="com_clientesComConfig" EntitySet="com_clientesComConfig" />
+      <End Role="com_clientesComConfig1" EntitySet="com_clientesComConfig" />
+    </AssociationSet>
+    <AssociationSet Name="FK_com_clientesComConfig_com_vendedores" Association="COMISIONESModel.FK_com_clientesComConfig_com_vendedores">
+      <End Role="com_vendedores" EntitySet="com_vendedores" />
+      <End Role="com_clientesComConfig" EntitySet="com_clientesComConfig" />
+    </AssociationSet>
+    <AssociationSet Name="FK_com_periodos_com_vendedores" Association="COMISIONESModel.FK_com_periodos_com_vendedores">
+      <End Role="com_vendedores" EntitySet="com_vendedores" />
+      <End Role="com_periodos" EntitySet="com_periodos" />
+    </AssociationSet>
+    <EntitySet Name="com_clientesHistoricoPeriodos" EntityType="COMISIONESModel.com_clientesHistoricoPeriodos" />
+    <EntitySet Name="com_Descuentos" EntityType="COMISIONESModel.com_Descuentos" />
+    <AssociationSet Name="FK_com_Descuentos_com_empresas" Association="COMISIONESModel.FK_com_Descuentos_com_empresas">
+      <End Role="com_empresas" EntitySet="com_empresas" />
+      <End Role="com_Descuentos" EntitySet="com_Descuentos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_com_Descuentos_com_vendedores" Association="COMISIONESModel.FK_com_Descuentos_com_vendedores">
+      <End Role="com_vendedores" EntitySet="com_vendedores" />
+      <End Role="com_Descuentos" EntitySet="com_Descuentos" />
+    </AssociationSet>
+    <FunctionImport Name="csp_ConsultaStatusFacturas" ReturnType="Collection(COMISIONESModel.csp_ConsultaStatusFacturas_Result)">
+      <Parameter Name="facturas" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <Association Name="FK_com_relConceptoVendedor_com_clientesComConfig">
+    <End Type="COMISIONESModel.com_clientesComConfig" Role="com_clientesComConfig" Multiplicity="1" />
+    <End Type="COMISIONESModel.com_relConceptoVendedor" Role="com_relConceptoVendedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_clientesComConfig">
+        <PropertyRef Name="idClienteConfig" />
+      </Principal>
+      <Dependent Role="com_relConceptoVendedor">
+        <PropertyRef Name="idClienteConfig" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="com_bitacora">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_usuario" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="seccion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <ComplexType Name="SP_COMISIONES_CONSULTAR_HISTORIAL_PERIODOS_Result">
+    <Property Type="String" Name="Vendedor" Nullable="false" MaxLength="283" />
+    <Property Type="String" Name="Rango_Fechas" Nullable="true" MaxLength="52" />
+    <Property Type="String" Name="Estatus" Nullable="false" MaxLength="7" />
+    <Property Type="String" Name="Recalcular_Periodo" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="Estatus_Periodo" Nullable="false" MaxLength="6" />
+    <Property Type="String" Name="Ver_Periodo" Nullable="false" MaxLength="1" />
+    <Property Type="Int32" Name="Periodo" Nullable="true" />
+    <Property Type="DateTime" Name="fechaInicio" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="fechaFin" Nullable="true" Precision="23" />
+    <Property Type="String" Name="idVendedor" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="idConfiguracionPeriodo" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="com_configPeriodos">
+    <Key>
+      <PropertyRef Name="idConfiguracionPeriodo" />
+    </Key>
+    <Property Name="idConfiguracionPeriodo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idVendedor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Periodo" Type="Int32" />
+    <Property Name="fechaInicio" Type="DateTime" Precision="3" />
+    <Property Name="fechaFin" Type="DateTime" Precision="3" />
+    <Property Name="StatusPeriodo" Type="Boolean" />
+    <Property Name="Activo" Type="Boolean" />
+  </EntityType>
+  <ComplexType Name="SP_COMISIONES_CONSULTAR_FACTURAS_COMISIONABLES_Result">
+    <Property Type="String" Name="Empresa" Nullable="false" MaxLength="4" />
+    <Property Type="String" Name="TIPO_REPORTE" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="NOMBRE" Nullable="true" MaxLength="283" />
+    <Property Type="Int32" Name="PERIODO" Nullable="true" />
+    <Property Type="String" Name="SOPNUMBE" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="DATEENVIO" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="DATEPAGO" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="DIAS" Nullable="false" />
+    <Property Type="String" Name="CUSTNMBR" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="CUSTNAME" Nullable="false" MaxLength="65" />
+    <Property Type="String" Name="ITEMNMBR" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="GRPNM" Nullable="false" MaxLength="21" />
+    <Property Type="Decimal" Name="COMISION" Nullable="true" Precision="18" Scale="5" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="IdVendedor" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_COMISIONES_CONSULTAR_FACTURAS_RETENIDAS_Result">
+    <Property Type="String" Name="EMPRESA" Nullable="false" MaxLength="4" />
+    <Property Type="Int32" Name="ID_RETENCION" Nullable="false" />
+    <Property Type="Int32" Name="PERIODO" Nullable="true" />
+    <Property Type="String" Name="SLPRSNID" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="NOMBRE" Nullable="true" MaxLength="283" />
+    <Property Type="String" Name="CUSTNMBR" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="CUSTNAME" Nullable="false" MaxLength="65" />
+    <Property Type="String" Name="FACTURA" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="DATE_PAGO" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="DATE_FACTURA" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="DATE_ENVIO" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="MONTO_FACTURA" Nullable="true" Precision="18" Scale="5" />
+    <Property Type="Decimal" Name="MONTO_RETENIDO" Nullable="true" Precision="18" Scale="5" />
+    <Property Type="Boolean" Name="RETENER" Nullable="true" />
+    <Property Type="DateTime" Name="DATESYS" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="DATE_LIBERA" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="ACTIVO" Nullable="true" />
+    <Property Type="Int32" Name="PERIODO_LIBERADO" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="com_vendedores">
+    <Key>
+      <PropertyRef Name="idCodigoVendedor" />
+    </Key>
+    <Property Name="idCodigoVendedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="strNombre" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="strApellidoP" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="strApellidoM" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="strDireccion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="strTipoVendedor" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="strTelefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="strEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="boolActivo" Type="Boolean" Nullable="false" />
+    <Property Name="dtFechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="dtFechaModifica" Type="DateTime" Precision="3" />
+    <Property Name="idUsuarioAlta" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="idUsuarioModifica" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="com_clientesComConfig" Relationship="COMISIONESModel.FK_com_clientesComConfig_com_vendedores" FromRole="com_vendedores" ToRole="com_clientesComConfig" />
+    <NavigationProperty Name="com_periodos" Relationship="COMISIONESModel.FK_com_periodos_com_vendedores" FromRole="com_vendedores" ToRole="com_periodos" />
+    <NavigationProperty Name="com_Descuentos" Relationship="COMISIONESModel.FK_com_Descuentos_com_vendedores" FromRole="com_vendedores" ToRole="com_Descuentos" />
+  </EntityType>
+  <Association Name="FK_com_clientesComConfig_com_clientesComConfig">
+    <End Type="COMISIONESModel.com_clientesComConfig" Role="com_clientesComConfig" Multiplicity="1" />
+    <End Type="COMISIONESModel.com_clientesComConfig" Role="com_clientesComConfig1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="com_clientesComConfig">
+        <PropertyRef Name="idClienteConfig" />
+      </Principal>
+      <Dependent Role="com_clientesComConfig1">
+        <PropertyRef Name="idClienteConfig" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_com_clientesComConfig_com_vendedores">
+    <End Type="COMISIONESModel.com_vendedores" Role="com_vendedores" Multiplicity="1" />
+    <End Type="COMISIONESModel.com_clientesComConfig" Role="com_clientesComConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_vendedores">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Principal>
+      <Dependent Role="com_clientesComConfig">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_com_periodos_com_vendedores">
+    <End Type="COMISIONESModel.com_vendedores" Role="com_vendedores" Multiplicity="1" />
+    <End Type="COMISIONESModel.com_periodos" Role="com_periodos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_vendedores">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Principal>
+      <Dependent Role="com_periodos">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="com_clientesHistoricoPeriodos">
+    <Key>
+      <PropertyRef Name="idHistoricoPeriodoCliente" />
+    </Key>
+    <Property Name="idHistoricoPeriodoCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idEmpresa" Type="Int32" />
+    <Property Name="idCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="strNombreCliente" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="idVendedor" Type="Int32" Nullable="false" />
+    <Property Name="strNombreAduana" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="strTipoOp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="idPedimento" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="intDiasCredito" Type="Int32" Nullable="false" />
+    <Property Name="intDiasRetencion" Type="Int32" Nullable="false" />
+    <Property Name="intDiasGracia" Type="Int32" Nullable="false" />
+    <Property Name="strTipoCosto" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="strIntercia" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="strNotificacion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fecha_Inicio" Type="DateTime" Precision="3" />
+    <Property Name="fecha_Fin" Type="DateTime" Precision="3" />
+    <Property Name="Periodo" Type="Int32" />
+    <Property Name="Activo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="com_Descuentos">
+    <Key>
+      <PropertyRef Name="idDescConcepto" />
+    </Key>
+    <Property Name="idDescConcepto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idEmpresa" Type="Int32" Nullable="false" />
+    <Property Name="idCodigoVendedor" Type="Int32" Nullable="false" />
+    <Property Name="idConcepto" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="strConcepto" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="totalAdeudo" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="cantidadDescontar" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="vigenciaInicio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="vigenciaFin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="vigenciaIndefinida" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="com_empresas" Relationship="COMISIONESModel.FK_com_Descuentos_com_empresas" FromRole="com_Descuentos" ToRole="com_empresas" />
+    <NavigationProperty Name="com_vendedores" Relationship="COMISIONESModel.FK_com_Descuentos_com_vendedores" FromRole="com_Descuentos" ToRole="com_vendedores" />
+    <Property Name="status" Type="Boolean" />
+  </EntityType>
+  <Association Name="FK_com_Descuentos_com_empresas">
+    <End Type="COMISIONESModel.com_empresas" Role="com_empresas" Multiplicity="1" />
+    <End Type="COMISIONESModel.com_Descuentos" Role="com_Descuentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_empresas">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="com_Descuentos">
+        <PropertyRef Name="idEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_com_Descuentos_com_vendedores">
+    <End Type="COMISIONESModel.com_vendedores" Role="com_vendedores" Multiplicity="1" />
+    <End Type="COMISIONESModel.com_Descuentos" Role="com_Descuentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_vendedores">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Principal>
+      <Dependent Role="com_Descuentos">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="csp_ConsultaStatusFacturas_Result">
+    <Property Type="String" Name="DOCNUMBR" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ESTADO" Nullable="false" MaxLength="9" />
+    <Property Type="String" Name="ADEUDO_DECIMAL" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="PERIODO_PAGADO" Nullable="false" MaxLength="1" />
+    <Property Type="Int32" Name="CONCEPTOS_COMISIONABLES" Nullable="true" />
+    <Property Type="String" Name="CANCELADA" Nullable="false" MaxLength="12" />
+    <Property Type="String" Name="FACTURA" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="COMISIONADA" Nullable="false" MaxLength="14" />
+    <Property Type="String" Name="PERIODO" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="CONCEPTOS" Nullable="true" />
+    <Property Type="String" Name="FECHA" Nullable="true" MaxLength="100" />
+  </ComplexType>
+</Schema>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RPFModelStoreContainer" CdmEntityContainer="RPFEntities">
+    <FunctionImportMapping FunctionImportName="csp_detalleComisiones" FunctionName="RPFModel.Store.csp_detalleComisiones">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RPFModel.csp_detalleComisiones_Result1">
+          <ScalarProperty Name="SLPRSNID" ColumnName="SLPRSNID" />
+          <ScalarProperty Name="ITEMNMBR" ColumnName="ITEMNMBR" />
+          <ScalarProperty Name="XTNDPRCE" ColumnName="XTNDPRCE" />
+          <ScalarProperty Name="COMISION" ColumnName="COMISION" />
+          <ScalarProperty Name="SUBTOTAL" ColumnName="SUBTOTAL" />
+          <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+          <ScalarProperty Name="SOPNUMBE" ColumnName="SOPNUMBE" />
+          <ScalarProperty Name="CUSTNMBR" ColumnName="CUSTNMBR" />
+          <ScalarProperty Name="GrupoNombre" ColumnName="GrupoNombre" />
+          <ScalarProperty Name="ADUASECC" ColumnName="ADUASECC" />
+          <ScalarProperty Name="REFRENCE" ColumnName="REFRENCE" />
+          <ScalarProperty Name="IMPOEXP" ColumnName="IMPOEXP" />
+          <ScalarProperty Name="CLPEID" ColumnName="CLPEID" />
+          <ScalarProperty Name="TCFACSOP" ColumnName="TCFACSOP" />
+          <ScalarProperty Name="TCPED" ColumnName="TCPED" />
+          <ScalarProperty Name="DIAS" ColumnName="DIAS" />
+          <ScalarProperty Name="DATEFACTURA" ColumnName="DATEFACTURA" />
+          <ScalarProperty Name="DATEPAGO" ColumnName="DATEPAGO" />
+          <ScalarProperty Name="RETENCION" ColumnName="RETENCION" />
+          <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+          <ScalarProperty Name="DATESYS" ColumnName="DATESYS" />
+          <ScalarProperty Name="DATEMODIFY" ColumnName="DATEMODIFY" />
+          <ScalarProperty Name="DATEENVIO" ColumnName="DATEENVIO" />
+          <ScalarProperty Name="COMISIONAR" ColumnName="COMISIONAR" />
+          <ScalarProperty Name="PERIODO" ColumnName="PERIODO" />
+          <ScalarProperty Name="FECHAINICIO" ColumnName="FECHAINICIO" />
+          <ScalarProperty Name="FECHAFIN" ColumnName="FECHAFIN" />
+          <ScalarProperty Name="SOPTYPE" ColumnName="SOPTYPE" />
+          <ScalarProperty Name="RENDICION" ColumnName="RENDICION" />
+          <ScalarProperty Name="PERIO_LIBERA_RETENC" ColumnName="PERIO_LIBERA_RETENC" />
+          <ScalarProperty Name="ID_RULE" ColumnName="ID_RULE" />
+          <ScalarProperty Name="NOTA" ColumnName="NOTA" />
+          <ScalarProperty Name="CUSTNAME" ColumnName="CUSTNAME" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

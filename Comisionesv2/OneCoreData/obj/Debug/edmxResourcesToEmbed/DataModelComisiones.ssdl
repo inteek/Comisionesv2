@@ -1,0 +1,388 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="COMISIONESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="com_bitacora">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre_usuario" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="tipo" Type="varchar" MaxLength="50" />
+    <Property Name="seccion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="fecha" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="com_clientesComConfig">
+    <Key>
+      <PropertyRef Name="idClienteConfig" />
+    </Key>
+    <Property Name="idClienteConfig" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdEmpresa" Type="int" Nullable="false" />
+    <Property Name="idCliente" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="strNombreCliente" Type="nvarchar" MaxLength="250" />
+    <Property Name="idCodigoVendedor" Type="int" Nullable="false" />
+    <Property Name="idAduana" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="strNombreAduana" Type="nvarchar" MaxLength="250" />
+    <Property Name="strTipoOp" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="idPedimento" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="strClavePedimento" Type="nvarchar" MaxLength="100" />
+    <Property Name="intDiasCredito" Type="int" Nullable="false" />
+    <Property Name="intDiasRetencion" Type="int" Nullable="false" />
+    <Property Name="intDiasGracia" Type="int" Nullable="false" />
+    <Property Name="strTipoCosto" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="strIntercia" Type="nvarchar" MaxLength="2" Nullable="false" />
+    <Property Name="strNotificacion" Type="nvarchar" MaxLength="50" />
+    <Property Name="boolActivo" Type="bit" Nullable="false" />
+    <Property Name="dtFechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="dtFechaModifica" Type="datetime" />
+    <Property Name="idUsuarioAlta" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="idUsuarioModifica" Type="varchar" MaxLength="6" />
+    <Property Name="idVendedor" Type="nchar" MaxLength="20" />
+    <Property Name="strTipoCambio" Type="nvarchar" MaxLength="10" />
+    <Property Name="idClientePedimento" Type="nvarchar" MaxLength="10" />
+    <Property Name="strNombreClientePedimento" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="com_clientesHistoricoPeriodos">
+    <Key>
+      <PropertyRef Name="idHistoricoPeriodoCliente" />
+    </Key>
+    <Property Name="idHistoricoPeriodoCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idEmpresa" Type="int" />
+    <Property Name="idCliente" Type="nvarchar" MaxLength="50" />
+    <Property Name="strNombreCliente" Type="nvarchar" MaxLength="250" />
+    <Property Name="idVendedor" Type="int" Nullable="false" />
+    <Property Name="strNombreAduana" Type="nvarchar" MaxLength="250" />
+    <Property Name="strTipoOp" Type="nvarchar" MaxLength="100" />
+    <Property Name="idPedimento" Type="nvarchar" MaxLength="250" />
+    <Property Name="intDiasCredito" Type="int" Nullable="false" />
+    <Property Name="intDiasRetencion" Type="int" Nullable="false" />
+    <Property Name="intDiasGracia" Type="int" Nullable="false" />
+    <Property Name="strTipoCosto" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="strIntercia" Type="nvarchar" MaxLength="2" Nullable="false" />
+    <Property Name="strNotificacion" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fecha_Inicio" Type="datetime" />
+    <Property Name="fecha_Fin" Type="datetime" />
+    <Property Name="Periodo" Type="int" />
+    <Property Name="Activo" Type="bit" />
+  </EntityType>
+  <EntityType Name="com_Conceptos">
+    <Key>
+      <PropertyRef Name="GRPID" />
+    </Key>
+    <Property Name="GRPID" Type="char" MaxLength="15" Nullable="false" />
+    <Property Name="GRPDESCE" Type="char" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="com_configPeriodos">
+    <Key>
+      <PropertyRef Name="idConfiguracionPeriodo" />
+    </Key>
+    <Property Name="idConfiguracionPeriodo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idVendedor" Type="varchar" MaxLength="100" />
+    <Property Name="Periodo" Type="int" />
+    <Property Name="fechaInicio" Type="datetime" />
+    <Property Name="fechaFin" Type="datetime" />
+    <Property Name="StatusPeriodo" Type="bit" />
+    <Property Name="Activo" Type="bit" />
+  </EntityType>
+  <EntityType Name="com_DescuentoConceptoVendedor">
+    <Key>
+      <PropertyRef Name="idDescConcepto" />
+    </Key>
+    <Property Name="idDescConcepto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idEmpresa" Type="int" Nullable="false" />
+    <Property Name="idCodigoVendedor" Type="int" Nullable="false" />
+    <Property Name="idConcepto" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="strConcepto" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="totalAdeudo" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="cantidadDescontar" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="vigenciaInicio" Type="nvarchar" MaxLength="50" />
+    <Property Name="vigenciaFin" Type="nvarchar" MaxLength="50" />
+    <Property Name="vigenciaIndefinida" Type="bit" Nullable="false" />
+    <Property Name="status" Type="bit" />
+  </EntityType>
+  <EntityType Name="com_Descuentos">
+    <Key>
+      <PropertyRef Name="idDescConcepto" />
+    </Key>
+    <Property Name="idDescConcepto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idEmpresa" Type="int" Nullable="false" />
+    <Property Name="idCodigoVendedor" Type="int" Nullable="false" />
+    <Property Name="idConcepto" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="strConcepto" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="totalAdeudo" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="cantidadDescontar" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="vigenciaInicio" Type="nvarchar" MaxLength="50" />
+    <Property Name="vigenciaFin" Type="nvarchar" MaxLength="50" />
+    <Property Name="vigenciaIndefinida" Type="bit" Nullable="false" />
+    <Property Name="status" Type="bit" />
+  </EntityType>
+  <EntityType Name="com_EmpresaConceptos">
+    <Key>
+      <PropertyRef Name="idRow" />
+    </Key>
+    <Property Name="idRow" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdEmpresa" Type="int" />
+    <Property Name="GRPID" Type="char" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="com_empresas">
+    <Key>
+      <PropertyRef Name="IdEmpresa" />
+    </Key>
+    <Property Name="IdEmpresa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="strNombreEmpresa" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="boolActivo" Type="bit" Nullable="false" />
+    <Property Name="dtFechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="dtFechaModifica" Type="datetime" />
+    <Property Name="idUsuarioAlta" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="idUsuarioModifica" Type="varchar" MaxLength="6" />
+    <Property Name="strCadenaConexion" Type="nvarchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="com_periodos">
+    <Key>
+      <PropertyRef Name="idPeriodo" />
+    </Key>
+    <Property Name="idPeriodo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idCodigoVendedor" Type="int" Nullable="false" />
+    <Property Name="strNumPeriodo" Type="int" Nullable="false" />
+    <Property Name="strAño" Type="nchar" MaxLength="4" Nullable="false" />
+    <Property Name="dtFechaInicio" Type="date" Nullable="false" />
+    <Property Name="dtFechaFin" Type="date" Nullable="false" />
+    <Property Name="boolActivo" Type="bit" Nullable="false" />
+    <Property Name="dtFechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="dtFechaModifica" Type="datetime" />
+    <Property Name="idUsuarioAlta" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="idUsuarioModifica" Type="varchar" MaxLength="6" />
+  </EntityType>
+  <EntityType Name="com_relConceptoVendedor">
+    <Key>
+      <PropertyRef Name="idRelConceptoVendedor" />
+    </Key>
+    <Property Name="idRelConceptoVendedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idClienteConfig" Type="int" Nullable="false" />
+    <Property Name="idConcepto" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="strConcepto" Type="nvarchar" MaxLength="100" />
+    <Property Name="strCostoVenta" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="dcmComision" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="boolActivo" Type="bit" Nullable="false" />
+    <Property Name="dDescuentoFijo" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="strTipoCambio" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="com_vendedores">
+    <Key>
+      <PropertyRef Name="idCodigoVendedor" />
+    </Key>
+    <Property Name="idCodigoVendedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="strNombre" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="strApellidoP" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="strApellidoM" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="strDireccion" Type="nvarchar" MaxLength="500" />
+    <Property Name="strTipoVendedor" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="strTelefono" Type="nvarchar" MaxLength="50" />
+    <Property Name="strEmail" Type="nvarchar" MaxLength="50" />
+    <Property Name="boolActivo" Type="bit" Nullable="false" />
+    <Property Name="dtFechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="dtFechaModifica" Type="datetime" />
+    <Property Name="idUsuarioAlta" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="idUsuarioModifica" Type="varchar" MaxLength="6" />
+  </EntityType>
+  <Association Name="FK_com_AgregarDescuento_com_empresas">
+    <End Role="com_empresas" Type="Self.com_empresas" Multiplicity="1" />
+    <End Role="com_DescuentoConceptoVendedor" Type="Self.com_DescuentoConceptoVendedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_empresas">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="com_DescuentoConceptoVendedor">
+        <PropertyRef Name="idEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_com_AgregarDescuento_com_vendedores">
+    <End Role="com_vendedores" Type="Self.com_vendedores" Multiplicity="1" />
+    <End Role="com_DescuentoConceptoVendedor" Type="Self.com_DescuentoConceptoVendedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_vendedores">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Principal>
+      <Dependent Role="com_DescuentoConceptoVendedor">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_com_clientesComConfig_com_clientesComConfig">
+    <End Role="com_clientesComConfig" Type="Self.com_clientesComConfig" Multiplicity="1" />
+    <End Role="com_clientesComConfig1" Type="Self.com_clientesComConfig" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="com_clientesComConfig">
+        <PropertyRef Name="idClienteConfig" />
+      </Principal>
+      <Dependent Role="com_clientesComConfig1">
+        <PropertyRef Name="idClienteConfig" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_com_clientesComConfig_com_empresas">
+    <End Role="com_empresas" Type="Self.com_empresas" Multiplicity="1" />
+    <End Role="com_clientesComConfig" Type="Self.com_clientesComConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_empresas">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="com_clientesComConfig">
+        <PropertyRef Name="IdEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_com_clientesComConfig_com_vendedores">
+    <End Role="com_vendedores" Type="Self.com_vendedores" Multiplicity="1" />
+    <End Role="com_clientesComConfig" Type="Self.com_clientesComConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_vendedores">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Principal>
+      <Dependent Role="com_clientesComConfig">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_com_Descuentos_com_empresas">
+    <End Role="com_empresas" Type="Self.com_empresas" Multiplicity="1" />
+    <End Role="com_Descuentos" Type="Self.com_Descuentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_empresas">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="com_Descuentos">
+        <PropertyRef Name="idEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_com_Descuentos_com_vendedores">
+    <End Role="com_vendedores" Type="Self.com_vendedores" Multiplicity="1" />
+    <End Role="com_Descuentos" Type="Self.com_Descuentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_vendedores">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Principal>
+      <Dependent Role="com_Descuentos">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_com_periodos_com_vendedores">
+    <End Role="com_vendedores" Type="Self.com_vendedores" Multiplicity="1" />
+    <End Role="com_periodos" Type="Self.com_periodos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_vendedores">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Principal>
+      <Dependent Role="com_periodos">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_com_relConceptoVendedor_com_clientesComConfig">
+    <End Role="com_clientesComConfig" Type="Self.com_clientesComConfig" Multiplicity="1" />
+    <End Role="com_relConceptoVendedor" Type="Self.com_relConceptoVendedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_clientesComConfig">
+        <PropertyRef Name="idClienteConfig" />
+      </Principal>
+      <Dependent Role="com_relConceptoVendedor">
+        <PropertyRef Name="idClienteConfig" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="csp_ConsultarFacturas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idEmpresa" Type="int" Mode="In" />
+    <Parameter Name="Empresa" Type="nvarchar" Mode="In" />
+    <Parameter Name="idVendedor" Type="varchar" Mode="In" />
+    <Parameter Name="Periodo" Type="int" Mode="In" />
+    <Parameter Name="fechaInicio" Type="date" Mode="In" />
+    <Parameter Name="fechaFin" Type="date" Mode="In" />
+    <Parameter Name="Clientes" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="csp_ConsultaStatusFacturas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="facturas" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="SP_COMISIONES_ACTUALIZAR_PERIODO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idConfiguracionPeriodo" Type="int" Mode="In" />
+    <Parameter Name="Status" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_COMISIONES_CONSULTAR_FACTURAS_COMISIONABLES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idVendedor" Type="varchar" Mode="In" />
+    <Parameter Name="Periodo" Type="int" Mode="In" />
+    <Parameter Name="Comisionar" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_COMISIONES_CONSULTAR_FACTURAS_RETENIDAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idVendedor" Type="varchar" Mode="In" />
+    <Parameter Name="Periodo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_COMISIONES_CONSULTAR_HISTORIAL_PERIODOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idVendedor" Type="varchar" Mode="In" />
+    <Parameter Name="Periodo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_COMISIONES_LIBERAR_COMISION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Facturas" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="SP_COMISIONES_LIBERAR_FACTURA_RETENIDA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Facturas" Type="varchar(max)" Mode="In" />
+    <Parameter Name="NOTA" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_COMISIONES_RECALCULAR_PERIODO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idVendedor" Type="varchar" Mode="In" />
+    <Parameter Name="Periodo" Type="int" Mode="In" />
+    <Parameter Name="fechaInicio" Type="datetime" Mode="In" />
+    <Parameter Name="fechaFin" Type="datetime" Mode="In" />
+    <Parameter Name="idConfiguracionPeriodo" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="COMISIONESModelStoreContainer">
+    <EntitySet Name="com_bitacora" EntityType="Self.com_bitacora" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_clientesComConfig" EntityType="Self.com_clientesComConfig" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_clientesHistoricoPeriodos" EntityType="Self.com_clientesHistoricoPeriodos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_Conceptos" EntityType="Self.com_Conceptos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_configPeriodos" EntityType="Self.com_configPeriodos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_DescuentoConceptoVendedor" EntityType="Self.com_DescuentoConceptoVendedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_Descuentos" EntityType="Self.com_Descuentos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_EmpresaConceptos" EntityType="Self.com_EmpresaConceptos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_empresas" EntityType="Self.com_empresas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_periodos" EntityType="Self.com_periodos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_relConceptoVendedor" EntityType="Self.com_relConceptoVendedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_vendedores" EntityType="Self.com_vendedores" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_com_AgregarDescuento_com_empresas" Association="Self.FK_com_AgregarDescuento_com_empresas">
+      <End Role="com_empresas" EntitySet="com_empresas" />
+      <End Role="com_DescuentoConceptoVendedor" EntitySet="com_DescuentoConceptoVendedor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_com_AgregarDescuento_com_vendedores" Association="Self.FK_com_AgregarDescuento_com_vendedores">
+      <End Role="com_vendedores" EntitySet="com_vendedores" />
+      <End Role="com_DescuentoConceptoVendedor" EntitySet="com_DescuentoConceptoVendedor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_com_clientesComConfig_com_clientesComConfig" Association="Self.FK_com_clientesComConfig_com_clientesComConfig">
+      <End Role="com_clientesComConfig" EntitySet="com_clientesComConfig" />
+      <End Role="com_clientesComConfig1" EntitySet="com_clientesComConfig" />
+    </AssociationSet>
+    <AssociationSet Name="FK_com_clientesComConfig_com_empresas" Association="Self.FK_com_clientesComConfig_com_empresas">
+      <End Role="com_empresas" EntitySet="com_empresas" />
+      <End Role="com_clientesComConfig" EntitySet="com_clientesComConfig" />
+    </AssociationSet>
+    <AssociationSet Name="FK_com_clientesComConfig_com_vendedores" Association="Self.FK_com_clientesComConfig_com_vendedores">
+      <End Role="com_vendedores" EntitySet="com_vendedores" />
+      <End Role="com_clientesComConfig" EntitySet="com_clientesComConfig" />
+    </AssociationSet>
+    <AssociationSet Name="FK_com_Descuentos_com_empresas" Association="Self.FK_com_Descuentos_com_empresas">
+      <End Role="com_empresas" EntitySet="com_empresas" />
+      <End Role="com_Descuentos" EntitySet="com_Descuentos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_com_Descuentos_com_vendedores" Association="Self.FK_com_Descuentos_com_vendedores">
+      <End Role="com_vendedores" EntitySet="com_vendedores" />
+      <End Role="com_Descuentos" EntitySet="com_Descuentos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_com_periodos_com_vendedores" Association="Self.FK_com_periodos_com_vendedores">
+      <End Role="com_vendedores" EntitySet="com_vendedores" />
+      <End Role="com_periodos" EntitySet="com_periodos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_com_relConceptoVendedor_com_clientesComConfig" Association="Self.FK_com_relConceptoVendedor_com_clientesComConfig">
+      <End Role="com_clientesComConfig" EntitySet="com_clientesComConfig" />
+      <End Role="com_relConceptoVendedor" EntitySet="com_relConceptoVendedor" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

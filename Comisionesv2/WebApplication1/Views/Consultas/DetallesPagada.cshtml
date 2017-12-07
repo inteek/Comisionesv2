@@ -1,0 +1,10 @@
+﻿@if (ViewBag.strPagada == "PAGADA")
+{
+    <div>La fecha de pago de factura fué: <b>@ViewBag.strFecha</b>
+    </div>
+}
+else
+{
+    <div>Se debe la cantidad de: <b>$@ViewBag.strMonto</b></div>
+}
+

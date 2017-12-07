@@ -1,0 +1,40 @@
+﻿@model IEnumerable<List<OneCoreData.SP_COMISIONES_CONSULTAR_FACTURAS_RETENIDAS_Result>>
+
+    <thead>
+        
+    </thead>
+    @foreach (var factura in Model.FirstOrDefault())
+    {
+        <tr style="font-size:9px;">
+            <td> <input type="checkbox" name="seleccionado" value="1" /> </td>
+            <td> @Html.DisplayFor(modelItem => factura.ID_RETENCION) </td>
+            <td> @Html.DisplayFor(modelItem => factura.PERIODO) </td>
+            <td> @Html.DisplayFor(modelItem => factura.SLPRSNID) </td>
+            <td> @Html.DisplayFor(modelItem => factura.CUSTNMBR) </td>
+            <td> @Html.DisplayFor(modelItem => factura.FACTURA) </td>
+            <td> @Html.DisplayFor(modelItem => factura.DATE_PAGO) </td>
+            <td> @Html.DisplayFor(modelItem => factura.DATE_FACTURA) </td>
+            <td> @Html.DisplayFor(modelItem => factura.DATE_ENVIO) </td>
+            <td> @Html.DisplayFor(modelItem => factura.MONTO_FACTURA) </td>
+            <td> @Html.DisplayFor(modelItem => factura.MONTO_RETENIDO)</td>
+
+            @if (factura.RETENER.GetValueOrDefault())
+            {
+            <td id="activo" style="text-align: center"><input type="checkbox" checked="checked" contenteditable="false" /></td> }
+            else
+            {
+            <td id="retenido" style="text-align: center"><input type="checkbox" contenteditable="false" /></td> }
+
+            <td> @Html.DisplayFor(modelItem => factura.DATESYS) </td>
+            <td> @Html.DisplayFor(modelItem => factura.DATE_LIBERA) </td>
+
+            @if (factura.ACTIVO.GetValueOrDefault())
+            {
+            <td id="activo" style="text-align: center"><input type="checkbox" checked="checked" contenteditable="false" /></td> }
+            else
+            {
+            <td id="activo" style="text-align: center"><input type="checkbox" contenteditable="false" /></td> }
+
+            <td> @Html.DisplayFor(modelItem => factura.PERIODO_LIBERADO) </td>
+        </tr>
+    }

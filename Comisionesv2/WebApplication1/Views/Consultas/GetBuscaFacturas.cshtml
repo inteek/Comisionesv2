@@ -1,0 +1,215 @@
+﻿@model IEnumerable<OneCoreData.FacturasStatus>
+
+@{
+    Layout = null;
+}
+
+<div class="widget-body">
+    @foreach (var item in Model)
+    {
+
+        if (item.DOCNUMBR != null)
+        {
+            <div class="profile-activity clearfix">
+                @if (item.COMISIONADA.Equals("COMISIONADA"))
+                {
+                    <i class="pull-left thumbicon fa fa-check btn-success no-hover"></i>
+                    <own>La factura </own>
+                    <b>@item.FACTURA</b>
+                    <own>se encuentra comisionada.</own>
+                    <button class="btn btn-primary btn-sm pull-right" id="btnDetalleComisionada" onclick="llamarVistaParcial('@item.FACTURA','@item.PERIODO')" data-toggle="modal" data-target="#myModal">
+                        <i class="ace-icon fa  fa-archive bigger-125"></i>
+                        Ver Detalle
+                    </button>
+                }
+                else
+                {
+                    <i class="pull-left thumbicon fa fa-remove btn-danger no-hover"></i>
+                    <own>La factura </own>
+                    <b>@item.FACTURA</b>
+                    <own>se encuentra comisionada.</own>
+                }
+            </div>
+
+            <div class="profile-activity clearfix">
+                @if (item.ESTADO.Equals("PAGADA"))
+                {
+                    <i class="pull-left thumbicon fa fa-check btn-success no-hover"></i>
+                    <own>La factura </own>
+                    <b>@item.FACTURA</b>
+                    <own>se encuentra totalmente pagada.</own>
+                    <button class="btn btn-primary btn-sm pull-right" id="btnDetallePagada" onclick="llamarVistaPagada('@item.ESTADO','@item.FECHA','@item.ADEUDO_DECIMAL')" data-toggle="modal" data-target="#myModal">
+                        <i class="ace-icon fa  fa-archive bigger-125"></i>
+                        Ver Detalle
+                    </button>
+
+                }
+                else
+                {
+                    <i class="pull-left thumbicon fa fa-remove btn-danger no-hover"></i>
+                    <own>La factura </own>
+                    <b>@item.FACTURA</b>
+                    <own>se encuentra totalmente pagada.</own>
+                    <button class="btn btn-primary btn-sm pull-right" id="btnDetalleNoPagada" onclick="llamarVistaPagada('@item.ESTADO','@item.FECHA','@item.ADEUDO_DECIMAL')" data-toggle="modal" data-target="#myModal">
+                        <i class="ace-icon fa  fa-archive bigger-125"></i>
+                        Ver Detalle
+                    </button>
+                }
+            </div>
+
+            <div class="profile-activity clearfix">
+                @if (item.CONCEPTOS_COMISIONBLES > 0)
+                {
+                    <i class="pull-left thumbicon fa fa-check btn-success no-hover"></i>
+                    <own>La factura </own>
+                    <b>@item.FACTURA</b>
+                    <own>cuenta con conceptos comisionables.</own>
+                    <button class="btn btn-primary btn-sm pull-right" id="btnDetalleComisionada" onclick="llamarVistaConceptos('@item.CONCEPTOS')" data-toggle="modal" data-target="#myModal">
+                        <i class="ace-icon fa  fa-archive bigger-125"></i>
+                        Ver Detalle
+                    </button>
+                }
+                else
+                {
+                    <i class="pull-left thumbicon fa fa-remove btn-danger no-hover"></i>
+                    <own>La factura </own>
+                    <b>@item.FACTURA</b>
+                    <own>cuenta con conceptos comisionables.</own>
+                }
+            </div>
+
+            <div class="profile-activity clearfix">
+                @if (item.CANCELADA.Equals("SI"))
+                {
+                    <i class="pull-left thumbicon fa fa-check btn-success no-hover"></i>
+                    <own>La factura </own>
+                    <b>@item.FACTURA</b>
+                    <own>se encuentra cancelada.</own>
+                }
+                else
+                {
+                    <i class="pull-left thumbicon fa fa-remove btn-danger no-hover"></i>
+                    <own>La factura </own>
+                    <b>@item.FACTURA</b>
+                    <own>se encuentra cancelada.</own>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="profile-activity clearfix">
+                <i class="pull-left thumbicon fa fa-bug btn-danger no-hover"></i>
+                <own>La factura </own>
+                <b>@item.FACTURA</b>
+                <own>no ha sido encontrada en el sistema. </own>
+            </div>
+        }
+
+
+    }
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role ="dialog">
+<div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="hide" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Detalle.</h4>
+        </div>
+        <div class="modal-body">
+            <div id="resultado"></div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" onclick="cerrarModal();">Cerrar</button>
+        </div>
+    </div>
+</div>
+    </div>
+
+<script>
+    $('[data-rel=popover]').popover({ html: true });
+</script>
+
+<script>
+
+    function cerrarModal() {
+        $('#myModal').modal('hide');
+    }
+
+
+</script>
+
+
+<script>
+    function llamarVistaParcial(factura, periodo) {
+        var laURLDeLaVista = '@Url.Action("DetallesComisionada", "Consultas")' + '?factura=' + factura + '&periodo=' + periodo;
+        $.ajax({
+            cache: false,
+            async: true,
+            type: "POST",
+            url: laURLDeLaVista,
+            data: {},
+            success: function(response) {
+                $('#resultado').html('');
+                $('#resultado').html(response);
+            }
+        });
+    }
+</script>
+
+<script>
+    function llamarVistaPagada(pagada, fecha, monto) {
+        var laURLDeLaVista = '@Url.Action("DetallesPagada", "Consultas")' + '?pagada=' + pagada + '&fecha=' + fecha + '&monto=' + monto;
+        $.ajax({
+            cache: false,
+            async: true,
+            type: "POST",
+            url: laURLDeLaVista,
+            data: {},
+            success: function(response) {
+                $('#resultado').html('');
+                $('#resultado').html(response);
+            }
+        });
+    }
+</script>
+
+<script>
+    function llamarVistaConceptos(conceptos) {
+        var laURLDeLaVista = '@Url.Action("DetallesConceptos", "Consultas")' + '?conceptos=' + conceptos;
+        $.ajax({
+            cache: false,
+            async: true,
+            type: "POST",
+            url: laURLDeLaVista,
+            data: {},
+            success: function (response) {
+                $('#resultado').html('');
+                $('#resultado').html(response);
+            }
+        });
+    }
+</script>
+
+
+@*@section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+
+
+        <script src="~/assets/js/jquery.js"></script>
+        <script src="~/assets/js/bootstrap.js"></script>
+        <script src="~/assets/js/select2.js"></script>
+
+        <script src="~/assets/js/fuelux/fuelux.wizard.js"></script>
+        <script src="~/assets/js/ace/elements.wizard.js"></script>
+
+        <script src="~/assets/js/jquery.maskedinput.js"></script>
+        <script src="~/assets/js/moment.min.js"></script>
+        <script src="~/assets/js/daterangepicker.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/assets/js/bootbox.js"></script>*@
+
+    @*Cargado desde vista parcial con @ViewBag.CadenaFacturas*@

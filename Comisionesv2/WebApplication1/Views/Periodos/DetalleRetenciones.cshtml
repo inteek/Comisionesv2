@@ -1,0 +1,152 @@
+﻿@model OneCoreData.com_periodos
+
+@{
+    ViewBag.Title = "Detalle de Cálculo de Retenciones";
+}
+
+<div class="main-content">
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="page-header">
+                <h1>
+                    Detalle de Cálculo de Retenciones
+                    <small>
+                        <i class="ace-icon fa fa-angle-double-right"></i>
+                        Comisiones
+                    </small>
+                </h1>
+            </div><!-- /.page-header -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- PAGE CONTENT BEGINS -->
+
+                    <div class="widget-box">
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div id="fuelux-wizard-container">
+                                    @*<hr />*@
+                                    <div class="step-content pos-rel">
+                                        <div class="step-pane active" data-step="1">
+
+                                            <form class="form-horizontal" id="resumen-form" method="get">
+
+                                                @using (Html.BeginForm())
+                                                {
+
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="form-horizontal">
+                                                        @*<hr />*@
+
+                                                        <div style="float:left;" class="col-sm-12 col-xs-12">
+
+                                                            <div style="float:left;" class="col-sm-3 col-xs-3">
+                                                                <div class="form-group">
+                                                                    @Html.Label("strEmpresa", "Empresa:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                                    <div class="col-xs-6 col-sm-9">
+                                                                        <div class="input-group" style="width:100%;">
+                                                                            @Html.DropDownList("strEmpresaDetalleRetenciones", (SelectList)ViewBag.BagEmpresas, new { @class = "select2" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div style="float:left;" class="col-sm-3 col-xs-3">
+                                                                <div class="form-group">
+                                                                    @Html.Label("strPeriodo", "Periodo: ", htmlAttributes: new { @class = "control-label  col-xs-12 col-sm-3 no-padding-right" })
+                                                                    <div class="col-xs-6 col-sm-9">
+                                                                        <div class="input-group" style="width:100%;">
+                                                                            @Html.DropDownList("strPeriodoDetalleRetenciones", (SelectList)ViewBag.BagPeriodos, new { @class = "select2" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div style="float:left;" class="col-sm-4 col-xs-4">
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.idCodigoVendedor, "Vendedor: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                                    <div class="col-xs-6 col-sm-9">
+                                                                        <div class="input-group" style="width:100%;">
+                                                                            @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, "-- Selecciona un vendedor --", new { @id = "vendedoresCmbDetalleRetenciones", @class = "select2" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-2 col-xs-2" style="text-align:right; align-content:center; align-items:center">
+                                                                <button class="btn btn-xs btn-info" style="width: 100px;" id="buscarDetalleRetenciones">Buscar</button>
+
+                                                            </div>
+
+
+
+                                                        <div style="clear:both;"></div>
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="form-group"></div>
+
+                                                    <div id="div_DetalleRetencionesParcial" style="overflow-x: auto; overflow-y: auto; display: none;">
+                                                    </div>
+
+                                                    <div id="div_DetalleRetencionesParcial2" style="overflow-x: auto; overflow-y: auto;">
+                                                    </div>
+
+                                                    <div id="editor"></div>
+                                                    <button class="btn btn-xs btn-danger pull-right" style="margin: 0px 10px; display:none;" id="cmd">Generar PDF</button>
+                                                    <button class="btn btn-xs btn-success pull-right" id="cmd_excel" style="display:none;">Generar XLS</button>
+                                                    <div style="clear:both"></div>
+                                                }
+
+                                            </form>
+
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div>
+
+
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.page-content -->
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="@Url.Content("~/assets/js/jquery.js")"></script>
+<script src="@Url.Content("~/assets/js/bootstrap.js")"></script>
+<script src="@Url.Content("~/assets/js/select2.js")"></script>
+
+<script src="@Url.Content("~/assets/js/fuelux/fuelux.wizard.js")"></script>
+<script src="@Url.Content("~/assets/js/ace/elements.wizard.js")"></script>
+
+<script src="@Url.Content("~/assets/js/jquery.maskedinput.js")"></script>
+<script src="@Url.Content("~/assets/js/moment.min.js")"></script>
+<script src="@Url.Content("~/assets/js/daterangepicker.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+<script src="@Url.Content("~/assets/js/bootbox.js")"></script>
+
+<script src="@Url.Content("~/Scripts/jsPDF-1.3.4/dist/jspdf.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jspdf.plugin.table.js")"></script>
+<script src="@Url.Content("~/Scripts/Exportar/datatables.js")"></script>
+<script src="@Url.Content("~/assets/js/jquery.table2excel.js")"></script>
+<script src="@Url.Content("~/assets/js/tableToExcel.js")"></script>
+<script src="@Url.Content("~/Scripts/jsPeriodos/jsPeriodosDetalleRetenciones.js")"></script>

@@ -1,0 +1,171 @@
+﻿@model OneCoreData.com_clientesComConfig
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>com_clientesComConfig</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idAduana)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idAduana)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.strTipoOp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strTipoOp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idPedimento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idPedimento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.intDiasCredito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.intDiasCredito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.intDiasRetencion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.intDiasRetencion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.intDiasGracia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.intDiasGracia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.strTipoCosto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strTipoCosto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.strIntercia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strIntercia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.strNotificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strNotificacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dDescuentoFijo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dDescuentoFijo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.strTipoCambio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strTipoCambio)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.boolActivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.boolActivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtFechaAlta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtFechaAlta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtFechaModifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtFechaModifica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idUsuarioAlta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idUsuarioAlta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idUsuarioModifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idUsuarioModifica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.com_empresas.strNombreEmpresa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.com_empresas.strNombreEmpresa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.com_vendedores.strNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.com_vendedores.strNombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idClienteConfig }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

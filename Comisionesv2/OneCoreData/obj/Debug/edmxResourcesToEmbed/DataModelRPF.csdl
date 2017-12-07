@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RPFModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="COMISIONES_PATENTE">
+    <Key>
+      <PropertyRef Name="ID_PATENTE" />
+    </Key>
+    <Property Name="ID_PATENTE" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ACTIVO" Type="Boolean" Nullable="false" />
+    <Property Name="USUARIO_ALTA" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="USUARIO_MODIFICO" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="FECHA_ALTA" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FECHA_MODIFICO" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="RPFEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="COMISIONES_PATENTE" EntityType="Self.COMISIONES_PATENTE" />
+  </EntityContainer>
+</Schema>

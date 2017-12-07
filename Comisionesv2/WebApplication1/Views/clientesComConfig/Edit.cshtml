@@ -1,0 +1,921 @@
+﻿@model OneCoreData.com_clientesComConfig
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="main-content">
+
+
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                     <a href="@Url.Action("Index", "Home")">Principal</a>
+                </li>
+
+                <li>
+                    <a href="#">Modificación de clientes</a>
+                </li>
+            </ul><!-- /.breadcrumb -->
+
+            @*<div class="nav-search" id="nav-search">
+                <form class="form-search">
+                    <span class="input-icon">
+                        <input type="text" placeholder="Buscar ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                        <i class="ace-icon fa fa-search nav-search-icon"></i>
+                    </span>
+                </form>
+            </div>*@
+        </div>
+
+        <div class="page-content">
+
+            <div class="page-header">
+                <h1>
+                    Modificación de clientes
+                    <small>
+                        <i class="ace-icon fa fa-angle-double-right"></i>
+                        Comisiones
+                    </small>
+                </h1>
+            </div><!-- /.page-header -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- PAGE CONTENT BEGINS -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="waitModal" tabindex="-1" role="dialog" aria-labelledby="waitModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="waitModalLabel">Cargando</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="module" style="font-weight: bold;"></div>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                            <span class="sr-only">Cargando...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-box">
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div id="fuelux-wizard-container">
+                                    <div>
+                                        <ul class="steps">
+                                            <li data-step="1" class="active">
+                                                <span class="step">1</span>
+                                                <span class="title">Solicitud de Datos</span>
+                                            </li>
+                                            <li data-step="2">
+                                                <span class="step">2</span>
+                                                <span class="title">Confirmación</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <hr />
+
+                                    <div class="step-content pos-rel">
+                                        <div class="step-pane active" data-step="1">
+                                            <h3 class="lighter block green">Ingresa la información solicitada</h3>
+
+                                            @using (Html.BeginForm("Create", "clientesComConfig", FormMethod.Post, new { id = "clientesComConfig-form", @class = "form-horizontal" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                @Html.HiddenFor(model => model.idClienteConfig)
+                                                <input type="hidden" value="@ViewBag.hdnRolID" id="hdnRolID" />
+                                                <input type="hidden" value="@Model.strNombreAduana" id="hdnAduanas" />
+                                                <input type="hidden" value="@Model.idPedimento" id="hdnPedimentos" />
+
+                                                <div class="form-horizontal">
+                                                    <hr />
+                                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                    <div style="float:left;" class="col-xs-4 col-xs-4">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.IdEmpresa, "Empresa", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                            <div class="col-xs-12 col-sm-9">
+                                                                <div class="input-group" style="width:100%;">
+                                                                    @Html.DropDownListFor(model => model.IdEmpresa, (SelectList)ViewBag.BagEmpresas, "-- Selecciona Empresa --", new { @class = "select2 fixed-width", @onchange = "javascript:GetCliente(this.value);" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="float:left;" class="col-xs-4 col-xs-4">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idCliente, "Cliente", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                            <div class="col-xs-12 col-sm-9">
+                                                                <div class="input-group" style="width:100%;">
+                                                                    @Html.DropDownListFor(model => model.idCliente, (SelectList)ViewBag.BagClientes, "-- Selecciona una empresa --", htmlAttributes: new { @class = "select2 fixed-width" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="float:left;" class="col-xs-4 col-xs-4">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idCodigoVendedor, "Vendedores", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                            <div class="col-xs-12 col-sm-9">
+                                                                <div class="input-group" style="width:100%;">
+                                                                    @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @class = "select2 fixed-width" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="clear:both;"></div>
+
+                                                    <div style="float:left;" class="col-xs-4 col-xs-4">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idAduana, "Aduanas", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                            <div class="col-xs-12 col-sm-9">
+                                                                <div class="input-group" style="width:100%;">
+                                                                    @Html.DropDownListFor(model => model.idAduana, (SelectList)ViewBag.BagAduanas, htmlAttributes: new { @class = "select2 fixed-width", @multiple = "" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="float:left;" class="col-xs-4 col-xs-4">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.strTipoOp, "Tipo Op.", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                            @{
+                                                                var selectList = new SelectList(
+                                                                new List<SelectListItem>
+                                                                    {
+                                                                    new SelectListItem {Text = "IMPO ", Value = "IMPO "},
+                                                                    new SelectListItem {Text = "EXPO ", Value = "EXPO "},
+                                                                    new SelectListItem {Text = "IMPO/EXPO ", Value = "IMPO/EXPO "},
+                                                                    }, "Value", "Text");
+                                                            }
+                                                            <div class="col-xs-12 col-sm-9">
+                                                                <div class="input-group" style="width:100%;">
+                                                                    @Html.DropDownListFor(m => m.strTipoOp, selectList, new { @class = "select2 fixed-width" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idCliente, "Cliente Pedimento", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                            <div class="col-xs-12 col-sm-9">
+                                                                <div class="input-group" style="width:100%;">
+                                                                    <label>
+                                                                        @*@Html.CheckBoxFor(m => m.strIntercia)*@
+                                                                         @if (Model.idClientePedimento != Model.idCliente && Model.idClientePedimento != null)
+                                                                         {
+                                                                            <input id="strCtePedimento" name="strCtePedimento" value="Si" type="checkbox" checked="checked" class="ace" />
+                                                                            <span class="lbl"> Es Cliente Pedimento</span>
+                                                                            @Html.DropDownListFor(model => model.idClientePedimento, (SelectList)ViewBag.BagClientes, "-- Selecciona una empresa --", htmlAttributes: new { @class = "select2 fixed-width", @id = "cboClientePedimento" })
+                                                                         }
+                                                                         else
+                                                                         {
+                                                                            <input id="strCtePedimento" name="strCtePedimento" value="No" type="checkbox" class="ace" />
+                                                                            <span class="lbl"> Es Cliente Pedimento</span>
+                                                                            @Html.DropDownListFor(model => model.idClientePedimento, (SelectList)ViewBag.BagClientes, "-- Selecciona una empresa --", htmlAttributes: new { @class = "select2 fixed-width", @id = "cboClientePedimento", @disabled = "disabled" })
+                                                                         }
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div style="float:left;" class="col-xs-4 col-xs-4">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idPedimento, "Pedimento", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                            <div class="col-xs-12 col-sm-9">
+                                                                <div class="input-group" style="width:100%;">
+                                                                    @Html.DropDownListFor(model => model.idPedimento, (SelectList)ViewBag.BagPedimentos, "-- Selecciona empresa --", htmlAttributes: new { @class = "select2 fixed-width", @multiple = "" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="clear:both;"></div>
+
+                                                </div>
+
+                                                    <div style="width:100%; clear:both;"></div>
+
+                                                @*<div class="form-group col-xs-3">
+        @Html.LabelFor(model => model.IdEmpresa, "Empresa", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+
+        <div class="col-xs-12 col-sm-9">
+            @Html.DropDownListFor(model => model.IdEmpresa, (SelectList)ViewBag.BagEmpresas, "-- Selecciona Empresa --", new { @class = "select2 widths-200", @onchange = "javascript:GetCliente(this.value);" })
+        </div>
+    </div>
+
+    <div class="space-2"></div>
+
+        <div class="form-group col-xs-5">
+            @Html.LabelFor(model => model.idCliente, "Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-xs-12 col-sm-9">
+                @Html.DropDownListFor(model => model.idCliente, (SelectList)ViewBag.BagClientes, "-- Selecciona un cliente --", htmlAttributes: new { @class = "select2 widths-300" })
+                @Html.ValidationMessageFor(model => model.idCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-xs-4">
+            @Html.LabelFor(model => model.idCodigoVendedor, "Vendedores", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+
+            <div class="col-xs-12 col-sm-9">
+                @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @class = "select2 widths-300" })
+            </div>
+        </div>
+
+        <div class="space-2"></div>
+
+        <div class="form-group col-xs-3">
+            @Html.LabelFor(model => model.idAduana, "Aduanas", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+
+            <div class="col-xs-12 col-sm-9">
+                @Html.DropDownListFor(model => model.idAduana, (SelectList)ViewBag.BagAduanas, htmlAttributes: new { @class = "select2 widths-200", @multiple = "" })
+            </div>
+        </div>
+
+        <div class="space-2"></div>
+
+        <div class="form-group col-xs-5">
+            @Html.LabelFor(model => model.strTipoOp, "Tipo Op", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-xs-12 col-sm-9">
+                @{
+                    var selectList = new SelectList(
+                    new List<SelectListItem>
+                                                                                        {
+                        new SelectListItem {Text = "IMPO ", Value = "IMPO "},
+                        new SelectListItem {Text = "EXPO ", Value = "EXPO "},
+                        new SelectListItem {Text = "IMPO/EXPO ", Value = "IMPO/EXPO "},
+                                                                                        }, "Value", "Text");
+                }
+
+                @Html.DropDownListFor(m => m.strTipoOp, selectList, new { @class = "select2 widths-300" })
+                @Html.ValidationMessageFor(model => model.strTipoOp, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="space-2"></div>
+
+        <div class="form-group col-xs-4">
+            @Html.LabelFor(model => model.idPedimento, "Pedimento", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+
+            <div class="col-xs-12 col-sm-9">
+                @Html.DropDownListFor(model => model.idPedimento, (SelectList)ViewBag.BagPedimentos, "-- Selecciona un pedimento --", htmlAttributes: new { @class = "select2 widths-300" })
+            </div>
+        </div>
+
+                                                    <div style="width:100%; clear:both;"></div>*@
+
+                                                    <div class="hr hr-dotted"></div>
+
+                                                    <div class="form-group col-xs-4">
+                                                        @Html.LabelFor(model => model.intDiasCredito, "Dias Credito:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-6 no-padding-right" })
+                                                        <div class="col-xs-12 col-sm-4">
+
+                                                            <div class="clearfix">
+                                                                @Html.EditorFor(model => model.intDiasCredito, new { htmlAttributes = new { @class = "col-xs-12 col-sm-11", @type = "number", @min = "1", @Value = ViewBag.BagidDiasCredito } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="space-2"></div>
+
+                                                    <div class="form-group col-xs-4">
+                                                        @Html.LabelFor(model => model.intDiasGracia, "Dias Gracia:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-6 no-padding-right" })
+                                                        <div class="col-xs-12 col-sm-4">
+
+                                                            <div class="clearfix">
+                                                                @Html.EditorFor(model => model.intDiasGracia, new { htmlAttributes = new { @class = "col-xs-12 col-sm-11", @type = "number", @min = "1", @Value = ViewBag.BagidDiasGracia } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="space-2"></div>
+
+                                                    <div class="form-group col-xs-4">
+                                                        @Html.LabelFor(model => model.intDiasRetencion, "Dias Retención:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-6 no-padding-right" })
+                                                        <div class="col-xs-12 col-sm-4">
+
+                                                            <div class="clearfix">
+                                                                @Html.EditorFor(model => model.intDiasRetencion, new { htmlAttributes = new { @class = "col-xs-12 col-sm-11", @type = "number", @min = "1", @Value = ViewBag.BagidDiasRetencion } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                                //--
+
+                                                                <div class="space-2"></div>
+
+                                                                @*<div class="form-group col-xs-4">
+                                                                    @Html.LabelFor(model => model.dDescuentoFijo, "Descuento:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-6 no-padding-right" })
+                                                                    <div class="col-xs-12 col-sm-4">
+
+                                                                        <div class="clearfix">
+                                                                            @Html.EditorFor(model => model.dDescuentoFijo, new { htmlAttributes = new { @class = "col-xs-12 col-sm-11", @type = "number", @min = "0", @Value = ViewBag.BagdDescuentoFijo } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>*@
+                                                                //--
+
+                                                                <div style="float:left;" class="col-xs-8 col-xs-8">
+                                                                    <div class="form-group">
+                                                                        @Html.LabelFor(model => model.strTipoCambio, "Tipo Cambio:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                                        @{
+                                                                            var selectListM = new SelectList(
+                                                                            new List<SelectListItem>
+                                                                                {
+                                                                    new SelectListItem {Text = "MXN ", Value = "MXN"},
+                                                                    new SelectListItem {Text = "USD ", Value = "USD"},
+                                                                                }, "Value", "Text");
+                                                                        }
+                                                                        <div class="col-xs-12 col-sm-9">
+                                                                            <div class="input-group" style="width:100%;">
+                                                                                @Html.DropDownListFor(m => m.strTipoCambio, selectListM, new { @class = "select2 fixed-width" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                    <div style="width:100%; clear:both;"></div>
+
+                                                    <div class="form-group col-xs-6">
+                                                        @Html.LabelFor(model => model.strTipoCosto, "Costos:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+
+                                                        <div class="col-xs-12 col-sm-9">
+                                                            
+                                                            @{
+                                                                if ((ViewBag.BagstrTipoCosto).Equals("Costo de venta nivel Referencia"))
+                                                                {
+                                                                    <div>
+                                                                        <label class="line-height-1 blue">
+                                                                            @Html.RadioButtonFor(m => m.strTipoCosto, "Costo de Venta Nivel Cliente", htmlAttributes: new { @class = "ace", @checked = "checked" })
+                                                                            <span class="lbl"> Costo de Venta Nivel Cliente</span>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <label class="line-height-1 blue">
+                                                                            @Html.RadioButtonFor(m => m.strTipoCosto, "Precio Venta", htmlAttributes: new { @class = "ace" })
+                                                                            <span class="lbl"> Precio Venta</span>
+                                                                        </label>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div>
+                                                                        <label class="line-height-1 blue">
+                                                                            @Html.RadioButton("strTipoCosto", "Costo de Venta Nivel Cliente", htmlAttributes: new { @class = "ace" })
+                                                                            <span class="lbl"> Costo de Venta Nivel Cliente</span>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <label class="line-height-1 blue">
+                                                                            @Html.RadioButton("strTipoCosto", "Precio Venta", htmlAttributes: new { @class = "ace", @checked = "checked" })
+                                                                            <span class="lbl"> Precio Venta</span>
+                                                                        </label>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group col-xs-6">
+                                                        <div class="col-xs-12 col-sm-9">
+                                                            <div>
+                                                                <label>
+
+                                                                    @{
+                                                                        if ((Model.strIntercia).Equals("Si"))
+                                                                        {
+
+                                                                            <input id="strIntercia" name="strIntercia" value="Si" type="checkbox" class="ace" checked="checked" />
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input id="strIntercia" name="strIntercia" value="Si" type="checkbox" class="ace" />
+
+                                                                        }
+                                                                    }
+
+                                                                    <span class="lbl"> Intercia</span>
+                                                                </label>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="width:100%; clear:both;"></div>
+
+                                                    <div class="hr hr-dotted"></div>
+
+                                                    <div style="width:100%; clear:both;"></div>
+
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <div class="widget-box">
+                                                                <div class="widget-header widget-header-flat">
+                                                                    <h4 class="smaller">
+                                                                        <i class="ace-icon fa fa-code"></i>
+                                                                        Conceptos a Comisionar
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div class="widget-body">
+                                                                    <div class="widget-main">
+                                                                        <div class="col-xs-6">
+
+                                                                            <div class="form-group">
+                                                                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="cbbConceptos">Concepto:</label>
+                                                                                <div class="col-xs-12 col-sm-9">
+                                                                                    <div class="input-group" style="width:100%;">
+                                                                                        @Html.DropDownList("cbbConceptos", (SelectList)ViewBag.BagConceptos, "-- Selecciona empresa --", htmlAttributes: new { @class = "select2 col-xs-12 col-sm-12 no-padding-left" })
+                                                                                    </div>
+                                                                                    
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                @Html.Label("lblComision", "Comision(%):", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                                                <div class="col-xs-12 col-sm-9">
+                                                                                    <div class="input-group" style="width:100%;">
+                                                                                        @Html.Editor("dcmComision", new { htmlAttributes = new { @class = "col-xs-12 col-sm-6", @type = "number", @min = "1", @max = "100", @Value = 1 } })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="CostoVentaConcepto"></label>
+                                                                                <div class="col-xs-12 col-sm-9">
+                                                                                    <label>
+                                                                                        @if (Model.strTipoCosto == "Costo de Venta Nivel Cliente")
+                                                                                        {
+                                                                                            <input id="CostoVentaConcepto" name="CostoVentaConcepto" disabled="disabled" value="1" type="checkbox" class="ace" />
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <input id="CostoVentaConcepto" name="CostoVentaConcepto" value="1" type="checkbox" class="ace" />
+                                                                                        }
+                                                                                        <span class="lbl"> Costo de Venta nivel Concepto</span>
+                                                                                    </label>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label class="control-label col-xs-12 col-sm-3 no-padding-right"></label>
+
+                                                                                <div class="col-xs-12 col-sm-9">
+                                                                                    <div class="clearfix">
+                                                                                        <button type="button" id="btnAgregarConcepto" class="btn btn-primary">
+                                                                                            Agregar Concepto
+                                                                                            <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+
+                                                                        <div class="col-xs-6">
+                                                                            <!-- PAGE CONTENT BEGINS -->
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12">
+                                                                                    <table id="simple-table" class="table table-striped table-bordered table-hover">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>Concepto</th>
+                                                                                                <th>Tipo Comisión</th>
+                                                                                                <th>Comisión (%)</th>
+
+                                                                                                <th></th>
+                                                                                            </tr>
+                                                                                        </thead>
+
+                                                                                        <tbody>
+                                                                                            @foreach (var item in Model.com_relConceptoVendedor)
+                                                                                            {
+                                                                                                <tr id="@Html.DisplayFor(modelItem => item.idConcepto)">
+                                                                                                    <td style="display: none;">@Html.DisplayFor(modelItem => item.idRelConceptoVendedor)</td>
+                                                                                                    <td>@Html.DisplayFor(modelItem => item.strConcepto)</td>
+                                                                                                    <td>@Html.DisplayFor(modelItem => item.strCostoVenta)</td>
+                                                                                                    <td>@Html.DisplayFor(modelItem => item.dcmComision)</td>
+
+                                                                                                    <td>
+                                                                                                        <button class="btn btn-xs btn-danger" type="button" onclick="fnEliminarConcepto('@Html.DisplayFor(modelItem => item.idConcepto)')"><i class="ace-icon fa fa-trash-o bigger-120"></i></button>
+                                                                                                    </td>
+                                                                                                    
+                                                                                                </tr>
+                                                                                            }
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div><!-- /.span -->
+                                                                            </div><!-- /.row -->
+                                                                        </div>
+                                                                        <div style="width:100%; clear:both;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group col-xs-6" style="margin-top:25px;">
+                                                        @Html.LabelFor(model => model.strNotificacion, "Enviar notificación a:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            @Html.EditorFor(m => m.strNotificacion, new { htmlAttributes = new { @class = "col-xs-12", @type = "email" } })
+                                                            <span class="help-block">Para enviar a mas de un correo separar por "," (comas)</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="space-2"></div>
+
+                                                                }
+
+                                        </div>
+
+                                        <div class="step-pane" data-step="2">
+                                            <div class="col-xs-8 col-xs-offset-2">
+                                                <div class="tabbable tabs-left">
+                                                    <ul class="nav nav-tabs" id="myTab3">
+                                                        <li class="active">
+                                                            <a data-toggle="tab" href="#home3">
+                                                                <i class="pink ace-icon fa fa-tachometer bigger-110"></i>
+                                                                Preview de cliente
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a data-toggle="tab" href="#profile3">
+                                                                <i class="blue ace-icon fa fa-bars bigger-110"></i>
+                                                                Conceptos
+                                                            </a>
+                                                        </li>
+
+                                                    </ul>
+
+                                                    <div class="tab-content" style="border-width: 1px;">
+                                                        <div id="home3" class="tab-pane in active">
+
+                                                            <div class="col-xs-12 widget-container-col">
+                                                                <div class="widget-box widget-color-blue">
+                                                                    <!-- #section:custom/widget-box.options -->
+                                                                    <div class="widget-header">
+                                                                        <h5 class="widget-title bigger lighter">
+                                                                            <i class="ace-icon fa fa-table"></i>
+                                                                            Preview de modificación cliente
+                                                                        </h5>
+
+                                                                    </div>
+
+                                                                    <!-- /section:custom/widget-box.options -->
+                                                                    <div class="widget-body">
+                                                                        <div class="widget-main no-padding">
+                                                                            <table class="table table-striped table-bordered table-hover">
+                                                                                <thead class="thin-border-bottom">
+                                                                                    <tr>
+                                                                                        <th>
+                                                                                            <i class="ace-icon fa fa-bars"></i>
+                                                                                            Datos
+                                                                                        </th>
+
+                                                                                        <th>
+                                                                                            <i class="ace-icon fa fa-edit"></i>
+                                                                                            Valores
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td class=""><b>Empresa</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblEmpresa"></label>
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                    <tr>
+                                                                                        <td class=""><b>Cliente Factura</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblCliente"></label>
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                    <tr>
+                                                                                        <td class=""><b>Cliente Pedimento</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblClientePedimento"></label>
+                                                                                        </td>
+                                                                                    </tr>
+
+
+
+                                                                                    <tr>
+                                                                                        <td class=""><b>Vendedor</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblVendedor"></label>
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                    <tr>
+                                                                                        <td class=""><b>Aduana</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblAduana"></label>
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                    <tr>
+                                                                                        <td class=""><b>Operación</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblOperacion"></label>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class=""><b>Clave Pedimento</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblPedimento"></label>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class=""><b>Dias crédito</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblDiasCredito"></label>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class=""><b>Dias Gracia</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblDiasGracia"></label>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class=""><b>Dias Retención</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblDiasRetención"></label>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    @*<tr>
+                                                                                        <td class=""><b>Costos</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblCostos"></label>
+                                                                                        </td>
+                                                                                    </tr>*@
+
+
+
+                                                                                    <tr>
+                                                                                        <td class=""><b>Tipo Cambio</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblTipoCambio"></label>
+                                                                                        </td>
+                                                                                    </tr>
+
+
+                                                                                    <tr>
+                                                                                        <td class=""><b>Intercia</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblIntercia"></label>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class=""><b>Notificación a</b></td>
+
+                                                                                        <td>
+                                                                                            <label id="lblNotificacion"></label>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- /.span -->
+                                                        </div>
+
+                                                        <div id="profile3" class="tab-pane">
+                                                            <div class="col-xs-12 widget-container-col">
+                                                                <div class="widget-box widget-color-blue">
+                                                                    <!-- #section:custom/widget-box.options -->
+                                                                    <div class="widget-header">
+                                                                        <h5 class="widget-title bigger lighter">
+                                                                            <i class="ace-icon fa fa-table"></i>
+                                                                            Conceptos comisionables
+                                                                        </h5>
+
+                                                                    </div>
+
+                                                                    <!-- /section:custom/widget-box.options -->
+                                                                    <div class="widget-body">
+                                                                        <div class="widget-main no-padding">
+                                                                            <table id="simple-table2" class="table table-striped table-bordered table-hover">
+                                                                                <thead class="thin-border-bottom">
+                                                                                    <tr>
+                                                                                        <th>
+                                                                                            <i class="ace-icon fa fa-bars"></i>
+                                                                                            Concepto
+                                                                                        </th>
+
+                                                                                        <th>
+                                                                                            <i class="ace-icon fa fa-edit"></i>
+                                                                                            Costo Venta
+                                                                                        </th>
+                                                                                        <th>
+                                                                                            <i class="ace-icon fa fa-bars"></i>
+                                                                                            Comisión
+                                                                                        </th>
+
+                                                                                    </tr>
+                                                                                </thead>
+
+                                                                                <tbody></tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- /.span -->
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.col -->
+
+
+
+                                            <div style="clear:both;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <div class="wizard-actions">
+                                    <button class="btn btn-prev">
+                                        <i class="ace-icon fa fa-arrow-left"></i>
+                                        Anterior
+                                    </button>
+
+                                    <button id="btnConfirmaCliente" class="btn btn-success btn-next" data-last="Guardar">
+                                        Siguiente
+                                        <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                    </button>
+                                </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="waitModal" tabindex="-1" role="dialog" aria-labelledby="waitModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="waitModalLabel">Cargando</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="module" style="font-weight: bold;"></div>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                            <span class="sr-only">Cargando...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="modal-wizard" class="modal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div id="modal-wizard-container">
+                                    <div class="modal-header">
+                                        <ul class="steps">
+                                            <li data-step="1" class="active">
+                                                <span class="step">1</span>
+                                                <span class="title">Validation states</span>
+                                            </li>
+
+                                            <li data-step="2">
+                                                <span class="step">2</span>
+                                                <span class="title">Alerts</span>
+                                            </li>
+
+                                            <li data-step="3">
+                                                <span class="step">3</span>
+                                                <span class="title">Payment Info</span>
+                                            </li>
+
+                                            <li data-step="4">
+                                                <span class="step">4</span>
+                                                <span class="title">Other Info</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="modal-body step-content">
+                                        <div class="step-pane active" data-step="1">
+                                            <div class="center">
+                                                <h4 class="blue">Step 1</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="step-pane" data-step="2">
+                                            <div class="center">
+                                                <h4 class="blue">Step 2</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="step-pane" data-step="3">
+                                            <div class="center">
+                                                <h4 class="blue">Step 3</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="step-pane" data-step="4">
+                                            <div class="center">
+                                                <h4 class="blue">Step 4</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="modal-footer wizard-actions">
+                                    <button class="btn btn-sm btn-prev">
+                                        <i class="ace-icon fa fa-arrow-left"></i>
+                                        Anterior
+                                    </button>
+
+                                    <button class="btn btn-success btn-sm btn-next" data-last="Guardar">
+                                        Next
+                                        <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                    </button>
+
+                                    <button class="btn btn-danger btn-sm pull-left" data-dismiss="modal">
+                                        <i class="ace-icon fa fa-times"></i>
+                                        Cancel
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- PAGE CONTENT ENDS -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.page-content -->
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="@Url.Content("~/assets/js/jquery.js")"></script>
+<script src="@Url.Content("~/assets/js/bootstrap.js")"></script>
+<script src="@Url.Content("~/assets/js/select2.js")"></script>
+<script src="@Url.Content("~/assets/js/fuelux/fuelux.wizard.js")"></script>
+<script src="@Url.Content("~/assets/js/ace/elements.wizard.js")"></script>
+<script src="@Url.Content("~/assets/js/jquery.maskedinput.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+<script src="@Url.Content("~/assets/js/bootbox.js")"></script>
+<script src="@Url.Content("~/Scripts/jsClientes/jsClientesEdit.js?v=1")"></script>*
+
+<script>
+    jQuery(document).ready(function ( ) {
+        TableDataVendedoresCreate.init();
+
+    });
+</script>

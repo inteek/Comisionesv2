@@ -1,0 +1,96 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "IndexPrueba";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ToPDF</title>
+    <link rel="stylesheet" href="~/Scripts/Exportar/bootstrap.css">
+    @*<link rel="stylesheet" href="dataTables.bootstrap.css">*@
+    <script type="text/javascript" src="~/Scripts/Exportar/jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/Exportar/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Scripts/Exportar/datatables.css" />
+    <script type="text/javascript" src="~/Scripts/Exportar/datatables.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        $(document).ready(function() {
+        $('#tabla').DataTable( {
+            //dom: 'Bfrtip',
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        } );
+    } )
+    </script>
+
+    <table id="tabla" class="display nowrap" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Puesto</th>
+                <th>Departamento</th>
+                <th>Edad</th>
+                <th>Raza</th>
+                <th>Salario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Adán</td>
+                <td>Líder de proyectos</td>
+                <td>Sistemas</td>
+                <td>Ethernal Mistycal Being</td>
+                <td>Sayajin</td>
+                <td>Invita la pizza los jueves</td>
+            </tr>
+            <tr>
+                <td>Gerardo</td>
+                <td>Master in Development Tecniques</td>
+                <td>Sistemas</td>
+                <td>Inmortal</td>
+                <td>Guerrero</td>
+                <td>Come hasta tres veces al día</td>
+            </tr>
+            <tr>
+                <td>Claudia</td>
+                <td>Advenced Elite Developer</td>
+                <td>Sistemas</td>
+                <td>Infinite</td>
+                <td>Archer</td>
+                <td>Trabaja por gusto</td>
+            </tr>
+            <tr>
+                <td>Omar</td>
+                <td>Ultra-master Developer</td>
+                <td>Sistemas</td>
+                <td>Unknow</td>
+                <td>Spellcaster</td>
+                <td>Su nómina tiene mas cifras que PI</td>
+            </tr>
+            <tr>
+                <td>Juan</td>
+                <td>Senior Developer</td>
+                <td>Sistemas</td>
+                <td>Unknow</td>
+                <td>Berserker</td>
+                <td>Tiene laptop con carcasa de adamantium</td>
+            </tr>
+            <tr>
+                <td>Chema</td>
+                <td>Office Boy</td>
+                <td>No cabe en la mesa</td>
+                <td>otros 3 años más</td>
+                <td>Worm</td>
+                <td>Sólo compra un cubito de ricopollo</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
