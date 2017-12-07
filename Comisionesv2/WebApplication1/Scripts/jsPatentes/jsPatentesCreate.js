@@ -8,6 +8,8 @@
 
     var runDataTable_VendedoresCreate = function () {
 
+
+
         $.mask.definitions['~'] = '[+-]';
         //$('#strTelefono').mask('(999) 999-9999');
 

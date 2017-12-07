@@ -119,7 +119,7 @@
 
                                                         <div style="float:left;" class="col-xs-4 col-xs-4">
                                                             <div class="form-group">
-                                                                @Html.LabelFor(model => model, "Descripcion: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                                @Html.LabelFor(model => model, "Descripcion: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right", @size = "100", @maxlength = "100" })
                                                                 <div class="col-xs-12 col-sm-9">
                                                                     <div class="input-group" style="width:100%;">
                                                                         @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12" } })
@@ -134,7 +134,7 @@
                                                                 @Html.LabelFor(model => model.IdPatente, "Num. Patente: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
                                                                 <div class="col-xs-12 col-sm-9">
                                                                     <div class="input-group" style="width:100%;">
-                                                                        @Html.EditorFor(model => model.IdPatente, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12" } })
+                                                                        @Html.EditorFor(model => model.IdPatente, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12", @type = "number", @size = "5", @min = "1", @max="99999" }})
                                                                         @Html.ValidationMessageFor(model => model.IdPatente, "", new { @class = "text-danger" })
                                                                     </div>
                                                                 </div>

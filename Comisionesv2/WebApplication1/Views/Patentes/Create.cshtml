@@ -102,8 +102,8 @@
                                                                 @Html.LabelFor(model => model, "Descripcion: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
                                                                 <div class="col-xs-12 col-sm-9">
                                                                     <div class="input-group" style="width:100%;">
-                                                                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12" } })
-                                                                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                                                                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12", @size = "100", @maxlength= "100" } })
+                                                                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger"})
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -114,7 +114,7 @@
                                                                 @Html.LabelFor(model => model.IdPatente, "Num. Patente: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
                                                                 <div class="col-xs-12 col-sm-9">
                                                                     <div class="input-group" style="width:100%;">
-                                                                        @Html.EditorFor(model => model.IdPatente, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12" } })
+                                                                        @Html.EditorFor(model => model.IdPatente, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12", @type="number", @size = "5", @min = "1", @max="99999", @pattern = "[1-9]" } })
                                                                         @Html.ValidationMessageFor(model => model.IdPatente, "", new { @class = "text-danger" })
                                                                     </div>
                                                                 </div>
@@ -337,11 +337,10 @@
 
 <script src="@Url.Content("~/assets/js/jquery.maskedinput.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
-<script src="@Url.Content("~/Scripts/jsPatentes/jsPatentesCreate.js?v=5")"></script>
+<script src="@Url.Content("~/Scripts/jsPatentes/jsPatentesCreate.js?v=11")"></script>
 <script>
     jQuery(document).ready(function ( ) {
         TableDataVendedoresCreate.init();
-
     });
 </script>
 
