@@ -69,14 +69,21 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                if (Session["RolID"].Equals("Administrador") || Session["RolID"].Equals("Operador"))
+                if (Session["RolID"].Equals("Administrador") || Session["RolID"].Equals("Operador") || Session["RolID"].Equals("Vendedor"))
                 {
                     ViewBag.IdEmpresa = new SelectList(db.com_empresas, "IdEmpresa", "strNombreEmpresa");
                     ViewBag.idCodigoVendedor = new SelectList(ListaPersonalizadaVendedores(), "Value", "Text");// new SelectList(db.com_vendedores.Where(p => p.boolActivo == true), "idCodigoVendedor", "strNombre");
                     ViewBag.idVendedor = new SelectList(ListaPersonalizadaVendedores(), "Value", "Text");// new SelectList(db.com_vendedores.Where(p => p.boolActivo == true), "idCodigoVendedor", "strNombre");
                     ViewBag.hdnRolID = Session["RolID"].ToString();
                     //var com_DescuentoConceptoVenededor = (from a in db.com_DescuentoConceptoVendedor where (a.idCodigoVendedor.ToString() == id_vendedor) select new { a.idDescConcepto, a.idEmpresa, a.idCodigoVendedor, a.idConcepto, a.strConcepto, a.cantidadDescontar, a.vigenciaInicio, a.vigenciaFin, a.status });
-
+                    if (!Session["RolID"].Equals("Vendedor"))
+                    {
+                        ViewBag.BagVendedores = new SelectList(ListaPersonalizadaVendedores(), "Value", "Text");
+                    }
+                    else
+                    {
+                        ViewBag.BagVendedores = new SelectList(ListaPersonalizadaVendedor(), "Value", "Text");
+                    }
                     return View(db.com_DescuentoConceptoVendedor.Where(p => p.idCodigoVendedor.ToString() == idVendedor).ToList());
                     //return View(db.com_DescuentoConceptoVendedor.Where(p => p.status == true).ToList());
                 }
@@ -121,42 +128,6 @@ namespace WebApplication1.Controllers
         //    var Conceptos = new SelectList(ListaPersonalizadaConceptos(strCadenaEmpresa), "Value", "Text");
         //    return Json(new { error = false, Conceptos = Conceptos }, JsonRequestBehavior.AllowGet);
         //}
-
-        public ActionResult getConceptos(string id_empresa)
-        {
-            string strCadenaEmpresa = "";
-
-            //List<AA710410> mtdListarPorEmpresa;
-
-            strCadenaEmpresa = Utilidades.Utilidades.mtdRecuperaCadenaConexion(Convert.ToInt32(id_empresa));
-            try
-            {
-                using (var ctx = new ELIEntities(strCadenaEmpresa))
-                {
-                    //mtdListarPorEmpresa = ctx.AA710410.ToList();
-
-                }
-                var mtdListarPorEmpresa = (from a in db.com_Conceptos
-                                           join b in db.com_EmpresaConceptos on a.GRPID equals b.GRPID
-                                           where b.IdEmpresa.ToString() == id_empresa
-                                           select new { a.GRPID, a.GRPDESCE }).ToList();
-                var conceptos = mtdListarPorEmpresa.Select(x => new SelectListItem
-                {
-                    Value = x.GRPID.Trim(),
-                    Text = "[" + x.GRPID.Trim() + "] " + x.GRPDESCE.Trim()
-                });
-
-                return Json(new { error = false, Conceptos = new SelectList(conceptos, "Value", "Text") }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.ToString());
-                throw new Exception("Error al obtener la lista", ex);
-            }
-
-            //var Conceptos = new SelectList(ListaPersonalizadaConceptos(mtdListarPorEmpresa), "Value", "Text");
-            //return Json(new { error = false, Conceptos = Conceptos }, JsonRequestBehavior.AllowGet);
-        }
 
         public SelectList ListaPersonalizadaConceptos(string strCadenaEmpresa)
         {
@@ -283,66 +254,6 @@ namespace WebApplication1.Controllers
         }
 
         // GET: vendedores/Delete/5
-
-
-        public ActionResult EditDescuentos(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            com_DescuentoConceptoVendedor com_DescuentoConceptoVendedor = db.com_DescuentoConceptoVendedor.Find(id);
-            if (com_DescuentoConceptoVendedor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(com_DescuentoConceptoVendedor);
-        }
-
-        [HttpPost]
-        public JsonResult EditDescuentos([Bind(Include = "idDescConcepto,idEmpresa,idCodigoVendedor,idConcepto,strConcepto,totalAdeudo,cantidadDescontar,vigenciaInicio,vigenciaFin,vigenciaIndefinida,status")] com_vendedores com_vendedores)
-        {
-
-            try
-            {
-                if (ModelState.IsValid)
-                {
-
-                    Utils.Pie_tabla utils = new Utils.Pie_tabla();
-
-                    var VendedorOriginal = db.com_vendedores.Find(com_vendedores.idCodigoVendedor);
-
-                    VendedorOriginal.dtFechaModifica = utils.f_actual;
-                    VendedorOriginal.idUsuarioModifica = utils.IDusuario;
-
-                    VendedorOriginal.strNombre = com_vendedores.strNombre;
-                    VendedorOriginal.strApellidoP = com_vendedores.strApellidoP;
-                    VendedorOriginal.strApellidoM = com_vendedores.strApellidoM;
-                    VendedorOriginal.strEmail = com_vendedores.strEmail;
-                    VendedorOriginal.strDireccion = com_vendedores.strDireccion;
-                    VendedorOriginal.strTipoVendedor = com_vendedores.strTipoVendedor;
-                    VendedorOriginal.strTelefono = com_vendedores.strTelefono;
-                    db.Entry(VendedorOriginal).State = EntityState.Modified;
-                    db.SaveChanges();
-                    Utilidades.Utilidades.RegistrarEvento((string)(Session["UserName"]), "Proceso", "Vendedores", "Modificación de vendedor: " + VendedorOriginal.strNombre + " " + VendedorOriginal.strApellidoP + " " + VendedorOriginal.strApellidoM);
-                    return Json(new { error = false, msg = "El registro se agrego de forma correcta." });
-                }
-                var msgs = string.Join(" | ", ModelState.Values
-                          .SelectMany(v => v.Errors)
-                          .Select(e => e.ErrorMessage));
-
-                return Json(new { error = true, msg = msgs });
-            }
-            catch (Exception e)
-            {
-                return Json(new { error = true, msg = e.InnerException.ToString() });
-
-            }
-
-        }
-
-
-
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -379,38 +290,6 @@ namespace WebApplication1.Controllers
                 {
                     return Json(new { error = true, msg = "No se tienen los suficientes permisos para realizar esta acción" });
                 }
-                
-            }
-            catch (Exception e)
-            {
-                Utilidades.Utilidades.RegistrarEvento((string)(Session["UserName"]), "Error", "Vendedores", "Error al modificar vendedor: " + e.Message);
-                return Json(new { error = true, msg = e.Message.ToString() });
-            }
-            //return RedirectToAction("Index");
-        }
-
-        [HttpPost, ActionName("DeleteDescuento")]
-        // [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed2(int id)
-        {
-            try
-            {
-                if (Session["RolID"].Equals("Administrador"))
-                {
-                    var item = db.com_DescuentoConceptoVendedor
-                            .Where(s => s.idDescConcepto == id).SingleOrDefault();
-                    if (item != null)
-                    {
-                        db.com_DescuentoConceptoVendedor.Remove(item);
-                        db.SaveChanges();
-                    }
-
-                    return Json(new { error = false, msg = "El registro se elimino de forma correcta." });
-                }
-                else
-                {
-                    return Json(new { error = true, msg = "No se tienen los suficientes permisos para realizar esta acción" });
-                }
 
             }
             catch (Exception e)
@@ -430,13 +309,50 @@ namespace WebApplication1.Controllers
             base.Dispose(disposing);
         }
 
+
+
+   
+
+        //Metodos Nuevos
+        public SelectList ListaPersonalizadaVendedor()
+        {
+            var usuario = Session["UserID"];
+            int codigousuario = int.Parse(string.Format("{0}", usuario));
+            var codVendedor = db.com_UsuarioVendedor.Where(s => s.Id_Usuario == codigousuario).Select(a => a.idCodigoVendedor).FirstOrDefault();
+            int codigovendedor = int.Parse(string.Format("{0}", codVendedor));
+            var vendedores = db.com_vendedores.Where(p => p.idCodigoVendedor == codigovendedor).Select(x => new SelectListItem
+            {
+                Value = x.idCodigoVendedor.ToString(),
+                Text = x.strNombre.Trim() + " " + x.strApellidoP.Trim() + " " + x.strApellidoM.Trim()
+            });
+            return new SelectList(vendedores, "Value", "Text");
+        }
+
         //CREATE DESCUENTOS
-        [HttpPost]      
-        public ActionResult Create2([Bind(Include = "idDescConcepto,idEmpresa,idCodigoVendedor,idConcepto,strConcepto,totalAdeudo,cantidadDescontar,vigenciaInicio,vigenciaFin,vigenciaIndefinida,status")] com_DescuentoConceptoVendedor com_Descuentos)
-        {       
+        [HttpPost]
+        public ActionResult CreateDescuentos([Bind(Include = "idDescuentoConceptoVendedor,idEmpresa,idCodigoVendedor,idConcepto,strConcepto,totalAdeudo,cantidadDescontar,vigenciaInicio,vigenciaFin,vigenciaIndefinida,status")] com_DescuentoConceptoVendedor com_Descuentos)
+        {
             try
             {
-                var existeConfiguracionDescuento = db.com_DescuentoConceptoVendedor.Where(p => p.idEmpresa == com_Descuentos.idEmpresa && p.idCodigoVendedor == com_Descuentos.idCodigoVendedor && p.idConcepto == com_Descuentos.idConcepto && p.totalAdeudo == com_Descuentos.totalAdeudo && p.cantidadDescontar == com_Descuentos.cantidadDescontar && p.vigenciaInicio == com_Descuentos.vigenciaInicio && p.vigenciaFin == com_Descuentos.vigenciaFin).FirstOrDefault();
+                var validarConfiguracionporDescuento = (dynamic)null;
+                var validarConfiguracionporDescuentosaldo = (dynamic)null;
+
+                //var existeConfiguracionDescuento = db.com_DescuentoConceptoVendedor.Where(p => p.idEmpresa == com_Descuentos.idEmpresa && p.idCodigoVendedor == com_Descuentos.idCodigoVendedor && p.idConcepto == com_Descuentos.idConcepto && p.totalAdeudo == com_Descuentos.totalAdeudo && p.cantidadDescontar == com_Descuentos.cantidadDescontar && p.vigenciaInicio == com_Descuentos.vigenciaInicio && p.vigenciaFin == com_Descuentos.vigenciaFin).FirstOrDefault();
+                var existeConfiguracionDescuento = db.com_DescuentoConceptoVendedor.Where(p => p.idEmpresa == com_Descuentos.idEmpresa && p.idCodigoVendedor == com_Descuentos.idCodigoVendedor && p.idConcepto == com_Descuentos.idConcepto).FirstOrDefault();
+                if (existeConfiguracionDescuento != null)
+                {
+                    validarConfiguracionporDescuento = (from CHP in db.com_HistorialDescuentoVendedor
+                                                        join DCV in db.com_DescuentoConceptoVendedor on CHP.idDescuentoConceptoVendedor equals DCV.idDescuentoConceptoVendedor
+                                                        where (DCV.idEmpresa == com_Descuentos.idEmpresa && DCV.idConcepto == com_Descuentos.idConcepto && DCV.idCodigoVendedor == com_Descuentos.idCodigoVendedor)
+                                                        select new { CHP.idRow, CHP.SaldoTotal }).FirstOrDefault();
+                    validarConfiguracionporDescuentosaldo = (from CHP in db.com_HistorialDescuentoVendedor
+                                                             join DCV in db.com_DescuentoConceptoVendedor on CHP.idDescuentoConceptoVendedor equals DCV.idDescuentoConceptoVendedor
+                                                             where (CHP.SaldoTotal == 0 && DCV.idEmpresa == com_Descuentos.idEmpresa && DCV.idConcepto == com_Descuentos.idConcepto && DCV.idCodigoVendedor == com_Descuentos.idCodigoVendedor)
+                                                             select new { CHP.idRow, CHP.SaldoTotal }).FirstOrDefault();
+                }
+
+
+
                 if (existeConfiguracionDescuento == null)
                 {
                     if (ModelState.IsValid)
@@ -444,10 +360,10 @@ namespace WebApplication1.Controllers
                         var DescConcepto = db.com_Conceptos.Where(p => p.GRPID == com_Descuentos.idConcepto).Select(s => s.GRPDESCE).FirstOrDefault();
                         DescConcepto = DescConcepto.Trim();
                         com_Descuentos.status = true;
-                        com_Descuentos.strConcepto = DescConcepto.ToString();                                           
+                        com_Descuentos.strConcepto = DescConcepto.ToString();
 
                         db.com_DescuentoConceptoVendedor.Add(com_Descuentos);
-                        db.SaveChanges();                     
+                        db.SaveChanges();
                     }
                     var msgs = string.Join(" | ", ModelState.Values
                               .SelectMany(v => v.Errors)
@@ -455,10 +371,35 @@ namespace WebApplication1.Controllers
 
                     return Json(new { error = false, msg = msgs });
                 }
+                else if (validarConfiguracionporDescuento != null)
+                {
+                    if (validarConfiguracionporDescuentosaldo != null)
+                    {
+                        if (ModelState.IsValid)
+                        {
+                            var DescConcepto = db.com_Conceptos.Where(p => p.GRPID == com_Descuentos.idConcepto).Select(s => s.GRPDESCE).FirstOrDefault();
+                            DescConcepto = DescConcepto.Trim();
+                            com_Descuentos.status = true;
+                            com_Descuentos.strConcepto = DescConcepto.ToString();
+
+                            db.com_DescuentoConceptoVendedor.Add(com_Descuentos);
+                            db.SaveChanges();
+                        }
+                        var msgs = string.Join(" | ", ModelState.Values
+                                  .SelectMany(v => v.Errors)
+                                  .Select(e => e.ErrorMessage));
+
+                        return Json(new { error = false, msg = msgs });
+                    }
+                    else
+                    {
+                        return Json(new { error = true, msg = "El concepto ya esta siendo aplicado y aun no se termina de saldar para esta empresa y vendedor." });
+                    }
+                }
                 else
                 {
                     //FALTANTE
-                    return Json(new { error = true, msg = "Ya existe" });
+                    return Json(new { error = true, msg = "El concepto ya esta siendo aplicado y aun no se termina de saldar para esta empresa y vendedor." });
                 }
 
             }
@@ -486,11 +427,8 @@ namespace WebApplication1.Controllers
 
         public JsonResult getDescuentos(string id_vendedor)
         {
-            //var com_DescuentoConceptoVendedor = db.com_DescuentoConceptoVendedor.Where(s => s.idCodigoVendedor.ToString() == id_vendedor);
-            var com_DescuentoConceptoVenededor = (from a in db.com_DescuentoConceptoVendedor where (a.idCodigoVendedor.ToString() == id_vendedor)select new { a.idDescConcepto, a.idEmpresa, a.idCodigoVendedor, a.idConcepto, a.strConcepto, a.cantidadDescontar, a.vigenciaInicio, a.vigenciaFin, a.status });
-            //return  Json(com_DescuentoConceptoVenededor.ToList());
+            var com_DescuentoConceptoVenededor = (from a in db.com_DescuentoConceptoVendedor where (a.idCodigoVendedor.ToString() == id_vendedor) select new { a.idDescuentoConceptoVendedor, a.idEmpresa, a.idCodigoVendedor, a.idConcepto, a.strConcepto, a.cantidadDescontar, a.vigenciaInicio, a.vigenciaFin, a.status });
             return Json(com_DescuentoConceptoVenededor, JsonRequestBehavior.AllowGet);
-
         }
 
         [HttpPost]
@@ -541,7 +479,6 @@ namespace WebApplication1.Controllers
             }
         }
 
-
         [HttpPost]
         public ActionResult crearEmpresaConcepto([Bind(Include = "idRow,IdEmpresa,GRPID")] com_EmpresaConceptos com_empresaconceptos)
         {
@@ -590,9 +527,284 @@ namespace WebApplication1.Controllers
             }
         }
 
-        //public ActionResult DescuentosV(string[] lista)
-        //{
-        //    return View(lista);
-        //}
+        public JsonResult getAsociarConceptos(string idEmpresa)
+        {
+            int idempresa = Convert.ToInt32(idEmpresa);
+
+            var conceptos = db.SP_COMISIONES_CONSULTAR_CONCEPTOS(idempresa).ToList();
+            return Json(conceptos, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult getConceptosEdit(string idEmpresa)
+        {
+            int idempresa = Convert.ToInt32(idEmpresa);
+
+            var conceptos = (from a in db.com_Conceptos
+                             join b in db.com_EmpresaConceptos on a.GRPID equals b.GRPID
+                             where b.IdEmpresa.ToString() == idEmpresa
+                             select new { a.GRPID, a.GRPDESCE }).ToList();
+            return Json(conceptos, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult getConceptoPorEmpresa(string idEmpresa, string id)
+        {
+            int idempresa = Convert.ToInt32(idEmpresa);
+
+            var concepto = db.com_DescuentoConceptoVendedor.Where(s => s.idEmpresa.ToString() == idEmpresa && s.idDescuentoConceptoVendedor.ToString() == id).Select(s => s.idConcepto).FirstOrDefault();
+            if (String.IsNullOrWhiteSpace(concepto))
+            {
+                concepto = "";
+
+            }
+
+            return Json(concepto, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult crearAsociacionConcepto([Bind(Include = "idRow,IdEmpresa,GRPID")] com_EmpresaConceptos com_conceptosEmpresas)
+        {
+            try
+            {
+                var existeAsocicion = db.com_EmpresaConceptos.Where(p => p.GRPID == com_conceptosEmpresas.GRPID && p.IdEmpresa == com_conceptosEmpresas.IdEmpresa).FirstOrDefault();
+                if (existeAsocicion == null)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.com_EmpresaConceptos.Add(com_conceptosEmpresas);
+                        db.SaveChanges();
+                    }
+                    var msgs = string.Join(" | ", ModelState.Values
+                              .SelectMany(v => v.Errors)
+                              .Select(e => e.ErrorMessage));
+
+                    return Json(new { error = false, msg = msgs });
+                }
+                else
+                {
+                    //FALTANTE
+                    return Json(new { error = true, msg = "Ya existe" });
+                }
+
+            }
+            catch (DbEntityValidationException e)
+            {
+                string strMensaje = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    strMensaje = strMensaje + "Se han encontrado los siguiente errores de validación:";
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        strMensaje = strMensaje + "- Propiedad: " + ve.PropertyName + ", Error: " + ve.ErrorMessage;
+                    }
+                }
+                Utilidades.Utilidades.RegistrarEvento((string)(Session["UserName"]), "Error", "Clientes", "Error alta de clientes: " + e.Message);
+                return Json(new { error = true, msg = strMensaje });
+            }
+            catch (Exception e)
+            {
+                Utilidades.Utilidades.RegistrarEvento((string)(Session["UserName"]), "Error", "Clientes", "Error alta de clientes: " + e.Message);
+                return Json(new { error = true, msg = e.Message.ToString() });
+
+            }
+        }
+
+        public ActionResult getConceptos(string id_empresa)
+        {
+            string strCadenaEmpresa = "";
+
+            strCadenaEmpresa = Utilidades.Utilidades.mtdRecuperaCadenaConexion(Convert.ToInt32(id_empresa));
+            try
+            {
+                var mtdListarPorEmpresa = (from a in db.com_Conceptos
+                                           join b in db.com_EmpresaConceptos on a.GRPID equals b.GRPID
+                                           where b.IdEmpresa.ToString() == id_empresa
+                                           select new { a.GRPID, a.GRPDESCE }).ToList();
+                var conceptos = mtdListarPorEmpresa.Select(x => new SelectListItem
+                {
+                    Value = x.GRPID.Trim(),
+                    Text = "[" + x.GRPID.Trim() + "] " + x.GRPDESCE.Trim()
+                });
+
+                return Json(new { error = false, Conceptos = new SelectList(conceptos, "Value", "Text") }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+                throw new Exception("Error al obtener la lista", ex);
+            }
+
+            //var Conceptos = new SelectList(ListaPersonalizadaConceptos(mtdListarPorEmpresa), "Value", "Text");
+            //return Json(new { error = false, Conceptos = Conceptos }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult EditDescuentos(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            com_DescuentoConceptoVendedor com_DescuentoConceptoVendedor = db.com_DescuentoConceptoVendedor.Find(id);
+            if (com_DescuentoConceptoVendedor == null)
+            {
+                return HttpNotFound();
+            }
+            List<SelectListItem> ListaEmpresas = new List<SelectListItem>();
+            SelectListItem ListaItemEmpresas = new SelectListItem();
+
+            ListaEmpresas = new SelectList(db.com_empresas, "IdEmpresa", "strNombreEmpresa").ToList();
+
+            ViewBag.BagEmpresas = new SelectList(ListaEmpresas, "Value", "Text");
+            return View(com_DescuentoConceptoVendedor);
+        }
+
+        [HttpPost]
+        public JsonResult EditDescuentos([Bind(Include = "idDescuentoConceptoVendedor,totalAdeudo,idEmpresa,idConcepto,cantidadDescontar,vigenciaInicio,vigenciaFin,status,vigenciaindefinida")] com_DescuentoConceptoVendedor com_descuento)
+        {
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    Utils.Pie_tabla utils = new Utils.Pie_tabla();
+
+                    var DescuentoOriginal = db.com_DescuentoConceptoVendedor.Find(com_descuento.idDescuentoConceptoVendedor);
+                    var descripcionconcepto = db.com_Conceptos.Where(s => s.GRPID == DescuentoOriginal.idConcepto).Select(s => s.GRPDESCE).FirstOrDefault();
+                    //DescuentoOriginal.dtFechaModifica = utils.f_actual;
+                    //DescuentoOriginal.idUsuarioModifica = utils.IDusuario;
+                    descripcionconcepto = descripcionconcepto.Trim();
+                    DescuentoOriginal.idEmpresa = com_descuento.idEmpresa;
+                    DescuentoOriginal.idConcepto = com_descuento.idConcepto;
+                    DescuentoOriginal.strConcepto = descripcionconcepto;
+                    DescuentoOriginal.totalAdeudo = com_descuento.totalAdeudo;
+                    DescuentoOriginal.cantidadDescontar = com_descuento.cantidadDescontar;
+                    DescuentoOriginal.vigenciaInicio = com_descuento.vigenciaInicio;
+                    DescuentoOriginal.vigenciaFin = com_descuento.vigenciaFin;
+                    DescuentoOriginal.vigenciaIndefinida = com_descuento.vigenciaIndefinida;
+                    DescuentoOriginal.status = com_descuento.status;
+                    db.Entry(DescuentoOriginal).State = EntityState.Modified;
+                    db.SaveChanges();
+                    Utilidades.Utilidades.RegistrarEvento((string)(Session["UserName"]), "Proceso", "Vendedores", "Modificación de descuento con id: " + DescuentoOriginal.idDescuentoConceptoVendedor);
+                    return Json(new { error = false, msg = "El registro se agrego de forma correcta." });
+                }
+                var msgs = string.Join(" | ", ModelState.Values
+                          .SelectMany(v => v.Errors)
+                          .Select(e => e.ErrorMessage));
+
+                return Json(new { error = true, msg = msgs });
+            }
+            catch (Exception e)
+            {
+                return Json(new { error = true, msg = e.InnerException.ToString() });
+
+            }
+
+        }
+
+        public ActionResult getCliente(string id_empresa)
+        {
+            string strCadenaEmpresa = "";
+
+            List<RM00101> mtdListarPorEmpresa;
+
+            strCadenaEmpresa = Utilidades.Utilidades.mtdRecuperaCadenaConexion(Convert.ToInt32(id_empresa));
+
+            try
+            {
+                using (var ctx = new ELIEntities(strCadenaEmpresa))
+                {
+                    mtdListarPorEmpresa = ctx.RM00101.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+                throw new Exception("Error al obtener la lista", ex);
+            }
+
+            var Cliente = new SelectList(ListaPersonalizadadescuentos(strCadenaEmpresa), "Value", "Text");
+            return Json(new { error = false, Cliente = Cliente }, JsonRequestBehavior.AllowGet);
+        }
+
+        public SelectList ListaPersonalizadadescuentos(string strCadenaEmpresa)
+        {
+            ELIEntities dbContext = new ELIEntities(strCadenaEmpresa);
+            var clientes = dbContext.RM00101.Select(x => new SelectListItem
+            {
+                Value = x.CUSTNMBR.Trim(),
+                Text = "[" + x.CUSTNMBR.Trim() + "]" + " " + x.CUSTNAME.Trim()
+            });
+            return new SelectList(clientes, "Value", "Text");
+        }
+
+        [HttpPost, ActionName("DeleteDescuento")]
+        // [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed2(int id)
+        {
+            try
+            {
+                if (Session["RolID"].Equals("Administrador"))
+                {
+                    var item = db.com_DescuentoConceptoVendedor
+                            .Where(s => s.idDescuentoConceptoVendedor == id).SingleOrDefault();
+                    if (item != null)
+                    {
+                        db.com_DescuentoConceptoVendedor.Remove(item);
+                        db.SaveChanges();
+                    }
+
+                    return Json(new { error = false, msg = "El registro se elimino de forma correcta." });
+                }
+                else
+                {
+                    return Json(new { error = true, msg = "No se tienen los suficientes permisos para realizar esta acción" });
+                }
+
+            }
+            catch (Exception e)
+            {
+                Utilidades.Utilidades.RegistrarEvento((string)(Session["UserName"]), "Error", "Vendedores", "Error al modificar vendedor: " + e.Message);
+                return Json(new { error = true, msg = e.Message.ToString() });
+            }
+            //return RedirectToAction("Index");
+        }
+
+
+        public JsonResult getDescuentosHistorial1(string id_descuento)
+        {
+            var com_DescuentoHistorial = (dynamic)null;
+            com_DescuentoHistorial = (from HIS in db.com_HistorialDescuentoVendedor
+                                      join DESCU in db.com_DescuentoConceptoVendedor on HIS.idDescuentoConceptoVendedor equals DESCU.idDescuentoConceptoVendedor
+                                      where (HIS.idDescuentoConceptoVendedor.ToString() == id_descuento)
+                                      select new { HIS.idCodigoVendedor, HIS.SaldoTotal, DESCU.totalAdeudo, DESCU.idConcepto, HIS.idRow }).OrderByDescending(s => s.idRow).FirstOrDefault();
+
+            if (com_DescuentoHistorial == null)
+            {
+                com_DescuentoHistorial = new { idCodigoVendedor = 0, SaldoTotal = 0.0m, totalAdeudo = 0.0m, idConcepto = 0, idRow = 0 };
+            }
+            return Json(com_DescuentoHistorial, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult getDescuentosHistorial2(string id_descuento)
+        {
+            var com_DescuentoHistorial = (dynamic)null;
+            com_DescuentoHistorial = (from HIS in db.com_HistorialDescuentoVendedor
+                                      join DESCU in db.com_DescuentoConceptoVendedor on HIS.idDescuentoConceptoVendedor equals DESCU.idDescuentoConceptoVendedor
+                                      where (HIS.idDescuentoConceptoVendedor.ToString() == id_descuento)
+                                      select new { HIS.idPeriodo, HIS.Descuento, HIS.SaldoTotal }).ToList();
+
+            //if (com_DescuentoHistorial == null)
+            //{
+            //    com_DescuentoHistorial = new { idCodigoVendedor = 0, SaldoTotal = 0.0m, totalAdeudo = 0.0m, idConcepto = 0, idRow = 0 };
+            //}
+            return Json(com_DescuentoHistorial, JsonRequestBehavior.AllowGet);
+
+        }
+
+
+
     }
 }

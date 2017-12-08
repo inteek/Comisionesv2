@@ -102,7 +102,7 @@
                                             </div>
                                             <div style="clear:both;"></div>
 
-                                            <div style="float:left;" class="col-xs-4 col-xs-4">
+                                            <div style="float:left;" class="col-xs-5 col-xs-12">
                                                 <div class="form-group">
                                                     <div class="row">
                                                         @Html.Label("idConcepto", "Conceptos", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
@@ -111,13 +111,14 @@
                                                                 @Html.DropDownList("cbbConceptos", Enumerable.Empty<SelectListItem>(), "-- Selecciona empresa --", htmlAttributes: new { @class = "select2 col-xs-12 col-sm-12 no-padding-left" })
                                                             </div>
                                                         </div>
-                                                        <div class="col-xs-2 col-sm-2">                                                                                                                        
-                                                            <a id="nuevo" style="cursor:pointer; font-size:16px; display:none;">Nuevo</a>
+                                                        <div style="clear:both;"></div>
+                                                        <div class="col-xs-2 col-sm-2">
+                                                            <a id="asociar" style="cursor:pointer; font-size:16px; display:none; margin-left:120px;">Agregar</a>
                                                         </div>
                                                         <div class="col-xs-2 col-sm-1">
-                                                            <a id="asociar" style="cursor:pointer; font-size:16px; display:none;">Asociar</a>
-                                                        </div>        
-                                                    </div>                                                                                                
+                                                            <a id="nuevo" style="cursor:pointer; font-size:16px; display:none; margin-left:115px;">Nuevo</a>
+                                                        </div>    
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div style="clear:both;"></div>
@@ -138,7 +139,7 @@
                                             </div>
                                         </div>
 
-                                                <div class="space-2"></div>
+                                        <div class="space-2"></div>
 
                                                 <div class="form-group col-xs-4">
                                                     @Html.Label("cantidadDescontar", "Cantidad a Descontar:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-6 no-padding-right" })
@@ -152,11 +153,11 @@
 
                                                 <div class="space-2"></div>
 
-                                                    <div style="width:100%; clear:both;"></div>
+                                                <div style="width:100%; clear:both;"></div>
 
                                                     <div style="float:left;" class="col-sm-4 col-xs-4">
                                                         <div class="form-group">
-                                                            @Html.Label("strFechasVigencia", "Vigencia: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                            @Html.Label("vigenciaInicio", "Vigencia: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
                                                             <div class="col-xs-6 col-sm-9">
                                                                 <div class="input-group" style="width:100%;">
                                                                     <span class="input-group-addon">
@@ -171,7 +172,7 @@
 
                                                     <div style="float:left;" class="col-sm-4 col-xs-4">
                                                         <div class="form-group">
-                                                            @Html.Label("strFechasVigenciaAl", "al: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                            @Html.Label("vigenciaFin", "al: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
                                                             <div class="col-xs-6 col-sm-9">
                                                                 <div class="input-group" style="width:100%;">
                                                                     <span class="input-group-addon">
@@ -185,24 +186,24 @@
                                                     </div>
 
 
-                                                        <div style="float:left;" class="col-sm-4 col-xs-4">
-                                                            <div style="float:left;" class="col-xs-12 col-sm-9">
-                                                                <div  class="col-xs-12 col-sm-9">
-                                                                    <label>
-                                                                        @*@Html.CheckBoxFor(m => m.strIntercia)*@
-                                                                        <input id="strIntercia" name="vigenciaIndefinida" value="Si" type="checkbox" class="ace" />
-                                                                        <span class="lbl"> Vigencia Indefinida</span>
-                                                                    </label>
-                                                                </div>
+                                                    <div style="float:left;" class="col-sm-4 col-xs-4">
+                                                        <div style="float:left;" class="col-xs-12 col-sm-9">
+                                                            <div class="col-xs-12 col-sm-9">
+                                                                <label>
+                                                                    @*@Html.CheckBoxFor(m => m.strIntercia)*@
+                                                                    <input id="strIntercia" name="vigenciaIndefinida" value="Si" type="checkbox" class="ace" />
+                                                                    <span class="lbl"> Vigencia Indefinida</span>
+                                                                </label>
                                                             </div>
                                                         </div>
+                                                    </div>
                                                         <div style="width:100%; clear:both;"></div>
 
                                                         <div class="hr hr-dotted"></div>
 
                                                         <div style="width:100%; clear:both;"></div>
 
-                                                                <div class="space-2"></div>
+                                                        <div class="space-2"></div>
 
                                     }
 
@@ -211,8 +212,8 @@
 
 
                                 <hr />
-                             
-                                <div class="wizard-actions">                                 
+
+                                <div class="wizard-actions">
                                     <button id="btnConfirmaCliente" class="btn btn-success btn-next" data-last="Guardar">
                                         Agregar
                                     </button>
@@ -222,7 +223,14 @@
                                     <div class="form-group">
                                         <div class="col-xs-12 col-sm-9">
                                             <div class="input-group" style="width:100%;">
-                                                @Html.DropDownList("idVendedor", (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @class = "select3 fixed-width" })
+                                                @if (Session["RolID"].ToString().Equals("Administrador") || Session["RolID"].ToString().Equals("Operador"))
+                                                {
+                                                    @Html.DropDownList("idVendedor", (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @class = "select3 fixed-width" })
+                                                }
+                                                @if (Session["RolID"].ToString().Equals("Vendedor"))
+                                                {
+                                                    @Html.DropDownList("idVendedor", (SelectList)ViewBag.BagVendedores, new { @class = "select3 fixed-width" })
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -232,12 +240,12 @@
                                     <table id="dynamic-table" class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th>idDescConcepto</th>
+                                                <th>idDescuentoConceptoVendedor</th>
                                                 <th>idEmpresa</th>
                                                 <th>idCodigoVendedor</th>
                                                 <th>idConcepto</th>
                                                 <th>strConcepto</th>
-                                                <th>cantidadDescontar</th>                                                
+                                                <th>cantidadDescontar</th>
                                                 <th>vigenciaInicio</th>
                                                 <th>vigenciaFin</th>
                                                 <th>status</th>
@@ -250,7 +258,7 @@
                                             <tr>
 
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.idDescConcepto)
+                                                    @Html.DisplayFor(modelItem => item.idDescuentoConceptoVendedor)
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.idEmpresa)
@@ -270,31 +278,31 @@
                                                 </td>
                                                 <td>
                                                     @string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(Html.DisplayFor(modelItem => item.vigenciaInicio).ToString()))
-                                            </td>
-                                            @if ((item.vigenciaFin != null))
-                                            {
-                                                <td>@string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(Html.DisplayFor(modelItem => item.vigenciaFin).ToString())) </td>
-                                            }
-                                            else
-                                            {
-                                                <td></td>
-                                            }
-
-                                            @{
-                                                var boolActivo = item.status == true ? "SI" : "NO";
-                                            }
-                                            <td> @Html.DisplayFor(modelItem => boolActivo)</td>
-
-                                            <td>
-                                                @*@Html.ActionLink("Edit", "Edit", new { id = item.idCodigoVendedor }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.idCodigoVendedor }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.idCodigoVendedor })*@
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                @if ((item.vigenciaFin != null))
+                                                {
+                                                    <td>@string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(Html.DisplayFor(modelItem => item.vigenciaFin).ToString())) </td>
                                                 }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+
+                                                @{
+                                                    var boolActivo = item.status == true ? "SI" : "NO";
+                                                }
+                                                <td> @Html.DisplayFor(modelItem => boolActivo)</td>
+
+                                                <td>
+                                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.idCodigoVendedor }) |
+                                                        @Html.ActionLink("Details", "Details", new { id = item.idCodigoVendedor }) |
+                                                        @Html.ActionLink("Delete", "Delete", new { id = item.idCodigoVendedor })*@
+                                                </td>
+                                            </tr>
+                                                    }
                                     </table>
                                 </div>
-                               
+
                             </div><!-- /.widget-main -->
                         </div><!-- /.widget-body -->
                     </div>
@@ -322,8 +330,8 @@
                         </div>
                     </div>
 
-                    <!-- Modal Concepto-->
-                    <div class="modal fade" id="nuevoModal" tabindex="-1" role="dialog" aria-labelledby="waitModalLabel" data-keyboard="false" data-backdrop="static">
+                    <!-- Modal Concepto Nuevo-->
+                    <div class="modal fade" id="nuevoModal1" tabindex="-1" role="dialog" aria-labelledby="waitModalLabel" data-keyboard="false" data-backdrop="static">
                         <div id="" class="modal-lg center-block" role="document" style="width:500px; margin-top:20px;">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -331,12 +339,12 @@
                                     <h4 class="modal-title" id="waitModalLabel">Nuevo Concepto</h4>
                                 </div>
                                 <div class="modal-body">
-                                   <div id="ReporteClientes">       
+                                    <div id="ReporteClientes">
                                         <div class="row">
                                             <div class="col-xs-12" style="margin-top:25px;">
-                                                <label class="control-label col-xs-12 col-sm-2">GRPID</label>
+                                                <label class="control-label col-xs-12 col-sm-2"><strong>GRPID</strong></label>
                                                 <div class="col-xs-12 col-sm-6">
-                                                    <input id="txtGRPID" class="col-xs-12" type="text" style="margin-left:15px; width:500px;" />
+                                                    <input id="txtGRPID" class="col-xs-12" type="text" style="margin-left:15px; width:500px;" maxlength="15" />
                                                     <div id="mensaje1" class="errores" style="display:none; color:red;">&nbsp;&nbsp;&nbsp;&nbsp;Ingerese un valor</div>
 
                                                 </div>
@@ -344,19 +352,114 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-12" style="margin-top:25px;">
-                                                <label class="control-label col-xs-12 col-sm-2">Descripcion</label>
+                                                <label class="control-label col-xs-12 col-sm-2"><strong>Descripcion</strong></label>
                                                 <div class="col-xs-12 col-sm-6">
-                                                    <input id="txtDesc" class="col-xs-12" type="text" style="margin-left:15px;"/>
+                                                    <input id="txtDesc" class="col-xs-12" type="text" style="margin-left:15px;" maxlength="255" />
                                                     <div id="mensaje2" class="errores" style="display:none; color:red;">&nbsp;&nbsp;&nbsp;&nbsp;Ingrese un valor</div>
                                                 </div>
                                             </div>
                                         </div>
-                                       <div class="row">
-                                           <div class="col-xs-9"></div>
-                                           <div class="col-xs-2" style="margin-top:25px;">
-                                               <button id="btnGuardarConcepto" class="btn btn-primary btn-sm">Guardar</button>
-                                           </div>
-                                       </div>
+                                        <div class="row">
+                                            <div class="col-xs-7"></div>
+                                            <div class="col-xs-2" style="margin-top:25px;">
+                                                <button class="btn btn-default btn-sm" id="cerrarConcepto" data-dismiss="modal">Cancelar</button>
+                                            </div>
+                                            <div class="col-xs-2" style="margin-top:25px;">
+                                                <button id="btnGuardarConcepto" class="btn btn-primary btn-sm">Guardar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Concepto Agregar-->
+                    <div class="modal fade" id="asociarModal" tabindex="-1" role="dialog" aria-labelledby="waitModalLabel" data-keyboard="false" data-backdrop="static">
+                        <div id="" class="modal-lg center-block" role="document" style="width:500px; margin-top:20px;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="waitModalLabel">Agregar Concepto</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <table id="table_conceptos" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>GRPID</th>
+                                                        <th>Descripcion</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top:15px;">
+                                        <div class="col-lg-7"></div>
+                                        <div class="col-lg-2">
+                                            <button class="btn btn-default btn-sm" id="cerrarAsociacion">Cancelar</button>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button class="btn btn-primary btn-sm" id="guardarAsociar">Guardar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Resumen descuento-->
+                    <div class="modal fade" id="ResumenModal" tabindex="-1" role="dialog" aria-labelledby="waitModalLabel" data-keyboard="false" data-backdrop="static">
+                        <div id="" class="modal-lg center-block" role="document" style="width:700px; margin-top:20px;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="waitModalLabel">Resumen</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="row" style="margin-top:15px;">
+                                                @*<div class="col-lg-7"></div>*@
+                                                <div class="form-group col-xs-4">
+                                                    @Html.Label("aqui el id", "Vendedor: ")
+                                                    <input id="idVende" type="text" class="ace" disabled="disabled" />
+                                                </div>
+
+                                                <div style="width:100%; clear:both;"></div>
+                                                <div class="form-group col-xs-4">
+                                                    @Html.Label("aqui el id", "Concepto: ")
+                                                    <input id="idConcep" type="text" class="ace" disabled="disabled" />
+                                                </div>
+                                                <div style="width:100%; clear:both;"></div>
+                                                <div class="form-group col-xs-4">
+                                                    @Html.Label("Aqui el id", "Total Adeudo: ")
+                                                    <input id="idtotalad" type="text" class="ace" disabled="disabled" />
+                                                </div>
+                                                <div class="form-group col-xs-4">
+                                                    @Html.Label("Aqui el id", "Saldo total: ")
+                                                    <input id="idsaldototal" type="text" class="ace" disabled="disabled" />
+                                                </div>
+                                            </div>
+                                            <table id="table_descuentohist" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>idPeriodo</th>
+                                                        <th>Descuento</th>
+                                                        <th>SaldoTotal</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top:15px;">
+                                        <div class="col-lg-7"></div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -370,6 +473,11 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    var Rol = '@Session["RolID"]';
+</script>
+
 <script type="text/javascript">
             var jquerymobile = '@Url.Content("~/assets/js/jquery.mobile.custom.js")'
             if ('ontouchstart' in document.documentElement) document.write("<script src='" + jquerymobile + "'>" + "<" + "/script>");
@@ -403,54 +511,51 @@
 <script src="@Url.Content("~/assets/js/jquery-ui.js")"></script>
 
 <script type="text/javascript">
-    //$(function () { // will trigger when the document is ready
-    //   $('.datepicker').datepicker(); //Initialise any date pickers
-    //});
+            //$(function () { // will trigger when the document is ready
+            //   $('.datepicker').datepicker(); //Initialise any date pickers
+            //});
 
-    $(function () {
+            $(function () {
 
-        ////Array para dar formato en español 
-        //$.datepicker.regional['es'] =
-        //{
-        //    closeText: 'Cerrar',
-        //    prevText: 'Previo',
-        //    nextText: 'Próximo',
+                ////Array para dar formato en español
+                //$.datepicker.regional['es'] =
+                //{
+                //    closeText: 'Cerrar',
+                //    prevText: 'Previo',
+                //    nextText: 'Próximo',
 
-        //    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-        //    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        //    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
-        //    'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-        //    monthStatus: 'Ver otro mes', yearStatus: 'Ver otro año',
-        //    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-        //    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sáb'],
-        //    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
-        //    dateFormat: 'dd/mm/yy', firstDay: 0,
-        //    initStatus: 'Selecciona la fecha', isRTL: false
-        //};
+                //    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                //    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                //    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                //    'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                //    monthStatus: 'Ver otro mes', yearStatus: 'Ver otro año',
+                //    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                //    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sáb'],
+                //    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                //    dateFormat: 'dd/mm/yy', firstDay: 0,
+                //    initStatus: 'Selecciona la fecha', isRTL: false
+                //};
 
 
-        //$(".datepicker").datepicker($.datepicker.regional["es"]);
+                //$(".datepicker").datepicker($.datepicker.regional["es"]);
 
-        
-        $.datepicker.regional['es'] = {
-            closeText: 'Cerrar',
-            prevText: '',
-            currentText: 'Hoy',
-            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-            weekHeader: 'Sm',
-            dateFormat: 'dd/mm/yy',
-            firstDay: 1,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: ''
-        };
-        $.datepicker.setDefaults($.datepicker.regional['es']);
-    });
+
+                $.datepicker.regional['es'] = {
+                    closeText: 'Cerrar',
+                    prevText: '',
+                    currentText: 'Hoy',
+                    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                    weekHeader: 'Sm',
+                    dateFormat: 'dd/mm/yy',
+                    firstDay: 1,
+                    isRTL: false,
+                    showMonthAfterYear: false,
+                    yearSuffix: ''
+                };
+                $.datepicker.setDefaults($.datepicker.regional['es']);
+            });
 </script>
-
-
-

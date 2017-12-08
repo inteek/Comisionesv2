@@ -125,8 +125,15 @@
                                                                         <span class="input-group-addon">
                                                                             Vendedores
                                                                         </span>
+                                                                       @if (Session["RolID"].ToString().Equals("Administrador") || Session["RolID"].ToString().Equals("Operador"))
+                                                                       {
                                                                         @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @id = "vendedoresResumenComisiones", @class = "input-large valid select-33" })
-                                                                        @*<select class="input-medium valid" id="platform" name="platform" aria-required="true" aria-describedby="platform-error" aria-invalid="false" style="height: 32px;">
+                                                                       }
+                                                                        @if (Session["RolID"].ToString().Equals("Vendedor"))
+                                                                        {
+                                                                            @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, new { @id = "vendedoresResumenComisiones", @class = "input-large valid select-33" })
+                                                                        }
+                                                                    @*<select class="input-medium valid" id="platform" name="platform" aria-required="true" aria-describedby="platform-error" aria-invalid="false" style="height: 32px;">
                                                                                 <option value="">------------------</option>
                                                                                 <option value="linux">Linux</option>
                                                                                 <option value="windows">Windows</option>
@@ -202,6 +209,19 @@
                                                                             <input class="input-large" type="text" name="date-range-picker" id="id-date-range-picker-2" />
                                                                         </div>
 
+                                                                        <span class="input-group-addon">
+                                                                            Vendedor
+                                                                        </span>
+                                                                        @*@Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @id = "vendedoresResumenComisiones2", @class = "input-large valid select-33" })*@
+                                                                        @if (Session["RolID"].ToString().Equals("Administrador") || Session["RolID"].ToString().Equals("Operador"))
+                                                                        {
+                                                                            @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @id = "vendedoresResumenComisiones2", @class = "input-large valid select-33" })
+                                                                        }
+                                                                        @if (Session["RolID"].ToString().Equals("Vendedor"))
+                                                                        {
+                                                                            @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, new { @id = "vendedoresResumenComisiones2", @class = "input-large valid select-33" })
+                                                                        }
+
                                                                         <span class="input-group-btn">
                                                                             <button type="button" id="generarComisionesCliente" class="btn btn-purple btn-sm">
                                                                                 <span class="ace-icon fa fa-book icon-on-right bigger-110"></span>
@@ -267,8 +287,14 @@
                                                                         <span class="input-group-addon">
                                                                             Vendedores
                                                                         </span>
-                                                                        @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @id = "vendedoresPeriodosAnteriores", @class = "input-large valid select-33" })
-
+                                                                        @if (Session["RolID"].ToString().Equals("Administrador") || Session["RolID"].ToString().Equals("Operador"))
+                                                                        {
+                                                                            @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @id = "vendedoresPeriodosAnteriores", @class = "input-large valid select-33" })
+                                                                        }
+                                                                        @if (Session["RolID"].ToString().Equals("Vendedor"))
+                                                                        {
+                                                                            @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, new { @id = "vendedoresPeriodosAnteriores", @class = "input-large valid select-33" })
+                                                                        }
                                                                         <span class="input-group-addon">
                                                                             Periodos
                                                                         </span>
@@ -382,8 +408,14 @@
                                                                         <span class="input-group-addon">
                                                                             Vendedores
                                                                         </span>
-                                                                        @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @id = "vendedoresClienteVendedor", @class = "input-large valid select-33" })
-
+                                                                        @if (Session["RolID"].ToString().Equals("Administrador") || Session["RolID"].ToString().Equals("Operador"))
+                                                                        {
+                                                                            @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @id = "vendedoresClienteVendedor", @class = "input-large valid select-33" })
+                                                                        }
+                                                                        @if (Session["RolID"].ToString().Equals("Vendedor"))
+                                                                        {
+                                                                            @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, new { @id = "vendedoresClienteVendedor", @class = "input-large valid select-33" })
+                                                                        }
                                                                         <span class="input-group-btn">
                                                                             <button type="button" id="generarClienteVendedor" class="btn btn-purple btn-sm">
                                                                                 <span class="ace-icon fa fa-book icon-on-right bigger-110"></span>
@@ -557,6 +589,6 @@
 <script src="@Url.Content("~/Scripts/jsPDF-1.3.4/dist/jspdf.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jspdf.plugin.table.js")"></script>
 
-<script src="@Url.Content("~/Scripts/jsConsultas/jsConsultas.js")"></script>
+<script src="@Url.Content("~/Scripts/jsConsultas/jsConsultas.js?v=1")"></script>
 
 

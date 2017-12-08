@@ -95,10 +95,16 @@
     <Compile Include="com_empresas.cs">
       <DependentUpon>DataModelComisiones.tt</DependentUpon>
     </Compile>
+    <Compile Include="com_HistorialDescuentoVendedor.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
     <Compile Include="com_periodos.cs">
       <DependentUpon>DataModelComisiones.tt</DependentUpon>
     </Compile>
     <Compile Include="com_relConceptoVendedor.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_UsuarioVendedor.cs">
       <DependentUpon>DataModelComisiones.tt</DependentUpon>
     </Compile>
     <Compile Include="com_vendedores.cs">
@@ -211,6 +217,9 @@
     </Compile>
     <Compile Include="RM20101.cs">
       <DependentUpon>DataModelELI.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_COMISIONES_CONSULTAR_CONCEPTOS_Result.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
     </Compile>
     <Compile Include="SP_COMISIONES_CONSULTAR_FACTURAS_COMISIONABLES_Result.cs">
       <DependentUpon>DataModelComisiones.tt</DependentUpon>

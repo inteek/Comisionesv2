@@ -36,29 +36,91 @@
 }
 
 $(".select2").select2({ allowClear: true })
-      .on('change', function () {
-          $(this).closest('form').validate().element($(this));
-      });
+    .on('change', function () {
+        $(this).closest('form').validate().element($(this));
+    });
 
+//NUEVAS FUNCIONCES 1
+
+$('#guardarAsociar').attr("disabled", true);
+var GRPID = null;
+var GRPDESCE = null;
+var oTable3 = null;
+var oTable2 = null;
 var oTable1 = null;
+var data_rowConcepto;
+
+gridConceptos(null);
 gridDescuentos(null);
 
-
-function gridDescuentos(dataSet)
-{
-    if (oTable1 != null) {
-        oTable1.fnDestroy();
-        oTable1.fnClearTable();
+function gridConceptos(dataSet) {
+    if (oTable2 != null) {
+        oTable2.destroy();
     }
-    oTable1 = $('#dynamic-table')
-    .dataTable({
+    oTable2 = $('#table_conceptos').DataTable({
+        "lengthMenu": [5],
         data: dataSet,
         language: {
             "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar MENU registros",
             "sZeroRecords": "No se encontraron resultados",
             "sEmptyTable": "Ningún dato disponible en esta tabla",
-            "sInfo": "Mostrando registros del START al END de un total de TOTAL registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de MAX registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }, 
+        Columns: [
+            { "data": "GRPID" },
+            { "data": "GRPDESCE" },
+            { "data": "Asociar" }
+        ],
+        bAutoWidth: false,
+        aoColumns: [
+            { sTitle: "ID", mData: "GRPID", bVisible: true, bSortable: false },
+            { sTitle: "Descripcion", mData: "GRPDESCE", bVisible: true, bSortable: false },
+            { sTitle: "Asociar", mData: "Asociar", bVisible: true, bSortable: false }
+
+        ],
+        /* inside datatable initialization */
+        "aoColumnDefs": [
+            {
+                "aTargets": [2],
+                "mData": null,
+                "mRender": function (data, type, full) {
+                    return '<input type="radio" id="asociarCon" name="select" class="singleRadio  asociarConcepto">';
+                }
+            }
+        ],
+        "aaSorting": []
+
+        //"iDisplayLength": 50
+    });
+}
+
+function gridDescuentoHistorial(dataSet) {
+    if (oTable3 != null) {
+        oTable3.destroy();
+    }
+    oTable3 = $('#table_descuentohist').DataTable({
+        "lengthMenu": [5],
+        data: dataSet,
+        language: {
+            "sProcessing": "Procesando...",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
             "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
             "sInfoFiltered": "(filtrado de un total de MAX registros)",
             "sInfoPostFix": "",
@@ -77,98 +139,187 @@ function gridDescuentos(dataSet)
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
             }
         },
-        dom: 'Bfrtlip',
-        buttons: [
-            {
-                extend: 'copy',
-                text: '<i class="fa fa-copy bigger-110 pink"></i>',
-                titleAttr: 'Copiar tabla',
-                className: 'btn btn-white btn-primary btn-bold'
-
-            },
-            {
-                extend: 'pdf',
-                text: '<i class="fa fa-file-pdf-o bigger-110 red"></i>',
-                titleAttr: 'Exportar a PDF',
-                orientation: 'landscape',
-                className: 'btn btn-white btn-primary btn-bold'
-            },
-             {
-                 text: '<i class="fa fa-file-excel-o bigger-110 green"></i>',
-                 titleAttr: 'Exportar a XLS',
-                 className: 'btn btn-white btn-primary btn-bold',
-                 action: function () {
-                     var utc = new Date().toJSON().slice(0, 10).replace(/-/g, '_');
-                     var table = $('#dynamic-table').DataTable();
-                     $('<table>')
-              .append($(table.table().header()).clone())
-              .append(table.$('tr').clone()).table2excel({
-                  //$('<table>').append(table.$('tr').clone()).table2excel({
-                  // exclude CSS class
-                  exclude: ".noExl",
-                  name: "Vendedores",
-                  filename: "Comisiones - Reporte Descuentos Vendedores " + utc //do not include extension
-              });
-                 }
-             },
-            {
-                extend: 'print',
-                text: '<i class="fa fa-print bigger-110 grey"></i>',
-                titleAttr: 'Vista de impresión',
-                className: 'btn btn-white btn-primary btn-bold'
-            }
-        ],
         Columns: [
-                   { "data": "idDescConcepto" },
-                   { "data": "idEmpresa" },
-                   { "data": "idCodigoVendedor" },
-                   { "data": "idConcepto" },
-                   { "data": "strConcepto" },
-                   { "data": "cantidadDescontar" },
-                   { "data": "vigenciaInicio" },
-                   { "data": "vigenciaFin" },
-                   { "data": "status" }
+            { "data": "idPeriodo" },
+            { "data": "Descuento" },
+            { "data": "SaldoTotal" }
         ],
         bAutoWidth: false,
         aoColumns: [
-            { sTitle: "ID", mData: "idDescConcepto", bVisible: false, bSortable: false, sName: "ID" },
-            { sTitle: "Empresa", mData: "idEmpresa", bVisible: false, bSortable: false, sName: "IdEmpresa" },
-            { sTitle: "Código", mData: "idCodigoVendedor", bSortable: true },
-            { sTitle: "ID Concepto", mData: "idConcepto", bSortable: true },
-            { sTitle: "Concepto", mData: "strConcepto", bSortable: true },
-            { sTitle: "Monto a Descontar", mData: "cantidadDescontar", bSortable: false },
-            { sTitle: "Vigencia Inicio", mData: "vigenciaInicio", bSortable: true },
-            { sTitle: "Vigencia Fin", mData: "vigenciaFin", bSortable: false },
-            { sTitle: "Status", mData: "status", bVisible: true, bSortable: false }
+            { sTitle: "ID Periodo", mData: "idPeriodo", bVisible: true, bSortable: false },
+            { sTitle: "Cantidad descontada", mData: "Descuento", bVisible: true, bSortable: false },
+            { sTitle: "Saldo total", mData: "SaldoTotal", bVisible: true, bSortable: false }
 
         ],
         /* inside datatable initialization */
         "aoColumnDefs": [
-               {
-                   "aTargets": [9],
-                   "mData": null,
-                   "mRender": function (data, type, full) {
-                       var hdnRolID = $("#hdnRolID").val();
-                       if (hdnRolID == "Administrador") {
-                           return '<a href="/comisiones/Vendedores/EditDescuentos/' + data['idDescConcepto'] + '" class="edit-row tooltip-success" data-rel="tooltip" title="Editar" onclick="updateDescuento(' + data['idDescConcepto'] + ');"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a> <a href="#" class="delete-row tooltip-error" data-rel="tooltip" title="Eliminar" onclick="deleteDescuento(\'' + data['idDescConcepto'] + '\'' + ', ' + '\''+ '' + data['idCodigoVendedor'] +'\');"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a>';
-                       }
-                       else {
-                           return '<a href="/comisiones/Vendedores/EditDescuentos/' + data['idDescConcepto'] + '" class="edit-row tooltip-success" data-rel="tooltip" title="Editar" onclick="updateDescuento(' + data['idDescConcepto'] + ');"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a>';
-                       }
-                   }
-               }
+            {
+                "aTargets": [2],
+                "mData": null
+            }
         ],
         "aaSorting": []
 
         //"iDisplayLength": 50
     });
+}
+
+function gridDescuentos(dataSet) {
+    if (oTable1 != null) {
+        //oTable1.fnDestroy();
+        //oTable1.fnClearTable();
+        oTable1.destroy();
+    }
+    oTable1 = $('#dynamic-table')
+        .DataTable({
+            data: dataSet,
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar MENU registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del START al END de un total de TOTAL registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de MAX registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            dom: 'Bfrtlip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    text: '<i class="fa fa-copy bigger-110 pink"></i>',
+                    titleAttr: 'Copiar tabla',
+                    className: 'btn btn-white btn-primary btn-bold'
+
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fa fa-file-pdf-o bigger-110 red"></i>',
+                    titleAttr: 'Exportar a PDF',
+                    orientation: 'landscape',
+                    className: 'btn btn-white btn-primary btn-bold'
+                },
+                {
+                    text: '<i class="fa fa-file-excel-o bigger-110 green"></i>',
+                    titleAttr: 'Exportar a XLS',
+                    className: 'btn btn-white btn-primary btn-bold',
+                    action: function () {
+                        var utc = new Date().toJSON().slice(0, 10).replace(/-/g, '_');
+                        var table = $('#dynamic-table').DataTable();
+                        $('<table>')
+                            .append($(table.table().header()).clone())
+                            .append(table.$('tr').clone()).table2excel({
+                                //$('<table>').append(table.$('tr').clone()).table2excel({
+                                // exclude CSS class
+                                exclude: ".noExl",
+                                name: "Vendedores",
+                                filename: "Comisiones - Reporte Descuentos Vendedores " + utc //do not include extension
+                            });
+                    }
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fa fa-print bigger-110 grey"></i>',
+                    titleAttr: 'Vista de impresión',
+                    className: 'btn btn-white btn-primary btn-bold'
+                }
+            ],
+            Columns: [
+                { "data": "idDescuentoConceptoVendedor" },
+                { "data": "idEmpresa" },
+                { "data": "idCodigoVendedor" },
+                { "data": "idConcepto" },
+                { "data": "strConcepto" },
+                { "data": "cantidadDescontar" },
+                { "data": "vigenciaInicio" },
+                { "data": "vigenciaFin" },
+                { "data": "status" }
+            ],
+            bAutoWidth: false,
+            aoColumns: [
+                { sTitle: "ID", mData: "idCodigoVendedor", bVisible: false, bSortable: false, sName: "ID" },
+                { sTitle: "Empresa", mData: "idEmpresa", bVisible: false, bSortable: false, sName: "IdEmpresa" },
+                { sTitle: "Código", mData: "idDescuentoConceptoVendedor", bSortable: true },
+                { sTitle: "ID Concepto", mData: "idConcepto", bSortable: true },
+                { sTitle: "Concepto", mData: "strConcepto", bSortable: true },
+                { sTitle: "Monto a Descontar", mData: "cantidadDescontar", bSortable: false },
+                { sTitle: "Vigencia Inicio", mData: "vigenciaInicio", bSortable: true },
+                { sTitle: "Vigencia Fin", mData: "vigenciaFin", bSortable: false },
+                { sTitle: "Status", mData: "status", bVisible: true, bSortable: false }
+
+            ],
+            /* inside datatable initialization */
+            "aoColumnDefs": [
+                {
+                    "aTargets": [9],
+                    "mData": null,
+                    "mRender": function (data, type, full) {
+                        var hdnRolID = $("#hdnRolID").val();
+                        if (hdnRolID == "Administrador") {
+                            return '<a href="/comisiones/Vendedores/EditDescuentos/' + data['idDescuentoConceptoVendedor'] + '" class="edit-row tooltip-success" data-rel="tooltip" title="Editar" onclick="updateDescuento(' + data['idDescuentoConceptoVendedor'] + ');"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a> <a href="#" class="delete-row tooltip-error" data-rel="tooltip" title="Eliminar" onclick="deleteDescuento(\'' + data['idDescuentoConceptoVendedor'] + '\'' + ', ' + '\'' + '' + data['idCodigoVendedor'] + '\');"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a> <a class=" btn-Resumen" data-rel="tooltip" style="margin-left:30px; cursor:pointer;" title="Resumen">Resumen</a>';
+                        }
+                        else if (hdnRolID == "Operador") {
+                            return '<a href="/comisiones/Vendedores/EditDescuentos/' + data['idDescuentoConceptoVendedor'] + '" class="edit-row tooltip-success" data-rel="tooltip" title="Editar" onclick="updateDescuento(' + data['idDescuentoConceptoVendedor'] + ');"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a>';
+                        }
+                        else {
+                            return '<a href="/comisiones/Vendedores/EditDescuentos/' + data['idDescuentoConceptoVendedor'] + '" class="edit-row tooltip-success" data-rel="tooltip" title="Editar" onclick="updateDescuento(' + data['idDescuentoConceptoVendedor'] + ');"><span><i></i></span></a> <a class=" btn-Resumen" data-rel="tooltip" style="margin-left:30px; cursor:pointer;" title="Resumen">Resumen</a>';
+                        }
+                    }
+                }
+            ],
+            "aaSorting": []
+
+            //"iDisplayLength": 50
+        });
 
 }
 
+if (Rol == "Vendedor") {
+    deshabilitarVendedor();
+}
+
+function deshabilitarVendedor() {
+    $("#idEmpresa").attr('disabled', 'disabled');
+    $("#idCodigoVendedor").attr('disabled', 'disabled');
+    $("#cbbConceptos").attr('disabled', 'disabled');
+    $('#btnConfirmaCliente').attr("disabled", true);
+
+    var idvendedor = $("#idVendedor").val();
+
+    ajaxVendedores(idvendedor);
+}
+
+function ajaxVendedores(idVendedor) {
+    $.ajax({
+        url: '/comisiones/vendedores/getDescuentos',
+        type: "GET",
+        dataType: "JSON",
+        data: { id_vendedor: idVendedor },
+        success: function (descuentos) {
+            gridDescuentos(descuentos);
+        },
+        error: function (reponse) {
+            alert("error : " + reponse);
+        }
+    });
+}
 
 
-
-
+//FIN NUEVAS FUNCIONES 1
 
 
 //oTable1.fnAdjustColumnSizing();
@@ -382,14 +533,14 @@ $(colvis.button()).addClass('btn-group').find('button').addClass('btn btn-white 
 
 //and append it to our table tools btn-group, also add tooltip
 $(colvis.button())
-.prependTo('.tableTools-container .btn-group')
-.attr('title', 'Show/hide columns').tooltip({ container: 'body' });
+    .prependTo('.tableTools-container .btn-group')
+    .attr('title', 'Show/hide columns').tooltip({ container: 'body' });
 
 //and make the list, buttons and checkboxed Ace-like
 $(colvis.dom.collection)
-.addClass('dropdown-menu dropdown-light dropdown-caret dropdown-caret-right')
-.find('li').wrapInner('<a href="javascript:void(0)" />') //'A' tag is required for better styling
-.find('input[type=checkbox]').addClass('ace').next().addClass('lbl padding-8');
+    .addClass('dropdown-menu dropdown-light dropdown-caret dropdown-caret-right')
+    .find('li').wrapInner('<a href="javascript:void(0)" />') //'A' tag is required for better styling
+    .find('input[type=checkbox]').addClass('ace').next().addClass('lbl padding-8');
 
 
 
@@ -446,213 +597,287 @@ $('#simple-table').on('click', 'td input[type=checkbox]', function () {
     else $row.removeClass(active_class);
 });
 
+/********************************/
+//add tooltip for small view action buttons in dropdown menu
+$('[data-rel="tooltip"]').tooltip({ placement: tooltip_placement });
 
-//DESCUENTOS AGREGAR
+//$(".select2").select2({ allowClear: true })
+//       .on('change', function () {
+//           $(this).closest('form').validate().element($(this));
+//       });
 
-$('#btnConfirmaCliente').on('click', function () {
+//tooltip placement on right or left
+function tooltip_placement(context, source) {
+    var $source = $(source);
+    var $parent = $source.closest('table')
+    var off1 = $parent.offset();
+    var w1 = $parent.width();
 
-    var idEmpresa = $('#idEmpresa').val();
-    var idCodigoVendedor = $("#idCodigoVendedor").val();
-    var idConcepto = $("#cbbConceptos").val();
-    var totalAdeudo = $("#totalAdeudo").val();
-    var cantidadDescontar = $("#cantidadDescontar").val();
-    var vigenciaInicio = $("#vigenciaInicio").val();
-    var vigenciaFin = $("#vigenciaFin").val();
-    var vigenciaIndefinida;
-    if ($('#strIntercia').prop('checked')) {
-        vigenciaIndefinida = true;
-    }
-    else {
-        vigenciaIndefinida = false;
-    }
+    var off2 = $source.offset();
+    //var w2 = $source.width();
 
-    if ($('#idEmpresa').val() == "") {
-        swal("Advertencia", "Debe de seleccionar una empresa.", "warning");
-        return;
-    }
-    if ($('#idCodigoVendedor').val() == "") {
-        swal("Advertencia", "Debe de seleccionar una vendedor.", "warning");
-        return;
-    }
-    if ($('#cbbConceptos').val() == "") {
-        swal("Advertencia", "Debe de seleccionar un concepto.", "warning");
-        return;
-    }
+    if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+    return 'left';
+}
 
-    if (totalAdeudo < cantidadDescontar) {
-        swal("Advertencia", "El aduedo no puede ser menor a la cantidad de descuento.", "warning");
-        return;
-    }
-    if (vigenciaIndefinida != true) {      
-        if (!validate_fechaMayorQue(vigenciaInicio, vigenciaFin)) {
-            swal("Advertencia", "La fecha de vigencia no puede ser mayor a la fehca final", "warning");
-            return;
-        }
-    }
-   
-    if (vigenciaFin == "") {
-        vigenciaFin = null;
-    }
-   
 
-    var dataNewDescuento = {
-        idEmpresa,
-        idCodigoVendedor,
-        idConcepto,
-        totalAdeudo,
-        cantidadDescontar,
-        vigenciaInicio,
-        vigenciaFin,
-        vigenciaIndefinida
-    };
+function editVendedor(id_vendedor) {
 
+    window.location.href = "/comisiones/Vendedores/Edit/" + id_vendedor;
+}
+
+
+// FUNCIONES MODIFICADAS
+
+$('#dynamic-table').on('click', '.btn-Resumen', function () {//Carga el modal para editar y obtiene los datos de la fila seleccionada
+
+    //$("#chk_ActivoTT").prop('checked', false);
+    var data_row = oTable1.row($(this).closest('tr')).data();
+    $("#idVende").val("");
+    $("#idConcep").val("");
+    $("#idtotalad").val("");
+    $("#idsaldototal").val("");
+    var idRow = data_row["idDescuentoConceptoVendedor"];
     $.ajax({
-        type: 'POST',
-        url: '/comisiones/Vendedores/Create2',
-        data: JSON.stringify(dataNewDescuento),
-        contentType: "application/json; charset=utf-8",
-        success: function SuccessCallback(dataNewDescuento) {
-            //$('#waitModal').modal('toggle');
-            if (!dataNewDescuento.error) {
-
-                swal({
-                    title: "Informacion guardada exitosamente!",
-                    text: dataNewDescuento.msg,
-                    type: "success",
-                    confirmButtonClass: 'btn-success',
-                    confirmButtonText: 'ok!'
-                });
-                if (oTable1 != null) {
-                    oTable1.fnClearTable();
-                }
-                limpiarDescuentos();
-                
-            } else {
-                swal({
-                    title: "Registro existente",
-                    text: dataNewDescuento.msg,
-                    type: "warning",
-                    confirmButtonClass: 'btn-error',
-                    confirmButtonText: 'ok'
-                },
-                function (isConfirm) {
-                    if (isConfirm) {
-                        //window.location.href = "/clientesComConfig/";
-                    }
-                });
-                // swal("Error!", dataNewClientes.msg, "error");
+        url: '/comisiones/vendedores/getDescuentosHistorial1',
+        type: "GET",
+        dataType: "JSON",
+        data: { id_descuento: idRow },
+        success: function (historial) {
+            if (historial['idRow'] == 0) {
+                $("#idVende").val("");
+                $("#idConcep").val("");
+                $("#idtotalad").val("");
+                $("#idsaldototal").val("");
             }
+            else {
+                $("#idVende").val(historial['idCodigoVendedor']);
+                $("#idConcep").val(historial['idConcepto']);
+                $("#idtotalad").val(historial['totalAdeudo']);
+                $("#idsaldototal").val(historial['SaldoTotal']);
+            }
+            $.ajax({
+                url: '/comisiones/vendedores/getDescuentosHistorial2',
+                type: "GET",
+                dataType: "JSON",
+                data: { id_descuento: idRow },
+                success: function (historial2) {
+                    gridDescuentoHistorial(historial2);
+                },
+                error: function (reponse) {
+                    Console.log("error : " + reponse);
+                }
+            });
         },
-        error: function FailureCallback(dataNewDescuento) {
-            //$('#waitModal').modal('toggle');
-            swal("Error!", dataNewDescuento.msg, "error");
-
+        error: function (reponse) {
+            Console.log("error : " + reponse);
         }
     });
 
+    //$("#txt_idTT").val(id);
+    $('#ResumenModal').modal('show');
+
 });
 
-$("#cbbConceptos").change(function () {
-    var comboConcepto = $("#cbbConceptos").val();
-    if (comboConcepto == "") {
-        $("#totalAdeudo").attr('disabled', 'disabled');
-        $("#cantidadDescontar").attr('disabled', 'disabled');
-        $("#totalAdeudo").val(0);
-        $("#cantidadDescontar").val(0);
-        $("#vigenciaInicio").attr('disabled', 'disabled');
-        $("#vigenciaFin").attr('disabled', 'disabled');
-        $("#strIntercia").attr('disabled', 'disabled');
-        $("#vigenciaInicio").val('Ingesa la fecha aquí...');
-        $("#vigenciaFin").val('Ingesa la fecha aquí...');
-        $("#strIntercia").prop('checked', false);
-
-        return;
-    }
-    $("#totalAdeudo").removeAttr('disabled');
-    $("#cantidadDescontar").removeAttr('disabled');
-    $("#vigenciaInicio").removeAttr('disabled');
-    $("#vigenciaFin").removeAttr('disabled');
-    $("#strIntercia").removeAttr('disabled');
-});
-
-$("#strIntercia").change(function () {
-    if ($('#strIntercia').prop('checked')) {
-        $("#vigenciaFin").attr('disabled', 'disabled');
-        $("#vigenciaFin").val("");
-    }
-    else {
-        $("#vigenciaFin").removeAttr('disabled');
-    }
-   
-});
-
-function validate_fechaMayorQue(vigenciaInicio, vigenciaFin) {
-    valuesStart = vigenciaInicio.split("/");
-    valuesEnd = vigenciaFin.split("/");
-
-    // Verificamos que la fecha no sea posterior a la actual
-    var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
-    var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
-        if (dateStart >= dateEnd) {
-            return 0;
-        }
-        return 1;
-}
-
-function limpiarDescuentos()
-{
-    $("#idEmpresa").val('0');
-    $("#idCodigoVendedor").val(0);
-    $("#cbbConceptos").val(0);
-    $("#totalAdeudo").val(0);
-    $("#cantidadDescontar").val(0);
-    $("#vigenciaInicio").val('Ingesa la fecha aquí...');
-    $("#vigenciaFin").val('Ingesa la fecha aquí...');
-    $("#strIntercia").prop('checked', false);
-}
-
-function limpiarCoceptos() {
-    $("#txtGRPID").val("");
-    $("#txtDesc").val("");
-    $('#nuevoModal').modal('hide');
+function updateDescuento(id_descuento) {
+    var url = window.location.host + '/comisiones/Vendedores/EditDescuentos/' + id_descuento;
+    window.location.href = window.location.host + url;
 
 }
 
-$("#idVendedor").change(function () {
-   
-    var idvendedor = $("#idVendedor").val();
+function deleteDescuento(id_descuento, id_vendedor) {
+    swal({
+        title: "Estas seguro?",
+        text: "Usted no será capaz de recuperar este registro si lo elimina!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: 'btn-danger',
+        confirmButtonText: 'Si, estoy seguro!',
+        cancelButtonText: "No, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+        function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/comisiones/Vendedores/DeleteDescuento',
+                    data: 'id=' + id_descuento,
+                    //contentType: 'application/json',
+                    success: function (deteleCourse) {
+                        if (!deteleCourse.error) {
+                            swal({
+                                title: "Eliminado!",
+                                text: deteleCourse.msg,
+                                type: "success",
+                                confirmButtonClass: 'btn-success',
+                                confirmButtonText: 'ok!'
+                            });
+                            $.ajax({
+                                url: '/comisiones/vendedores/getDescuentos',
+                                type: "GET",
+                                dataType: "JSON",
+                                data: { id_vendedor: id_vendedor },
+                                success: function (descuentos) {
+                                    gridDescuentos(descuentos);
+                                },
+                                error: function (reponse) {
+                                    alert("error : " + reponse);
+                                }
+                            });
+                        } else {
+                            swal("Error!", deteleCourse.msg, "error");
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+
+            } else {
+                swal("Cancelado", "No se elimino el registro.", "error");
+            }
+        });
+}
+
+// FIN FUNCIONES MODIFICADAS
+
+
+// NUEVAS FUNCIONES 2
+
+//ASOCIACION CONCEPTO
+$('#asociar').on('click', function () {
+
+    var idEmpresa = $('#idEmpresa').val();
 
     $.ajax({
-        url: '/comisiones/vendedores/getDescuentos',
+        url: '/comisiones/vendedores/getAsociarConceptos',
         type: "GET",
         dataType: "JSON",
-        data: { id_vendedor: idvendedor },
-        success: function (descuentos) {
-            gridDescuentos(descuentos);
+        data: { idEmpresa: idEmpresa },
+        success: function (conceptos) {
+            gridConceptos(conceptos);
         },
         error: function (reponse) {
             alert("error : " + reponse);
         }
     });
-    
-    //$.ajax({
-    //    url: '/comisiones/vendedores/DescuentosV',
-    //    method: "post",
-    //    data: { idVendedor: idvendedor },
-    //    success: function (response) {
-    //        alert('ENTRO');
-    //    },
-    //    async: true
-    //});
 
+
+    $('#asociarModal').modal('toggle');
 
 });
 
+$('#table_conceptos').on('click', '.asociarConcepto', function () {
+    $("#guardarAsociar").removeAttr("disabled");
+
+    $("#btnGuardar").removeAttr("disabled");
+    data_rowConcepto = oTable2.row($(this).closest('tr')).data();
+    GRPID = data_rowConcepto["GRPID"];
+    GRPDESCE = data_rowConcepto["GRPDESCE"];
+
+});
+
+$('#guardarAsociar').on('click', function () {
+
+    var idEmpresa = $('#idEmpresa').val();
+
+    var dataNewAsociarConcepto = {
+        idEmpresa,
+        GRPID
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/comisiones/Vendedores/crearAsociacionConcepto',
+        data: JSON.stringify(dataNewAsociarConcepto),
+        contentType: "application/json; charset=utf-8",
+        success: function SuccessCallback(dataNewAsociarConcepto) {
+            //$('#waitModal').modal('toggle');
+            if (!dataNewAsociarConcepto.error) {
+                swal({
+                    title: "Informacion guardada exitosamente!",
+                    text: dataNewAsociarConcepto.msg,
+                    type: "success",
+                    confirmButtonClass: 'btn-success',
+                    confirmButtonText: 'ok!'
+                });
+                GetEmpresayConcepto(idEmpresa);
+                $('#asociarModal').modal('hide');
+            } else {
+                swal({
+                    title: "Registro existente",
+                    text: dataNewAsociarConcepto.msg,
+                    type: "warning",
+                    confirmButtonClass: 'btn-error',
+                    confirmButtonText: 'ok'
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            //window.location.href = "/clientesComConfig/";
+                        }
+                    });
+                // swal("Error!", dataNewClientes.msg, "error");
+            }
+        },
+        error: function FailureCallback(dataNewAsociarConcepto) {
+            //$('#waitModal').modal('toggle');
+            swal("Error!", dataNewAsociarConcepto.msg, "error");
+
+        }
+    });
+
+});
+
+$('#cerrarAsociacion').on('click', function () {
+    $('#asociarModal').modal('hide');
+});
+
+function GetEmpresayConcepto(idEmpresa) {
+    if ($("#idEmpresa").val() != "") {
+
+
+        if (idEmpresa != "") {
+
+            $('#simple-table tbody').remove();
+
+            $.ajax({
+                url: '/comisiones/vendedores/getConceptos',
+                type: "GET",
+                dataType: "JSON",
+                data: { id_empresa: idEmpresa },
+                success: function (conceptos) {
+                    var select = $("#cbbConceptos");
+                    select.empty();
+                    select.append($('<option/>', {
+                        value: "",
+                        text: "-- Selecciona un concepto --"
+                    }));
+                    $.each(conceptos.Conceptos, function (i, conceptos) {
+                        select.append(
+                            $('<option></option>').val(conceptos.Value.trim()).html(conceptos.Text.trim()));
+                    });
+
+                    $("#cbbConceptos").select2("val", "")
+                    $("#cbbConceptos option[value='0']").attr("selected", "selected");
+
+                },
+                error: function (reponse) {
+                    $('#waitModal').modal('toggle');
+                    alert("error : " + reponse);
+                }
+            });
+        }
+    }
+}
+//FIN ASOCIACION CONCEPTO
+
+//NUEVO CONCEPTO
 $('#nuevo').on('click', function () {
-    //$('#ReporteClientes').html("<div style='text-align: center;'><img style='vertical-align: middle;' src='../assets/img/progress_bar2.gif'/></div>");
     $("#txtGRPID").val("");
     $("#txtDesc").val("");
-    $('#nuevoModal').modal('toggle')
+    $('#nuevoModal1').modal('toggle');
 });
 
 $("#idEmpresa").change(function () {
@@ -719,6 +944,8 @@ $('#btnGuardarConcepto').on('click', function () {
                                 confirmButtonText: 'ok!'
                             });
                             limpiarCoceptos();
+                            GetEmpresayConcepto(IdEmpresa);
+                            $('#nuevoModal1').modal('hide');
                         } else {
                             swal({
                                 title: "Registro existente",
@@ -766,99 +993,216 @@ $('#btnGuardarConcepto').on('click', function () {
 
 });
 
+$('#cerrarConcepto').on('click', function () {
+    $('#nuevoModal1').modal('hide');
+});
+//FIN CONCEPTO
+
+//DESCUENTOS AGREGAR
+
+$('#btnConfirmaCliente').on('click', function () {
+
+    var idEmpresa = $('#idEmpresa').val();
+    var idCodigoVendedor = $("#idCodigoVendedor").val();
+    var idConcepto = $("#cbbConceptos").val();
+    var totalAdeudo = parseInt($("#totalAdeudo").val());
+    var cantidadDescontar = parseInt($("#cantidadDescontar").val());
+    var vigenciaInicio = $("#vigenciaInicio").val();
+    var vigenciaFin = $("#vigenciaFin").val();
+    var vigenciaIndefinida;
+    if ($('#strIntercia').prop('checked')) {
+        vigenciaIndefinida = true;
+    }
+    else {
+        vigenciaIndefinida = false;
+    }
+
+    if ($('#idEmpresa').val() == "") {
+        swal("Advertencia", "Debe de seleccionar una empresa.", "warning");
+        return;
+    }
+    if ($('#idCodigoVendedor').val() == "") {
+        swal("Advertencia", "Debe de seleccionar un vendedor.", "warning");
+        return;
+    }
+    if ($('#cbbConceptos').val() == "") {
+        swal("Advertencia", "Debe de seleccionar un concepto.", "warning");
+        return;
+    }
+
+    if (totalAdeudo < cantidadDescontar) {
+        swal("Advertencia", "El aduedo no puede ser menor a la cantidad de descuento.", "warning");
+        return;
+    }
+    if (vigenciaIndefinida != true) {
+        if (vigenciaFin == "" || vigenciaInicio=="") {
+            swal("Advertencia", "Debe de ingresar una fecha.", "warning");
+            return;
+        }
+        if (!validate_fechaMayorQue(vigenciaInicio, vigenciaFin)) {
+            swal("Advertencia", "La fecha de vigencia no puede ser mayor a la fecha final.", "warning");
+            return;
+        }
+    }
+
+    if (vigenciaFin == "") {
+        vigenciaFin = null;
+    }
+
+
+    var dataNewDescuento = {
+        idEmpresa,
+        idCodigoVendedor,
+        idConcepto,
+        totalAdeudo,
+        cantidadDescontar,
+        vigenciaInicio,
+        vigenciaFin,
+        vigenciaIndefinida
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/comisiones/Vendedores/CreateDescuentos',
+        data: JSON.stringify(dataNewDescuento),
+        contentType: "application/json; charset=utf-8",
+        success: function SuccessCallback(dataNewDescuento) {
+            //$('#waitModal').modal('toggle');
+            if (!dataNewDescuento.error) {
+
+                swal({
+                    title: "Informacion guardada exitosamente!",
+                    text: dataNewDescuento.msg,
+                    type: "success",
+                    confirmButtonClass: 'btn-success',
+                    confirmButtonText: 'ok!'
+                });
+                if (oTable1 != null) {
+                    oTable1.destroy();
+                }
+                limpiarDescuentos();
+
+            } else {
+                swal({
+                    title: "Registro existente",
+                    text: dataNewDescuento.msg,
+                    type: "warning",
+                    confirmButtonClass: 'btn-error',
+                    confirmButtonText: 'ok'
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            //window.location.href = "/clientesComConfig/";
+                        }
+                    });
+                // swal("Error!", dataNewClientes.msg, "error");
+            }
+        },
+        error: function FailureCallback(dataNewDescuento) {
+            //$('#waitModal').modal('toggle');
+            swal("Error!", dataNewDescuento.msg, "error");
+
+        }
+    });
+
+});
+
+$("#cbbConceptos").change(function () {
+    var comboConcepto = $("#cbbConceptos").val();
+    if (comboConcepto == "") {
+        $("#totalAdeudo").attr('disabled', 'disabled');
+        $("#cantidadDescontar").attr('disabled', 'disabled');
+        $("#totalAdeudo").val(0);
+        $("#cantidadDescontar").val(0);
+        $("#vigenciaInicio").attr('disabled', 'disabled');
+        $("#vigenciaFin").attr('disabled', 'disabled');
+        $("#strIntercia").attr('disabled', 'disabled');
+        $("#vigenciaInicio").val('Ingesa la fecha aquí...');
+        $("#vigenciaFin").val('Ingesa la fecha aquí...');
+        $("#strIntercia").prop('checked', false);
+
+        return;
+    }
+    $("#totalAdeudo").removeAttr('disabled');
+    $("#cantidadDescontar").removeAttr('disabled');
+    $("#vigenciaInicio").removeAttr('disabled');
+    $("#vigenciaFin").removeAttr('disabled');
+    $("#strIntercia").removeAttr('disabled');
+});
+
+$("#strIntercia").change(function () {
+    if ($('#strIntercia').prop('checked')) {
+        $("#vigenciaFin").attr('disabled', 'disabled');
+        $("#vigenciaFin").val("");
+    }
+    else {
+        $("#vigenciaFin").removeAttr('disabled');
+    }
+
+});
+
+function validate_fechaMayorQue(vigenciaInicio, vigenciaFin) {
+    valuesStart = vigenciaInicio.split("/");
+    valuesEnd = vigenciaFin.split("/");
+
+    // Verificamos que la fecha no sea posterior a la actual
+    var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
+    var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
+    if (dateStart >= dateEnd) {
+        return 0;
+    }
+    return 1;
+}
+
+function limpiarDescuentos() {
+    $("#idEmpresa").val('0');
+    $("#idCodigoVendedor").val(0);
+    $("#cbbConceptos").val(0);
+    $("#totalAdeudo").val(0);
+    $("#cantidadDescontar").val(0);
+    $("#vigenciaInicio").val('Ingesa la fecha aquí...');
+    $("#vigenciaFin").val('Ingesa la fecha aquí...');
+    $("#strIntercia").prop('checked', false);
+}
+
+function limpiarCoceptos() {
+    $("#txtGRPID").val("");
+    $("#txtDesc").val("");
+    $('#nuevoModal').modal('hide');
+
+}
+
+$("#idVendedor").change(function () {
+
+    var idvendedor = $("#idVendedor").val();
+
+    $.ajax({
+        url: '/comisiones/vendedores/getDescuentos',
+        type: "GET",
+        dataType: "JSON",
+        data: { id_vendedor: idvendedor },
+        success: function (descuentos) {
+            gridDescuentos(descuentos);
+        },
+        error: function (reponse) {
+            alert("error : " + reponse);
+        }
+    });
+
+    //$.ajax({
+    //    url: '/comisiones/vendedores/DescuentosV',
+    //    method: "post",
+    //    data: { idVendedor: idvendedor },
+    //    success: function (response) {
+    //        alert('ENTRO');
+    //    },
+    //    async: true
+    //});
+
+
+});
+
 //FIN DESCUENTOS AGREGAR
-
-
-/********************************/
-//add tooltip for small view action buttons in dropdown menu
-$('[data-rel="tooltip"]').tooltip({ placement: tooltip_placement });
-
-//$(".select2").select2({ allowClear: true })
-//       .on('change', function () {
-//           $(this).closest('form').validate().element($(this));
-//       });
-
-//tooltip placement on right or left
-function tooltip_placement(context, source) {
-    var $source = $(source);
-    var $parent = $source.closest('table')
-    var off1 = $parent.offset();
-    var w1 = $parent.width();
-
-    var off2 = $source.offset();
-    //var w2 = $source.width();
-
-    if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
-    return 'left';
-}
-
-function updateDescuento(id_descuento) {
-    var url = window.location.host + '/comisiones/Vendedores/EditDescuentos/' + id_descuento;
-    window.location.href = window.location.host + url;
-
-}
-
-function deleteDescuento(id_descuento, id_vendedor) {
-    swal({
-        title: "Estas seguro?",
-        text: "Usted no será capaz de recuperar este registro si lo elimina!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: 'btn-danger',
-        confirmButtonText: 'Si, estoy seguro!',
-        cancelButtonText: "No, cancelar!",
-        closeOnConfirm: false,
-        closeOnCancel: false
-    },
-          function (isConfirm) {
-              if (isConfirm) {
-                  $.ajax({
-                      type: 'POST',
-                      url: '/comisiones/Vendedores/DeleteDescuento',
-                      data: 'id=' + id_descuento,
-                      //contentType: 'application/json',
-                      success: function (deteleCourse) {
-                          if (!deteleCourse.error) {
-                              swal({
-                                  title: "Eliminado!",
-                                  text: deteleCourse.msg,
-                                  type: "success",
-                                  confirmButtonClass: 'btn-success',
-                                  confirmButtonText: 'ok!'
-                              });
-                              $.ajax({
-                                  url: '/comisiones/vendedores/getDescuentos',
-                                  type: "GET",
-                                  dataType: "JSON",
-                                  data: { id_vendedor: id_vendedor },
-                                  success: function (descuentos) {
-                                      gridDescuentos(descuentos);
-                                  },
-                                  error: function (reponse) {
-                                      alert("error : " + reponse);
-                                  }
-                              });
-                          } else {
-                              swal("Error!", deteleCourse.msg, "error");
-                          }
-                      },
-                      error: function (error) {
-                          console.log(error);
-                      }
-                  });
-
-
-              } else {
-                  swal("Cancelado", "No se elimino el registro.", "error");
-              }
-          });
-}
-
-function editVendedor(id_vendedor) {
-
-    window.location.href = "/comisiones/Vendedores/Edit/" + id_vendedor;
-}
-
 
 //DESCUENTOS AGREGAR
 $(document).ready(function () {
@@ -869,3 +1213,5 @@ $(document).ready(function () {
     $("#strIntercia").attr('disabled', 'disabled');
 });
 //FIN DESCUENTOS AGREGAR
+
+//FIN NUEVAS FUNCIONES 2

@@ -27,14 +27,20 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                if (Session["RolID"].Equals("Administrador") || Session["RolID"].Equals("Operador"))
+                if (Session["RolID"].Equals("Administrador") || Session["RolID"].Equals("Operador") || Session["RolID"].Equals("Vendedor"))
                 {
                     //ViewBag.IdEmpresa = new SelectList(db.com_empresas, "IdEmpresa", "strNombreEmpresa");
                     //ViewBag.idCodigoVendedor = new SelectList(db.com_vendedores.Where(p => p.boolActivo == true), "idCodigoVendedor", "strNombre");
                     //var com_clientesComConfig = db.com_clientesComConfig.Where(p => p.boolActivo == true).Include(c => c.com_empresas).Include(c => c.com_vendedores);
                     //ViewBag.hdnRolID = Session["RolID"].ToString();
-
-                    ViewBag.BagVendedores = new SelectList(ListaPersonalizadaVendedores(), "Value", "Text");
+                    if (!Session["RolID"].Equals("Vendedor"))
+                    {
+                        ViewBag.BagVendedores = new SelectList(ListaPersonalizadaVendedores(), "Value", "Text");
+                    }
+                    else
+                    {
+                        ViewBag.BagVendedores = new SelectList(ListaPersonalizadaVendedor(), "Value", "Text");
+                    }
                     List<SelectListItem> newList = new List<SelectListItem>();
 
                     SelectListItem ListaItemPeriodos = new SelectListItem();
@@ -159,6 +165,20 @@ namespace WebApplication1.Controllers
         public SelectList ListaPersonalizadaVendedores()
         {
             var vendedores = db.com_vendedores.Where(p => p.boolActivo == true).Select(x => new SelectListItem
+            {
+                Value = x.idCodigoVendedor.ToString(),
+                Text = x.strNombre.Trim() + " " + x.strApellidoP.Trim() + " " + x.strApellidoM.Trim()
+            });
+            return new SelectList(vendedores, "Value", "Text");
+        }
+
+        public SelectList ListaPersonalizadaVendedor()
+        {
+            var usuario = Session["UserID"];
+            int codigousuario = int.Parse(string.Format("{0}", usuario));
+            var codVendedor = db.com_UsuarioVendedor.Where(s => s.Id_Usuario == codigousuario).Select(a => a.idCodigoVendedor).FirstOrDefault();
+            int codigovendedor = int.Parse(string.Format("{0}", codVendedor));
+            var vendedores = db.com_vendedores.Where(p => p.idCodigoVendedor == codigovendedor).Select(x => new SelectListItem
             {
                 Value = x.idCodigoVendedor.ToString(),
                 Text = x.strNombre.Trim() + " " + x.strApellidoP.Trim() + " " + x.strApellidoM.Trim()

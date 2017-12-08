@@ -191,11 +191,12 @@ $('#buscarResumenClientes').on('click', function (event) {
     var dtFechaFin = $('#id-date-range-picker-1').val().slice(13, 23).trim();
     var idEmpresaSelect = 0;
 
-    $('#container_report').html('');
-    $('#container_report2').html('');
-    $("#ContainerModal").modal('toggle');
-    $("#ContainerModalLabel").html('Resumen de comisiones por vendedor')
     if (SplitPeriodos != null && idCodigoVendedor.length > 0) {
+
+        $('#container_report').html('');
+        $('#container_report2').html('');
+        $("#ContainerModal").modal('toggle');
+        $("#ContainerModalLabel").html('Resumen de comisiones por vendedor');
         //$.ajax({
         //    url: '/comisiones/Periodos/obtenerReporte',
         //    type: "POST",
@@ -335,7 +336,7 @@ $('#buscarResumenClientes').on('click', function (event) {
         });
     }
     else {
-        alert("Faltan datos");
+        fnMensajeModalError("Debe seleccionar un vendedor");
     }
 
 
@@ -484,6 +485,9 @@ $('#generarComisionesCliente').on('click', function (event) {
     Report = 2;
     var idCliente = $('#idCliente').val();
     var idEmpresaSelect = $('#IdEmpresa').val();
+    var idCodigoVendedor = $('#vendedoresResumenComisiones2').val();
+    var strCodigoVendedor = $('#vendedoresResumenComisiones2 option:selected').text();
+
    
     var strCliente = $('#idCliente option:selected').text();
     var strEmpresa = $('#IdEmpresa option:selected').text();
@@ -502,7 +506,7 @@ $('#generarComisionesCliente').on('click', function (event) {
         fechaFin = "---";
     }
 
-    if (idCliente != "" && idEmpresaSelect != "") {
+    if (idCliente != "" && idEmpresaSelect != "" && idCodigoVendedor != "") {
 
         $('#Reportes').html("<div style='text-align: center;'><img style='vertical-align: middle;' src='../assets/img/progress_bar2.gif'/></div>");
 
@@ -548,7 +552,7 @@ $('#generarComisionesCliente').on('click', function (event) {
 
                     //Aqui inicia el nuevo Layout con Excel y PDF
 
-                    var tabla2 = '<div><span  class="user-info" style="font-weight: bold;">Fecha Inicio: </span><span  class="user-info">' + fechaFin + '</span><span class="user-info" style =" margin-left: 25px; font-weight: bold;" >Fecha Fin: </span><span  class="user-info">' + fechaFin + '</span></div></br><div style="height: 400px; overflow-y: scroll;"><table class="table table-bordered table-hover" style="width:100%; margin: auto;" cellpadding="0" cellspacing="0" border="1" class="display" id="comision_cliente4">';
+                    var tabla2 = '<div><span  class="user-info" style="font-weight: bold;">Fecha Inicio: </span><span  class="user-info">' + fechaFin + '</span><span class="user-info" style =" margin-left: 25px; font-weight: bold;" >Fecha Fin: </span><span  class="user-info">' + fechaFin + '</span><span class="user-info" style =" margin-left: 25px; font-weight: bold;" >Vendedor: </span><span  class="user-info">' + idCodigoVendedor + ' - ' + strCodigoVendedor + '</span></div></br><div style="height: 400px; overflow-y: scroll;"><table class="table table-bordered table-hover" style="width:100%; margin: auto;" cellpadding="0" cellspacing="0" border="1" class="display" id="comision_cliente4">';
                     tabla2 += '<thead>';
                     tabla2 += '<tr>';
                     tabla2 += '<th colspan = "3" rowspan="4" style="text-align: center"><img src="http://cdn2.hubspot.net/hub/2039173/hubfs/site/GrupoEi-agencia-aduanal-en-mexico-logo.png?t=1501783955921&width=190&name=GrupoEi-agencia-aduanal-en-mexico-logo.png" alt="IMAGES" /></th><th colspan = "10" rowspan="4" style="text-align: center">Grupo EI SA de CV</th><th colspan = "3" rowspan="4" style="text-align: center">Res. de Comisiones por Cliente y fechas</th>';
@@ -604,8 +608,14 @@ $('#generarComisionesCliente').on('click', function (event) {
         });
 
     }
-    else {
-        fnMensajeModalError("Debe seleccionar la empresa y cliente");
+    else if (idEmpresaSelect == "") {
+        fnMensajeModalError("Debe seleccionar una empresa");
+    }
+    else if (idCliente == "") {
+        fnMensajeModalError("Debe seleccionar un cliente");
+    }
+    else if (idCodigoVendedor == "") {
+        fnMensajeModalError("Debe seleccionar un vendedor");
     }
 
     //event.preventDefault();
@@ -617,7 +627,7 @@ $('#generarReporteAnterior').on('click', function (event) {
     var idCodigoVendedor = $('#vendedoresPeriodosAnteriores').val();
     var strCodigoVendedor = $('#vendedoresPeriodosAnteriores option:selected').text();
 
-    if (SplitPeriodos != null && SplitPeriodos!="" && idCodigoVendedor != "") {
+    if (SplitPeriodos != null && SplitPeriodos != "" && idCodigoVendedor != "" && SplitPeriodos[2] != " Selecciona periodo ") {
 
         //$('#Reportes').html("<div style='text-align: center;'><img style='vertical-align: middle;' src='../assets/img/progress_bar2.gif'/></div>");
 
