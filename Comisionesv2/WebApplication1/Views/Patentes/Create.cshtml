@@ -111,10 +111,10 @@
 
                                                         <div style="float:left;" class="col-xs-4 col-xs-4">
                                                             <div class="form-group">
-                                                                @Html.LabelFor(model => model.IdPatente, "Num. Patente: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                                @Html.LabelFor(model => model.IdPatente, "Id Patente: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
                                                                 <div class="col-xs-12 col-sm-9">
                                                                     <div class="input-group" style="width:100%;">
-                                                                        @Html.EditorFor(model => model.IdPatente, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12", @type="number", @size = "5", @min = "1", @max="99999", @pattern = "[1-9]" } })
+                                                                        @Html.EditorFor(model => model.IdPatente, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12", @type="number", @size = "5", @min = "1", @max="99999"} })
                                                                         @Html.ValidationMessageFor(model => model.IdPatente, "", new { @class = "text-danger" })
                                                                     </div>
                                                                 </div>
@@ -179,7 +179,7 @@
                                                                     </tr>
 
                                                                     <tr>
-                                                                        <td class=""><b>Número de Patente</b></td>
+                                                                        <td class=""><b>Id Patente</b></td>
 
                                                                         <td>
                                                                             <label id="lblNumPatente"></label>

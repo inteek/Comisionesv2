@@ -66,3 +66,20 @@ C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexiones
 C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Debug\EncriptaConexionesEmpresas.csproj.GenerateResource.Cache
 C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Debug\EncriptaConexionesEmpresas.exe
 C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\EncriptaConexionesEmpresas\obj\Debug\EncriptaConexionesEmpresas.pdb
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\bin\Debug\EncriptaConexionesEmpresas.exe.config
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\bin\Debug\EncriptaConexionesEmpresas.exe
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\bin\Debug\EncriptaConexionesEmpresas.pdb
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\bin\Debug\EntityFramework.dll
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\bin\Debug\EntityFramework.SqlServer.dll
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\bin\Debug\OneCoreData.dll
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\bin\Debug\OneCoreData.pdb
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\bin\Debug\EntityFramework.xml
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\bin\Debug\EntityFramework.SqlServer.xml
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\bin\Debug\es\EntityFramework.resources.dll
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\obj\Debug\EncriptaConexionesEmpresas.csprojResolveAssemblyReference.cache
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\obj\Debug\EncriptaConexionesEmpresas.frmConexionesComisiones.resources
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\obj\Debug\EncriptaConexionesEmpresas.Properties.Resources.resources
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\obj\Debug\EncriptaConexionesEmpresas.csproj.GenerateResource.Cache
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\obj\Debug\EncriptaConexionesEmpresas.exe
+C:\Productos\GrupoEI\Comisionesv2\EncriptaConexionesEmpresas\obj\Debug\EncriptaConexionesEmpresas.pdb

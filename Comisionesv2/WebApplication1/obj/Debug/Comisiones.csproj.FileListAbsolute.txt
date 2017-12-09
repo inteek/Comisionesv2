@@ -746,6 +746,19 @@ C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\WebApplication1\ob
 C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\WebApplication1\obj\Debug\Comisiones.csproj.ResolveComReference.cache
 C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\WebApplication1\obj\Debug\WebApplication1.dll
 C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\WebApplication1\obj\Debug\WebApplication1.pdb
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Collections.Immutable.dll
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.IO.FileSystem.dll
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Reflection.Metadata.dll
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.ValueTuple.dll
+C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\VBCSCompiler.exe
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\ApplicationInsights.config
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\csc.exe
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\csc.exe.config
@@ -754,38 +767,26 @@ C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\csi.exe
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\csi.exe.config
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\csi.rsp
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\Microsoft.Win32.Primitives.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.AppContext.dll
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Collections.Immutable.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Console.dll
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Diagnostics.Process.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Diagnostics.StackTrace.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.IO.Compression.dll
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.IO.FileSystem.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.IO.FileSystem.Primitives.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.IO.Pipes.dll
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Reflection.Metadata.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Security.AccessControl.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Security.Claims.dll
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Security.Cryptography.Algorithms.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Security.Cryptography.Encoding.dll
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Security.Cryptography.Primitives.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Security.Principal.Windows.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Text.Encoding.CodePages.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Threading.Thread.dll
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.ValueTuple.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Xml.ReaderWriter.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Xml.XmlDocument.dll
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Xml.XPath.dll
@@ -793,7 +794,6 @@ C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\System.Xml.XPath.XD
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\vbc.exe
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\vbc.exe.config
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\vbc.rsp
-C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\VBCSCompiler.exe
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\roslyn\VBCSCompiler.exe.config
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\WebApplication1.dll.config
 C:\Productos\GrupoEI\Comisionesv2\WebApplication1\bin\WebApplication1.dll

@@ -48,3 +48,11 @@ C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\bin\De
 C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.dll
 C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.pdb
 C:\Proyectos\COMISIONES LOGISTICA\DESARROLLO\APP\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.csprojResolveAssemblyReference.cache
+C:\Productos\GrupoEI\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.dll.config
+C:\Productos\GrupoEI\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.dll
+C:\Productos\GrupoEI\Comisionesv2\OneCoreData\bin\Debug\OneCoreData.pdb
+C:\Productos\GrupoEI\Comisionesv2\OneCoreData\bin\Debug\EntityFramework.dll
+C:\Productos\GrupoEI\Comisionesv2\OneCoreData\bin\Debug\EntityFramework.xml
+C:\Productos\GrupoEI\Comisionesv2\OneCoreData\bin\Debug\es\EntityFramework.resources.dll
+C:\Productos\GrupoEI\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.dll
+C:\Productos\GrupoEI\Comisionesv2\OneCoreData\obj\Debug\OneCoreData.pdb

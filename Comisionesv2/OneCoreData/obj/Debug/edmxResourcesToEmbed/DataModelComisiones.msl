@@ -142,6 +142,9 @@
     <EntitySetMapping Name="com_vendedores">
       <EntityTypeMapping TypeName="COMISIONESModel.com_vendedores">
         <MappingFragment StoreEntitySet="com_vendedores">
+          <ScalarProperty Name="TipoPago" ColumnName="TipoPago" />
+          <ScalarProperty Name="ClabeInterbancaria" ColumnName="ClabeInterbancaria" />
+          <ScalarProperty Name="idBanco" ColumnName="idBanco" />
           <ScalarProperty Name="idUsuarioModifica" ColumnName="idUsuarioModifica" />
           <ScalarProperty Name="idUsuarioAlta" ColumnName="idUsuarioAlta" />
           <ScalarProperty Name="dtFechaModifica" ColumnName="dtFechaModifica" />
@@ -224,23 +227,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="com_DescuentoConceptoVendedor">
-      <EntityTypeMapping TypeName="COMISIONESModel.com_DescuentoConceptoVendedor">
-        <MappingFragment StoreEntitySet="com_DescuentoConceptoVendedor">
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="vigenciaIndefinida" ColumnName="vigenciaIndefinida" />
-          <ScalarProperty Name="vigenciaFin" ColumnName="vigenciaFin" />
-          <ScalarProperty Name="vigenciaInicio" ColumnName="vigenciaInicio" />
-          <ScalarProperty Name="cantidadDescontar" ColumnName="cantidadDescontar" />
-          <ScalarProperty Name="totalAdeudo" ColumnName="totalAdeudo" />
-          <ScalarProperty Name="strConcepto" ColumnName="strConcepto" />
-          <ScalarProperty Name="idConcepto" ColumnName="idConcepto" />
-          <ScalarProperty Name="idCodigoVendedor" ColumnName="idCodigoVendedor" />
-          <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
-          <ScalarProperty Name="idDescConcepto" ColumnName="idDescConcepto" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="com_EmpresaConceptos">
       <EntityTypeMapping TypeName="COMISIONESModel.com_EmpresaConceptos">
         <MappingFragment StoreEntitySet="com_EmpresaConceptos">
@@ -253,6 +239,8 @@
     <EntitySetMapping Name="com_clientesComConfig">
       <EntityTypeMapping TypeName="COMISIONESModel.com_clientesComConfig">
         <MappingFragment StoreEntitySet="com_clientesComConfig">
+          <ScalarProperty Name="comisionIntercom" ColumnName="comisionIntercom" />
+          <ScalarProperty Name="intercompania" ColumnName="intercompania" />
           <ScalarProperty Name="strNombreClientePedimento" ColumnName="strNombreClientePedimento" />
           <ScalarProperty Name="idClientePedimento" ColumnName="idClientePedimento" />
           <ScalarProperty Name="strTipoCambio" ColumnName="strTipoCambio" />
@@ -278,6 +266,52 @@
           <ScalarProperty Name="idCliente" ColumnName="idCliente" />
           <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
           <ScalarProperty Name="idClienteConfig" ColumnName="idClienteConfig" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="com_HistorialDescuentoVendedor">
+      <EntityTypeMapping TypeName="COMISIONESModel.com_HistorialDescuentoVendedor">
+        <MappingFragment StoreEntitySet="com_HistorialDescuentoVendedor">
+          <ScalarProperty Name="SaldoTotal" ColumnName="SaldoTotal" />
+          <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+          <ScalarProperty Name="idPeriodo" ColumnName="idPeriodo" />
+          <ScalarProperty Name="idCodigoVendedor" ColumnName="idCodigoVendedor" />
+          <ScalarProperty Name="idDescuentoConceptoVendedor" ColumnName="idDescuentoConceptoVendedor" />
+          <ScalarProperty Name="idRow" ColumnName="idRow" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="com_UsuarioVendedor">
+      <EntityTypeMapping TypeName="COMISIONESModel.com_UsuarioVendedor">
+        <MappingFragment StoreEntitySet="com_UsuarioVendedor">
+          <ScalarProperty Name="idCodigoVendedor" ColumnName="idCodigoVendedor" />
+          <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+          <ScalarProperty Name="IdRow" ColumnName="IdRow" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_COMISIONES_CONSULTAR_CONCEPTOS" FunctionName="COMISIONESModel.Store.SP_COMISIONES_CONSULTAR_CONCEPTOS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="COMISIONESModel.SP_COMISIONES_CONSULTAR_CONCEPTOS_Result">
+          <ScalarProperty Name="GRPID" ColumnName="GRPID" />
+          <ScalarProperty Name="GRPDESCE" ColumnName="GRPDESCE" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="com_DescuentoConceptoVendedor">
+      <EntityTypeMapping TypeName="COMISIONESModel.com_DescuentoConceptoVendedor">
+        <MappingFragment StoreEntitySet="com_DescuentoConceptoVendedor">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="vigenciaIndefinida" ColumnName="vigenciaIndefinida" />
+          <ScalarProperty Name="vigenciaFin" ColumnName="vigenciaFin" />
+          <ScalarProperty Name="vigenciaInicio" ColumnName="vigenciaInicio" />
+          <ScalarProperty Name="cantidadDescontar" ColumnName="cantidadDescontar" />
+          <ScalarProperty Name="totalAdeudo" ColumnName="totalAdeudo" />
+          <ScalarProperty Name="strConcepto" ColumnName="strConcepto" />
+          <ScalarProperty Name="idConcepto" ColumnName="idConcepto" />
+          <ScalarProperty Name="idCodigoVendedor" ColumnName="idCodigoVendedor" />
+          <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
+          <ScalarProperty Name="idDescuentoConceptoVendedor" ColumnName="idDescuentoConceptoVendedor" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
