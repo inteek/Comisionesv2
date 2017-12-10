@@ -821,6 +821,61 @@ namespace WebApplication1.Controllers
 
         }
 
+
+        // GET: Periodos/PagoComisionCuentaBancaria/
+        [HttpGet]
+        public ActionResult PagoComisionCuentaBancaria(string vendedorDefault, string periodoDefault)
+        {
+
+            if (Session["RolID"] == null)
+            {
+                return Content("Sesión caducada");
+            }
+            else
+            {
+                if (Session["RolID"].Equals("Administrador") || Session["RolID"].Equals("Operador"))
+                {
+                    List<SelectListItem> newList = new List<SelectListItem>();
+                    SelectListItem ListaItemsPeriodos = new SelectListItem();
+                    for (int i = 0; i < 99; i++)
+                    {
+                        string texto = (i + 1).ToString() + " - " + DateTime.Now.Year;
+                        string valor = (i + 1).ToString() + DateTime.Now.Year;
+                        ListaItemsPeriodos = new SelectListItem { Text = texto, Value = valor };
+                        newList.Add(ListaItemsPeriodos);
+                    }
+
+                    List<SelectListItem> ListaEmpresas = new List<SelectListItem>();
+                    SelectListItem ListaItemEmpresas = new SelectListItem();
+                    ListaItemEmpresas = new SelectListItem { Text = "Todas", Value = "0" };
+
+                    ListaEmpresas = new SelectList(db.com_empresas, "IdEmpresa", "strNombreEmpresa").ToList();
+
+                    ListaEmpresas.Insert(0, ListaItemEmpresas);
+
+                    ViewBag.BagVendedores = new SelectList(ListaPersonalizadaVendedores(), "Value", "Text", vendedorDefault);
+                    ViewBag.BagPeriodos = new SelectList(newList, "Value", "Text", periodoDefault);
+
+                    ViewBag.BagEmpresas = new SelectList(ListaEmpresas, "Value", "Text");
+
+
+
+                    return PartialView("PagoComisionCuentaBancaria");
+                }
+                else
+                {
+                    return Content("Sesión caducada");
+                    //return View("~/Views/Home/Login.cshtml");
+                }
+
+            }
+
+        }
+
+
+
+
+
         [HttpGet]
         public ActionResult HistoricoPeriodos()
         {
@@ -1186,6 +1241,78 @@ namespace WebApplication1.Controllers
                 return Json(new { error = true, msg = "Ocurrio un error al recuperar el reporte: " + ex.Message });
             }
         }
+
+
+        // POST: Periodos/obtenerDetalleNoComisionables/
+        [HttpPost]
+        //public ActionResult obtenerResumenPagoComisiones(string numPeriodo, string anioPeriodo, string codigoVendedor, string idEmpresa)
+        public ActionResult obtenerResumenPagoComisiones(string numPeriodo, string anioPeriodo, string idEmpresa)
+        {
+           string periodo = "";
+            if (anioPeriodo.Length == 4)
+            {
+                periodo = numPeriodo.Trim() + anioPeriodo.Substring(2, 2).Trim();
+            }
+            else
+            {
+                periodo = numPeriodo.Trim() + anioPeriodo.Substring(3, 2).Trim();
+            }
+            int periodoInt = Convert.ToInt32(periodo);
+
+            //codigoVendedor = "AGV003         ";
+            var empresas = db.com_empresas.Select(p => p).Where(p => p.boolActivo == true).ToList();
+
+            int claveEmpresa = Convert.ToInt32(idEmpresa);
+            string spEjecutar = "csp_PagoComisionCuentasBancarias";
+
+            if (claveEmpresa == 0)
+            {
+                claveEmpresa = 1;
+                spEjecutar = "csp_PagoComisionCuentasBancariasTodos";
+            }
+
+            string strCadenaEmpresa = Utilidades.Utilidades.mtdRecuperaCadenaConexion(claveEmpresa);
+
+            List<ResumenPagoComisiones> lista_detalles = new List<ResumenPagoComisiones>();
+
+            try
+            {
+
+                //var Parameter1 = new SqlParameter
+                //{
+                //    ParameterName = "idVendedor",
+                //    Value = 217
+                //};
+
+                var Parameter2 = new SqlParameter
+                {
+                    ParameterName = "Periodo",
+                    Value = periodo
+                };
+
+
+                using (var ctx = new ELIEntities(strCadenaEmpresa))
+                {
+                    lista_detalles = ctx.Database.SqlQuery<ResumenPagoComisiones>("exec " + spEjecutar + " @Periodo", Parameter2).ToList();
+                    //var query = ctx.Database.SqlQuery<detalleComisiones>("exec " + spEjecutar + " @Periodo", Parameter2).ToList();
+                }
+
+
+                //var periodos = db.com_configPeriodos.Where(p => p.Activo == true && p.Periodo == periodoInt && p.idVendedor == codigoVendedor).ToList();
+                //return Json(new { lista_detalles, periodos });
+
+                return Json(new { lista_detalles });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = true, msg = "Ocurrio un error al recuperar el reporte: " + ex.Message });
+            }
+        }
+
+
+
+
 
         // POST: Periodos/obtenerDetalleRetenciones/
         [HttpPost]

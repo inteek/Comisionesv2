@@ -1515,3 +1515,27 @@ $('#detalleRetenciones').on('click', function () {
 
 
 });
+
+
+
+$('#reseumenPagoComisionCuentaBancaria').on('click', function () {
+
+    $('#ReporteClientes').html("<div style='text-align: center;'><img style='vertical-align: middle;' src='../assets/img/progress_bar2.gif'/></div>");
+
+    var SplitPeriodos = $("#strPeriodo option:selected").text().trim().split('-')
+    var idCodigoVendedor = $('#idCodigoVendedor').val();
+    var dtFechaInicio = $('#id-date-range-picker-1').val().slice(0, 10).trim();
+    var dtFechaFin = $('#id-date-range-picker-1').val().slice(13, 23).trim();
+
+    var vendedorDefault = $('#hdnVendedorID').val();
+    var periodoDefault = $('#hdnPeriodoID').val();
+
+    $("#waitModalLabel").text("Resumen de Pagos de Comisiones");
+    $('#ReporteClientes').load("/comisiones/Periodos/PagoComisionCuentaBancaria?vendedorDefault=" + vendedorDefault + "&periodoDefault=" + periodoDefault, function () {
+        verificaContenidoSesion();
+    });
+
+    $('#resumenModal').modal('toggle')
+
+
+});

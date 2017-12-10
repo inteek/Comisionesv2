@@ -236,6 +236,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Patentes.cs" />
+    <Compile Include="Models\ResumenPagoComisiones.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultSet.cs" />
@@ -1009,6 +1010,7 @@
     <Content Include="Scripts\jspdf\libs\sprintf.js" />
     <Content Include="Scripts\jsPeriodos\jsPeriodosCreate.js" />
     <Content Include="Scripts\jsPeriodos\jsPeriodosDetalle.js" />
+    <Content Include="Scripts\jsPeriodos\jsPeriodosPagoComisionCuentaBancaria.js" />
     <Content Include="Scripts\jsPeriodos\jsPeriodosDetalleNoComisionables.js" />
     <Content Include="Scripts\jsPeriodos\jsPeriodosDetalleRetenciones.js" />
     <Content Include="Scripts\jsPeriodos\jsPeriodosHistorico.js" />
@@ -1221,6 +1223,7 @@
     <Content Include="Views\Patentes\Create.cshtml" />
     <Content Include="Views\Patentes\Index.cshtml" />
     <Content Include="Views\Patentes\Edit.cshtml" />
+    <Content Include="Views\Periodos\PagoComisionCuentaBancaria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
