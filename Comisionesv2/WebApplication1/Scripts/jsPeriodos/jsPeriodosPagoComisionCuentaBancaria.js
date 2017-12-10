@@ -108,7 +108,7 @@
                     tabla2 += '<tbody>';
                     var tr2 = '';
 
-
+                     
                     $(lista_detalles.lista_detalles).each(function (i) {
 
                         tr2 += '<tr>';

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 namespace WebApplication1.Models
-{
+{   
     public class ResumenPagoComisiones
     {
         public int IDCODIGOVENDEDOR { get; set; }

@@ -1297,7 +1297,7 @@ namespace WebApplication1.Controllers
                     //var query = ctx.Database.SqlQuery<detalleComisiones>("exec " + spEjecutar + " @Periodo", Parameter2).ToList();
                 }
 
-
+                  
                 //var periodos = db.com_configPeriodos.Where(p => p.Activo == true && p.Periodo == periodoInt && p.idVendedor == codigoVendedor).ToList();
                 //return Json(new { lista_detalles, periodos });
 
