@@ -115,6 +115,11 @@
                     tabla2 += '<tr>';
                     tabla2 += '<td colspan="2"></td><td rowspan="1" scope="col">Retención</td><td style="text-align: right">$' + lista_clientes.pieComisiones.RETENCION + '</td><td colspan="2"></td>';
                     tabla2 += '</tr>';
+                    
+                    tabla2 += '<tr>';
+                    tabla2 += '<td colspan="2"></td><td rowspan="1" scope="col">Descuento</td><td style="text-align: right">$' + lista_clientes.pieComisiones.DESCUENTO + '</td><td colspan="2"></td>';
+                    tabla2 += '</tr>';
+
                     tabla2 += '<tr>';
                     tabla2 += '<td colspan="2"></td><td rowspan="1" scope="col">Total</td><td style="text-align: right">$' + lista_clientes.pieComisiones.TOTAL + '</td><td colspan="2"></td>';
                     tabla2 += '</tr>';

@@ -10,6 +10,7 @@ namespace WebApplication1.Models
         public decimal COMISION { get; set; }
         public decimal NOCOMISIONABLE { get; set; }
         public decimal RETENCION { get; set; }
+        public decimal DESCUENTO { get; set; }
         public decimal TOTAL { get; set; }
         public decimal LIBERARRETENCION { get; set; }
         public decimal TOTALPAGAR { get; set; }
