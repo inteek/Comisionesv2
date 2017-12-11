@@ -51,7 +51,7 @@ $('#txtUploadFile').on('change', function (e) {
     if (files.length > 0) {
         if (window.FormData !== undefined) {
             var data = new FormData();
-            debugger;
+            //debugger;
             for (var x = 0; x < files.length; x++) {
 
     data.append(files[x].name, files[x]);
@@ -171,7 +171,7 @@ var TableDataVendedoresCreate = function () {
                 success: function SuccessCallback(dataNewVendedores) {
                     if (!dataNewVendedores.error) {
 
-                        debugger;
+                        //debugger;
                         var dataFilesEvidencia = {
                             Files: [],
                             IdVendedor: dataNewVendedores.Id
@@ -188,7 +188,7 @@ var TableDataVendedoresCreate = function () {
                             });
                         }
 
-                        debugger;
+                        //debugger;
                         if (dataFilesEvidencia.Files.length > 0) {
                             swal({
                                 title: "Guardar!",
@@ -204,7 +204,7 @@ var TableDataVendedoresCreate = function () {
                                 data: JSON.stringify(dataFilesEvidencia),
                                 contentType: "application/json; charset=utf-8",
                                 success: function SuccessCallback(dataFilesEvidencia) {
-                                    debugger;
+                                    //debugger;
                                     if (!dataFilesEvidencia.error) {
                                         swal({
                                             title: "Guardar evidencia!",
