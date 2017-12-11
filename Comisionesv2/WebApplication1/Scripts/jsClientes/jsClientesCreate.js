@@ -4,6 +4,7 @@
 if (hdnRolID == "Operador") { // Operador
     $("#cbbConceptos").prop("disabled", true);
     $("#dcmComision").prop("disabled", true);
+    $(".btnActionConcepto").prop("disabled", true);
     $("#btnAgregarConcepto").hide();
 }
 
@@ -148,12 +149,24 @@ function GetCliente(idEmpresa) {
                                                     value: "",
                                                     text: "-- Selecciona un concepto --"
                                                 }));
+
+                                                var selectEdit = $("#cbbConceptosEdit");
+                                                selectEdit.empty();
+                                                selectEdit.append($('<option/>', {
+                                                    value: "",
+                                                    text: "-- Selecciona un concepto --"
+                                                }));
+
                                                 $.each(conceptos.Conceptos, function (i, conceptos) {
                                                     select.append(
                                                         $('<option></option>').val(conceptos.Value.trim()).html(conceptos.Text.trim()));
+                                                    selectEdit.append(
+                                                        $('<option></option>').val(conceptos.Value.trim()).html(conceptos.Text.trim()));
+
                                                 });
 
                                                 $("#cbbConceptos").select2("val", "")
+                                                $("#cbbConceptosEdit").select2("val", "");
                                                 $("#cbbConceptos option[value='0']").attr("selected", "selected");
 
                                                 
@@ -234,6 +247,44 @@ function fnEliminarConcepto(idConcepto) {
     
 };
 
+function fnEditarConcepto(idConcepto, costoVenta, idRelConceptoVendedor, comision, descuentoFijo, tipoCambio) {
+    //Bloquear botones usados por JS dependiendo del rol
+    if (hdnRolID == 9) { // Operador
+        swal("Error!", "El perfil no tiene los suficientes permisos para realizar esta acción", "error");
+    }
+    else {
+        var conceptoId = idConcepto; //$("#cbbConceptosEdit option:selected").val();
+        var idCreate = idConcepto;
+
+        if (conceptoId != "") {
+            var _costoVenta = $("#" + idCreate).find("td:eq(1)").text();
+            var _comision = $("#" + idCreate).find("td:eq(2)").text();
+            var _descuentoFijo = $("#" + idCreate).find("td:eq(3)").text();
+            var _tipoCambio = $("#" + idCreate).find("td:eq(4)").text();
+
+            $("#cbbConceptosEdit").val(idConcepto).trigger('change');
+            $("#strTipoCambioEdit").val(_tipoCambio.trim()).trigger('change');
+            $("#dcmComisionEdit").val(_comision);
+            $("#dDescuentoFijoEdit").val(_descuentoFijo);
+
+            if (_costoVenta.toLowerCase() == "Costo de Venta nivel Concepto".toLowerCase()) {
+                $("#CostoVentaConceptoEdit").prop('checked', true);
+            }
+        }
+        else {
+            $("#cbbConceptosEdit").val(idConcepto).trigger('change');
+            $("#strTipoCambioEdit").val(tipoCambio).trigger('change');
+            $("#dcmComisionEdit").val(comision);
+            $("#dDescuentoFijoEdit").val(descuentoFijo);
+
+            if (costoVenta.toLowerCase() == "Costo de Venta nivel Concepto".toLowerCase()) {
+                $("#CostoVentaConceptoEdit").prop('checked', true);
+            }
+        }
+
+        $('#editModal').modal('toggle');
+    }
+};
 
 var TableDataVendedoresCreate = function () {
     "use strict";
@@ -306,12 +357,23 @@ var TableDataVendedoresCreate = function () {
                             value: "",
                             text: "-- Selecciona un concepto --"
                         }));
+
+                        var selectEdit = $("#cbbConceptosEdit");
+                        selectEdit.empty();
+                        selectEdit.append($('<option/>', {
+                            value: "",
+                            text: "-- Selecciona un concepto --"
+                        }));
+
                         $.each(conceptos.Conceptos, function (i, conceptos) {
                             select.append(
                                 $('<option></option>').val(conceptos.Value.trim()).html(conceptos.Text.trim()));
+                            selectEdit.append(
+                                $('<option></option>').val(conceptos.Value.trim()).html(conceptos.Text.trim()));
                         });
 
-                        $("#cbbConceptos").select2("val", "")
+                        $("#cbbConceptos").select2("val", "");
+                        $("#cbbConceptosEdit").select2("val", "");
                         $("#cbbConceptos option[value='0']").attr("selected", "selected");
 
                         $('#waitModal').modal('toggle');
@@ -332,6 +394,8 @@ var TableDataVendedoresCreate = function () {
 
         if (conceptoId != "") {
             if ($('#' + idCreate).length == 0) {
+                var strTipoCambio = $('#strTipoCambio option:selected').text();
+                var descuentoFijo = $("#dDescuentoFijo").val();
                 var comision = $("#dcmComision").val();
                 if (comision != "") {
                     var conceptoText = $("#cbbConceptos option:selected").text().trim();
@@ -349,7 +413,15 @@ var TableDataVendedoresCreate = function () {
                         }
                     }
 
-                    $('#simple-table').append('<tr id="' + conceptoId + '"><td>' + conceptoText + '</td><td>' + costoVenta + '</td><td>' + comision + '</td><td><button class="btn btn-xs btn-danger" type="button" onclick="fnEliminarConcepto(&quot;' + conceptoId + '&quot;)"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></td></tr>');
+                    $('#simple-table').append('<tr id="' + conceptoId + '">' +
+                        '<td>' + conceptoText + '</td>' +
+                        '<td>' + costoVenta + '</td>' +
+                        '<td>' + comision + '</td>' +
+                        '<td>' + descuentoFijo + '</td>' +
+                        '<td>' + strTipoCambio + '</td>' +
+                       '<td><button class="btn btn-xs btn-danger" type="button" onclick="fnEliminarConcepto(&quot;' + conceptoId + '&quot;)"><i class="ace-icon fa fa-trash-o bigger-120"></i></button>&nbsp;&nbsp;' +
+                        '<button class="btn btn-xs btn-success btnActionConcepto" type="button" onclick="fnEditarConcepto(&quot;' + conceptoId + '&quot;,&quot;' + costoVenta.trim() + '&quot;,&quot;' + conceptoId + '&quot;,&quot;' + comision.trim() + '&quot;,&quot;' + descuentoFijo.trim() + '&quot;,&quot;' + strTipoCambio + '&quot;)"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></button></td>' +
+                       '</td></tr>');
                 }
                 else {
                     fnMensajeModalError("No es posible agregar un concepto sin un porcentaje de comisión");
@@ -364,6 +436,54 @@ var TableDataVendedoresCreate = function () {
         }
 
 
+    });
+
+    $('#btnAgregarConceptoEdit').on('click', function () {
+        var conceptoId = $("#cbbConceptosEdit option:selected").val();
+        var idCreate = conceptoId
+
+        if (conceptoId != "") {
+            var comisionEdit = $("#dcmComisionEdit").val();
+            var tipoCambio = $('#strTipoCambioEdit option:selected').text().trim();
+            var descuentoFijoEdit = $("#dDescuentoFijoEdit").val();
+
+            if (comisionEdit != "") {
+                var conceptoText = $("#cbbConceptos option:selected").text().trim();
+                var costoVenta = ""
+                var costos = $("input:radio[name=strTipoCosto]:checked").val();
+                if (costos == "Costo de Venta Nivel Cliente") {
+                    costoVenta = "Costo de venta nivel Referencia"
+                    $("#simple-table tbody").remove();
+                }
+                else {
+                    if ($("#CostoVentaConceptoEdit").is(':checked')) {
+                        costoVenta = "Costo de venta nivel concepto"
+                    }
+                    else {
+                        costoVenta = "Precio de Venta"
+                    }
+                }
+
+                $("#" + idCreate).find("td:eq(1)").text(costoVenta.trim());
+                $("#" + idCreate).find("td:eq(2)").text(comisionEdit.trim());
+                $("#" + idCreate).find("td:eq(3)").text(descuentoFijoEdit.trim());
+                $("#" + idCreate).find("td:eq(4)").text(tipoCambio.trim());
+
+                $("#dDescuentoFijoEdit").val(1);
+                $("#dcmComisionEdit").val(1);
+                $("#cbbConceptosEdit").val(0).trigger('change');
+                $("#strTipoCambioEdit").val(0).trigger('change');
+                $("#CostoVentaConceptoEdit").prop('checked', false);
+
+                $('#editModal').modal('toggle');
+            }
+            else {
+                fnMensajeModalError("No es posible agregar un concepto sin un porcentaje de comisión");
+            }
+        }
+        else {
+            fnMensajeModalError("Selecciona un concepto de la lista antes de agregarlo");
+        }
     });
 
     function ObtenerDiasCreditoGP() {
@@ -504,12 +624,12 @@ var TableDataVendedoresCreate = function () {
                             $("#lblIntercia").html(intercia)
                             $("#lblNotificacion").html($("#strNotificacion").val().trim())
                             //$("#lblDescuentoFijo").html($("#dDescuentoFijo").val())
-                            $("#lblTipoCambio").html($('#strTipoCambio option:selected').text().trim())
+                            //$("#lblTipoCambio").html($('#strTipoCambio option:selected').text().trim())
 
                             $("#simple-table2 tbody").empty();
                             $("#simple-table tbody tr").each(function (index) {
                                 var id = $(this).attr('id')
-                                var campo1, campo2, campo3;
+                                var campo1, campo2, campo3, campo4, campo5;
                                 $(this).children("td").each(function (index2) {
                                     switch (index2) {
                                         case 0: campo1 = $(this).text();
@@ -518,10 +638,14 @@ var TableDataVendedoresCreate = function () {
                                             break;
                                         case 2: campo3 = $(this).text();
                                             break;
+                                        case 3: campo4 = $(this).text();
+                                            break;
+                                        case 4: campo5 = $(this).text();
+                                            break;
                                     }
                                 })
 
-                                $("#simple-table2 tbody").append("<tr><td style='display: none;'>" + id + "</td><td>" + campo1 + "</td><td>" + campo2 + "</td><td>" + campo3 + "%</td></tr>");
+                                $("#simple-table2 tbody").append("<tr><td style='display: none;'>" + id + "</td><td>" + campo1 + "</td><td>" + campo2 + "</td><td>" + campo3 + "%</td><td>" + campo4 + "%</td><td>" + campo5 + "</td></tr>");
                             })
 
                         }
@@ -591,7 +715,7 @@ var TableDataVendedoresCreate = function () {
 
                         $("#simple-table tbody tr").each(function (index) {
                             var id = $(this).attr('id')
-                            var idRelConceptoVendedor, strConcepto, strCostoVenta, dcmComision;
+                            var idRelConceptoVendedor, strConcepto, strCostoVenta, dcmComision, dDescuentoFijo, strTipoCambio;
                             $(this).children("td").each(function (index2) {
                                 switch (index2) {
                                     case 0: strConcepto = $(this).text();
@@ -599,6 +723,10 @@ var TableDataVendedoresCreate = function () {
                                     case 1: strCostoVenta = $(this).text();
                                         break;
                                     case 2: dcmComision = $(this).text();
+                                        break;
+                                    case 3: dDescuentoFijo = $(this).text();
+                                        break;
+                                    case 4: strTipoCambio = $(this).text();
                                         break;
                                 }
                             })
@@ -608,6 +736,8 @@ var TableDataVendedoresCreate = function () {
                                 strConcepto: strConcepto,
                                 strCostoVenta: strCostoVenta,
                                 dcmComision: dcmComision,
+                                dDescuentoFijo: dDescuentoFijo,
+                                strTipoCambio: strTipoCambio,
                                 boolActivo: true
                             };
 
@@ -640,7 +770,7 @@ var TableDataVendedoresCreate = function () {
                             strIntercia: intercia,
                             strNotificacion: $('#strNotificacion').val(),
                             //dDescuentoFijo: parseFloat($("#dDescuentoFijo").val()),
-                            strTipoCambio: $('#strTipoCambio option:selected').text().trim(),
+                            //strTipoCambio: $('#strTipoCambio option:selected').text().trim(),
                             com_relConceptoVendedor: conceptosList
                         };
 

@@ -329,6 +329,10 @@
                                                 @*<i class="ace-icon fa fa-share bigger-140"></i>*@
                                                 Resumen de comisiones por equipo
                                             </button>
+                                            <button id="reseumenPagoComisionCuentaBancaria" class="btn btn-default btn-info btn-sm cancel" style="width:initial; padding: 10px; font-size: 14px; margin: 1px;">
+                                                @*<i class="ace-icon fa fa-share bigger-140"></i>*@
+                                                Resumen de pagos de comisiones a cuentas bancarias
+                                            </button>
                                         </div>
                                         <div style="clear:both;"></div>
                                     </div>
@@ -405,6 +409,9 @@
                                 </div>
                                 <div id="modal-body" class="modal-body">
                                     <div id="container_report" style="display: none;">
+
+                                    </div>
+                                    <div id="container_report3">
 
                                     </div>
                                     <div id="container_report2">
@@ -529,6 +536,12 @@
 <script src="@Url.Content("~/assets/js/daterangepicker.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
 <script src="@Url.Content("~/assets/js/bootbox.js")"></script>
+
+@*<script src="@Url.Content("~/assets/js/dataTables/extensions/TableTools/js/dataTables.tableTools.js")"></script>*@
+<script src="@Url.Content("~/assets/js/dataTables/jquery.dataTables.js")"></script>
+<script src="@Url.Content("~/assets/js/dataTables/jquery.dataTables.bootstrap.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.linq.js")"></script>
+<script src="@Url.Content("~/Scripts/linq.js")"></script>
 
 <script>
     document.mynamespace = {};

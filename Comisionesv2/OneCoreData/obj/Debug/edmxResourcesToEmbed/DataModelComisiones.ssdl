@@ -117,6 +117,23 @@
     <Property Name="vigenciaIndefinida" Type="bit" Nullable="false" />
     <Property Name="status" Type="bit" />
   </EntityType>
+  <EntityType Name="com_Documentos">
+    <Key>
+      <PropertyRef Name="idDocumento" />
+    </Key>
+    <Property Name="idDocumento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="100" />
+    <Property Name="contentType" Type="varchar" MaxLength="50" />
+    <Property Name="data" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="com_DocumentoVendedor">
+    <Key>
+      <PropertyRef Name="idDocumentoVendedor" />
+    </Key>
+    <Property Name="idDocumentoVendedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idDocumento" Type="int" Nullable="false" />
+    <Property Name="idCodigoVendedor" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="com_EmpresaConceptos">
     <Key>
       <PropertyRef Name="idRow" />
@@ -211,6 +228,30 @@
     <Property Name="ClabeInterbancaria" Type="varchar" MaxLength="25" />
     <Property Name="TipoPago" Type="char" MaxLength="1" />
   </EntityType>
+  <Association Name="FK__com_Docum__idCod__0AF29B96">
+    <End Role="com_vendedores" Type="Self.com_vendedores" Multiplicity="1" />
+    <End Role="com_DocumentoVendedor" Type="Self.com_DocumentoVendedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_vendedores">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Principal>
+      <Dependent Role="com_DocumentoVendedor">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__com_Docum__idDoc__09FE775D">
+    <End Role="com_Documentos" Type="Self.com_Documentos" Multiplicity="1" />
+    <End Role="com_DocumentoVendedor" Type="Self.com_DocumentoVendedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_Documentos">
+        <PropertyRef Name="idDocumento" />
+      </Principal>
+      <Dependent Role="com_DocumentoVendedor">
+        <PropertyRef Name="idDocumento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_com_AgregarDescuento_com_empresas">
     <End Role="com_empresas" Type="Self.com_empresas" Multiplicity="1" />
     <End Role="com_DescuentoConceptoVendedor" Type="Self.com_DescuentoConceptoVendedor" Multiplicity="*" />
@@ -373,6 +414,8 @@
     <EntitySet Name="com_configPeriodos" EntityType="Self.com_configPeriodos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="com_DescuentoConceptoVendedor" EntityType="Self.com_DescuentoConceptoVendedor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="com_Descuentos" EntityType="Self.com_Descuentos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_Documentos" EntityType="Self.com_Documentos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="com_DocumentoVendedor" EntityType="Self.com_DocumentoVendedor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="com_EmpresaConceptos" EntityType="Self.com_EmpresaConceptos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="com_empresas" EntityType="Self.com_empresas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="com_HistorialDescuentoVendedor" EntityType="Self.com_HistorialDescuentoVendedor" Schema="dbo" store:Type="Tables" />
@@ -380,6 +423,14 @@
     <EntitySet Name="com_relConceptoVendedor" EntityType="Self.com_relConceptoVendedor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="com_UsuarioVendedor" EntityType="Self.com_UsuarioVendedor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="com_vendedores" EntityType="Self.com_vendedores" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__com_Docum__idCod__0AF29B96" Association="Self.FK__com_Docum__idCod__0AF29B96">
+      <End Role="com_vendedores" EntitySet="com_vendedores" />
+      <End Role="com_DocumentoVendedor" EntitySet="com_DocumentoVendedor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__com_Docum__idDoc__09FE775D" Association="Self.FK__com_Docum__idDoc__09FE775D">
+      <End Role="com_Documentos" EntitySet="com_Documentos" />
+      <End Role="com_DocumentoVendedor" EntitySet="com_DocumentoVendedor" />
+    </AssociationSet>
     <AssociationSet Name="FK_com_AgregarDescuento_com_empresas" Association="Self.FK_com_AgregarDescuento_com_empresas">
       <End Role="com_empresas" EntitySet="com_empresas" />
       <End Role="com_DescuentoConceptoVendedor" EntitySet="com_DescuentoConceptoVendedor" />

@@ -69,6 +69,7 @@
                                     <div class="step-content pos-rel">
                                         <div class="step-pane active" data-step="1">
                                             <h3 class="lighter block green">Ingresa la información solicitada</h3>
+                                            <input type="hidden" value="@ViewBag.hdnRolID" id="hdnRolID" />
 
                                             <form class="form-horizontal" id="vendedores-form" method="get">
 
@@ -176,6 +177,17 @@
                                                             </div>
                                                         </div>
 
+                                                        <div style="float:left;" class="col-xs-4 col-xs-4" id="ctrBtnAdjuntarEvidencia">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" style="font-weight: bold;"></label>
+                                                                @*@Html.LabelFor(model => model.strEmail, "Email: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })*@
+                                                                <div class="col-xs-12 col-sm-9">
+                                                                    <div class="input-group" style="width:100%;">
+                                                                        <button id="btModalAdjuntarEvidencia" type="button" class="btn btn-primary" onclick="fnAdjuntarEvidencia()">Adjuntar Evidencia&nbsp;&nbsp;<i class="ace-icon fa fa-files-o icon-on-right"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
                                                             @*<div class="form-group col-xs-4">
                 @Html.LabelFor(model => model.boolActivo, "Activo ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
@@ -288,6 +300,22 @@
                                                                             <label id="lblEmail"></label>
                                                                         </td>
                                                                     </tr>
+                                                                    <tr id="colEvidencias">
+                                                                        <td><b>Documentos</b></td>
+                                                                        <td>
+                                                                            <div style="float:left;" class="col-xs-4 col-xs-4">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" style="font-weight: bold;"></label>
+                                                                                    @*@Html.LabelFor(model => model.strEmail, "Email: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })*@
+                                                                                    <div class="col-xs-12 col-sm-9">
+                                                                                        <div class="input-group" style="width:100%;">
+                                                                                            <button id="btModalVisualizarEvidencia" type="button" class="btn btn-primary" onclick="fnAdjuntarEvidencia()">Visualizar Evidencia&nbsp;&nbsp;<i class="ace-icon fa fa-files-o icon-on-right"></i></button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
                                                                 </tbody>
                                                             </table>
 
@@ -337,6 +365,38 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal adjuntar evidencia-->
+                    <div class="modal fade" id="adjuntarEvidenciaModal" tabindex="-1" role="dialog" aria-labelledby="adjuntarEvidenciaModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="adjuntarEvidenciaModalLabel">Ver Documentos</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <label class="btn btn-primary">
+                                        Seleccionar archivo!&hellip; <input type="file" id="txtUploadFile" style="display: none;" accept=".xls,.xlsx,.pdf,.png,.jpg,.tiff,.gif">
+                                    </label>
+                                    <br />
+                                    <div style="clear:both;"></div>
+                                    <br />
+                                    <table id="simple-table" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <td colspan="2">Documentos</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="input-group" style="width:100%;">
+                                        <button type="button" class="btn btn-primary" onclick="fnCerrarPopup()">Ok</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -440,8 +500,20 @@
 <script src="@Url.Content("~/Scripts/jsVendedores/jsVendedoresCreate.js")"></script>
 <script>
     jQuery(document).ready(function ( ) {
+        $("#colEvidencias").hide();
+        $("#ctrBtnAdjuntarEvidencia").hide();
+
         TableDataVendedoresCreate.init();
 
+        var hdnRolID = $("#hdnRolID").val();
+
+        if (hdnRolID == "Operador" || hdnRolID == "Administrador") {
+            $("#colEvidencias").show();
+            $("#ctrBtnAdjuntarEvidencia").show();
+        } else {
+            $("#colEvidencias").hide();
+            $("#ctrBtnAdjuntarEvidencia").hide();
+        }
     });
 </script>
 

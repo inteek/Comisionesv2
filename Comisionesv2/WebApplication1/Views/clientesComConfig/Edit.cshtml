@@ -332,7 +332,7 @@
                                                                 </div>*@
                                                                 //--
 
-                                                                <div style="float:left;" class="col-xs-8 col-xs-8">
+                                                                @*<div style="float:left;" class="col-xs-8 col-xs-8">
                                                                     <div class="form-group">
                                                                         @Html.LabelFor(model => model.strTipoCambio, "Tipo Cambio:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
                                                                         @{
@@ -349,7 +349,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div>*@
 
 
                                                     <div style="width:100%; clear:both;"></div>
@@ -461,6 +461,26 @@
                                                                                 </div>
                                                                             </div>
 
+                                                                            <div class="col-xs-4">
+                                                                                <div class="form-group">
+                                                                                    @Html.Label("lblDescuentoFijo", "Descuento (%):", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                                                    <div class="col-xs-12 col-sm-6">
+                                                                                        <div class="input-group" style="width:100%;">
+                                                                                            @Html.Editor("dDescuentoFijo", new { htmlAttributes = new { @class = "col-xs-12 col-sm-6", @type = "number", @min = "1", @max = "100", @Value = 1 } }) &nbsp;&nbsp;
+                                                                                            @{
+                                                                                                var selectListM = new SelectList(
+                                                                                                new List<SelectListItem>
+                                                                                                    {
+                                                                                                                        new SelectListItem {Text = "MXN", Value = "MXN"},
+                                                                                                                        new SelectListItem {Text = "USD", Value = "USD"},
+                                                                                                    }, "Value", "Text");
+                                                                                            }
+                                                                                            @Html.DropDownListFor(m => m.strTipoCambio, selectListM, new { @class = "select2", @style = "display: inline-flex;" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
                                                                             <div class="form-group">
                                                                                 <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="CostoVentaConcepto"></label>
                                                                                 <div class="col-xs-12 col-sm-9">
@@ -518,9 +538,12 @@
                                                                                                     <td>@Html.DisplayFor(modelItem => item.strConcepto)</td>
                                                                                                     <td>@Html.DisplayFor(modelItem => item.strCostoVenta)</td>
                                                                                                     <td>@Html.DisplayFor(modelItem => item.dcmComision)</td>
+                                                                                                    <td>@Html.DisplayFor(modelItem => item.dDescuentoFijo)</td>
+                                                                                                    <td>@Html.DisplayFor(modelItem => item.strTipoCambio)</td>
 
                                                                                                     <td>
-                                                                                                        <button class="btn btn-xs btn-danger" type="button" onclick="fnEliminarConcepto('@Html.DisplayFor(modelItem => item.idConcepto)')"><i class="ace-icon fa fa-trash-o bigger-120"></i></button>
+                                                                                                        <button class="btn btn-xs btn-danger btnActionConcepto" type="button" onclick="fnEliminarConcepto('@Html.DisplayFor(modelItem => item.idConcepto)')"><i class="ace-icon fa fa-trash-o bigger-120"></i></button>
+                                                                                                        <button class="btn btn-xs btn-success btnActionConcepto" type="button" onclick="fnEditarConcepto('@Html.DisplayFor(modelItem => item.idConcepto)','@Html.DisplayFor(modelItem => item.strCostoVenta)','@Html.DisplayFor(modelItem => item.idRelConceptoVendedor)','@Html.DisplayFor(modelItem => item.dcmComision)','@Html.DisplayFor(modelItem => item.dDescuentoFijo)','@Html.DisplayFor(modelItem => item.strTipoCambio)')"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></button>
                                                                                                     </td>
                                                                                                     
                                                                                                 </tr>
@@ -693,13 +716,13 @@
 
 
 
-                                                                                    <tr>
+                                                                                    @*<tr>
                                                                                         <td class=""><b>Tipo Cambio</b></td>
 
                                                                                         <td>
                                                                                             <label id="lblTipoCambio"></label>
                                                                                         </td>
-                                                                                    </tr>
+                                                                                    </tr>*@
 
 
                                                                                     <tr>
@@ -755,6 +778,14 @@
                                                                                             <i class="ace-icon fa fa-bars"></i>
                                                                                             Comisión
                                                                                         </th>
+                                                                                        <th>
+                                                                                            <i class="ace-icon fa fa-bars"></i>
+                                                                                            Descuento Fijo
+                                                                                        </th>
+                                                                                        <th>
+                                                                                            <i class="ace-icon fa fa-bars"></i>
+                                                                                            Tipo Cambio
+                                                                                        </th>
 
                                                                                     </tr>
                                                                                 </thead>
@@ -794,7 +825,80 @@
                             </div><!-- /.widget-main -->
                         </div><!-- /.widget-body -->
                     </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+                        <label>Leer</label>
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="editModalLabel">Editar concepto a Comisionar</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal" role="form">
+                                        <fieldset>
 
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="cbbConceptosEdit">Concepto:</label>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <div class="input-group" style="width:100%;">
+                                                        @Html.DropDownList("cbbConceptosEdit", Enumerable.Empty<SelectListItem>(), "-- Selecciona empresa --", htmlAttributes: new { @class = "select2 col-xs-12 col-sm-12 no-padding-left", @disabled = false, @readOnly = false })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.Label("lblComisionEdit", "Comision (%):", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <div class="input-group" style="width:100%;">
+                                                        @Html.Editor("dcmComisionEdit", new { htmlAttributes = new { @class = "col-xs-12 col-sm-6", @type = "number", @min = "1", @max = "100", @Value = 1 } })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.Label("lblDescuentoFijoEdit", "Descuento (%):", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <div class="input-group" style="width:100%;">
+                                                        @Html.Editor("dDescuentoFijoEdit", new { htmlAttributes = new { @class = "col-xs-12 col-sm-6", @type = "number", @min = "1", @max = "100", @Value = 1 } }) &nbsp;&nbsp;
+                                                        @{
+                                                            var selectListMEdit = new SelectList(
+                                                            new List<SelectListItem>
+                                                                {
+                                                                    new SelectListItem {Text = "MXN", Value = "MXN"},
+                                                                    new SelectListItem {Text = "USD", Value = "USD"},
+                                                                }, "Value", "Text");
+                                                        }
+                                                        @Html.DropDownListFor(m => m.strTipoCambio, selectListMEdit, new { @class = "select2", @id = "strTipoCambioEdit", @style = "display: inline-flex;" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="CostoVentaConceptoEdit"></label>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <label>
+                                                        <input id="CostoVentaConceptoEdit" name="CostoVentaConceptoEdit" value="1" type="checkbox" class="ace" />
+                                                        <span class="lbl"> Costo de Venta nivel Concepto</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+
+                                    <div class="clearfix">
+                                        <button type="button" id="btnAgregarConceptoEdit" class="btn btn-primary">
+                                            Actualizar Concepto
+                                            <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Modal -->
                     <div class="modal fade" id="waitModal" tabindex="-1" role="dialog" aria-labelledby="waitModalLabel">
                         <div class="modal-dialog" role="document">

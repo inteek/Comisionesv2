@@ -8,6 +8,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace WebApplication1.Controllers
 {
@@ -57,6 +60,7 @@ namespace WebApplication1.Controllers
         // GET: vendedores/Create
         public ActionResult Create()
         {
+            ViewBag.hdnRolID = Session["RolID"].ToString();
             return View();
         }
 
@@ -168,7 +172,7 @@ namespace WebApplication1.Controllers
                         db.com_vendedores.Add(com_vendedores);
                         db.SaveChanges();
                         Utilidades.Utilidades.RegistrarEvento((string)(Session["UserName"]), "Proceso", "Vendedores", "Alta de vendedor: " + com_vendedores.strNombre + " " + com_vendedores.strApellidoP + " " + com_vendedores.strApellidoM);
-                        return Json(new { error = false, msg = "Se guardo el Vendedor de forma correcta." });
+                        return Json(new { error = false, msg = "Se guardo el Vendedor de forma correcta.", Id = com_vendedores.idCodigoVendedor });
                     }
                     else
                     {
@@ -189,6 +193,205 @@ namespace WebApplication1.Controllers
                 Utilidades.Utilidades.RegistrarEvento((string)(Session["UserName"]), "Error", "Vendedores", "Error al dar de alta vendedor: " + e.Message);
                 return Json(new { error = true, msg = e.InnerException.InnerException.ToString() });
 
+            }
+        }
+
+        [HttpPost]
+        public ActionResult GetDocsEvidencia(int IdVendedor)
+        {
+            try
+            {
+                IList<SelectListItem> docs = new List<SelectListItem>();
+
+                var dv = db.com_DocumentoVendedor.Include("com_Documentos").Where(x => x.idCodigoVendedor == IdVendedor).ToList();
+
+                foreach (var d in dv)
+                {
+                    if (d.com_Documentos != null)
+                        docs.Add(new SelectListItem { Text = d.com_Documentos.name, Value = d.com_Documentos.idDocumento.ToString() });
+                }
+
+                return Json(new { data = docs, error = false, msg = "Success" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = true, msg = ex.Message });
+            }
+        }
+
+        public ActionResult DownloadDoc(int IdDoc)
+        {
+            var file = db.com_Documentos.FirstOrDefault(x => x.idDocumento == IdDoc);
+
+            byte[] fileBytes = file.data;
+
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, file.name);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteDoc(int IdDoc)
+        {
+            try
+            {
+                IList<SelectListItem> docs = new List<SelectListItem>();
+
+                var dv = db.com_DocumentoVendedor.Where(x => x.idDocumento == IdDoc).FirstOrDefault();
+
+                if (dv != null)
+                {
+                    db.Entry(dv).State = System.Data.Entity.EntityState.Deleted;
+                    db.SaveChanges();
+
+                    var d = db.com_Documentos.Where(x => x.idDocumento == IdDoc).FirstOrDefault();
+                    if (d != null)
+                    {
+                        db.Entry(d).State = System.Data.Entity.EntityState.Deleted;
+                        db.SaveChanges();
+                    }
+                }
+
+                return Json(new { error = false, msg = "Documento eliminado con éxito!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = true, msg = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult GuardarEvidencias(List<string> Files, int IdVendedor)
+        {
+            try
+            {
+                com_Documentos doc;
+                com_DocumentoVendedor docVend;
+                System.IO.FileInfo fi;
+
+                if (Files.Count > 0)
+                {
+                    foreach (var f in Files)
+                    {
+
+                        var pathFile = Path.Combine(Server.MapPath("~/App_Data/TempDocs"), f);
+
+                        if (System.IO.File.Exists(pathFile))
+                        {
+                            byte[] array = System.IO.File.ReadAllBytes(pathFile);
+                            doc = new com_Documentos();
+                            fi = new System.IO.FileInfo(pathFile);
+
+                            doc.name = fi.Name;
+                            doc.contentType = fi.Extension;
+                            doc.data = array;
+
+                            //db.com_Documentos.Add(doc);
+
+                            db.Entry(doc).State = System.Data.Entity.EntityState.Added;
+
+                            docVend = new com_DocumentoVendedor();
+
+                            docVend.idCodigoVendedor = IdVendedor;
+                            docVend.idDocumento = doc.idDocumento;
+
+                            db.Entry(docVend).State = System.Data.Entity.EntityState.Added;
+                            //db.com_DocumentoVendedor.Add(docVend);
+
+                            db.SaveChanges();
+
+                            try
+                            {
+                                System.IO.File.Delete(pathFile);
+
+                            }
+                            catch
+                            {
+                            }
+
+
+                        }
+                    }
+
+                }
+
+                return Json(new { error = false, msg = "Se subió correctamente la evidencia" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = true, msg = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UploadFile()
+        {
+            string strFileName = string.Empty;
+            try
+            {
+                foreach (string file in Request.Files)
+                {
+                    var fileContent = Request.Files[file];
+                    if (fileContent != null && fileContent.ContentLength > 0)
+                    {
+                        try
+                        {
+                            System.IO.FileInfo fi;
+
+                            if (System.IO.File.Exists(file))
+                            {
+                                byte[] array = System.IO.File.ReadAllBytes(file);
+                                fi = new System.IO.FileInfo(file);
+                            }
+
+                            var stream = fileContent.InputStream;
+                            var fileName = Path.GetFileName(file);
+                            strFileName = fileName;
+                            var path = Path.Combine(Server.MapPath("~/App_Data/TempDocs"), fileName);
+                            using (var fileStream = System.IO.File.Create(path))
+                            {
+                                stream.CopyTo(fileStream);
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            return Json(new { error = true, msg = ex.Message });
+                        }
+
+
+                    }
+                    else
+                    {
+                        return Json(new { error = true, msg = "Error, fileContent is null!" });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { error = true, msg = ex.Message });
+            }
+
+            return Json(new { error = false, msg = strFileName });
+        }
+
+        [HttpPost]
+        public ActionResult ValidarArchivo_Abierto(string file)
+        {
+            try
+            {
+                System.IO.FileInfo fi;
+
+                if (System.IO.File.Exists(file))
+                {
+                    byte[] array = System.IO.File.ReadAllBytes(file);
+                    fi = new System.IO.FileInfo(file);
+                }
+
+                return Json(new { error = false, msg = "Success" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = true, msg = ex.Message });
             }
         }
 

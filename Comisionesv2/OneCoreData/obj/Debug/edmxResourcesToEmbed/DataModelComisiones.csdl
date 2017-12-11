@@ -131,12 +131,22 @@
       <End Role="com_clientesComConfig" EntitySet="com_clientesComConfig" />
       <End Role="com_relConceptoVendedor" EntitySet="com_relConceptoVendedor" />
     </AssociationSet>
+    <EntitySet Name="com_HistorialDescuentoVendedor" EntityType="COMISIONESModel.com_HistorialDescuentoVendedor" />
     <EntitySet Name="com_UsuarioVendedor" EntityType="COMISIONESModel.com_UsuarioVendedor" />
     <FunctionImport Name="SP_COMISIONES_CONSULTAR_CONCEPTOS" ReturnType="Collection(COMISIONESModel.SP_COMISIONES_CONSULTAR_CONCEPTOS_Result)">
       <Parameter Name="idEmpresa" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="com_Documentos" EntityType="COMISIONESModel.com_Documentos" />
+    <EntitySet Name="com_DocumentoVendedor" EntityType="COMISIONESModel.com_DocumentoVendedor" />
+    <AssociationSet Name="FK__com_Docum__idDoc__09FE775D" Association="COMISIONESModel.FK__com_Docum__idDoc__09FE775D">
+      <End Role="com_Documentos" EntitySet="com_Documentos" />
+      <End Role="com_DocumentoVendedor" EntitySet="com_DocumentoVendedor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__com_Docum__idCod__0AF29B96" Association="COMISIONESModel.FK__com_Docum__idCod__0AF29B96">
+      <End Role="com_vendedores" EntitySet="com_vendedores" />
+      <End Role="com_DocumentoVendedor" EntitySet="com_DocumentoVendedor" />
+    </AssociationSet>
     <EntitySet Name="com_DescuentoConceptoVendedor" EntityType="COMISIONESModel.com_DescuentoConceptoVendedor" />
-    <EntitySet Name="com_HistorialDescuentoVendedor" EntityType="COMISIONESModel.com_HistorialDescuentoVendedor" />
     <AssociationSet Name="FK_com_AgregarDescuento_com_empresas" Association="COMISIONESModel.FK_com_AgregarDescuento_com_empresas">
       <End Role="com_empresas" EntitySet="com_empresas" />
       <End Role="com_DescuentoConceptoVendedor" EntitySet="com_DescuentoConceptoVendedor" />
@@ -242,6 +252,7 @@
     <Property Name="idBanco" Type="Int32" />
     <Property Name="ClabeInterbancaria" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
     <Property Name="TipoPago" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="com_DocumentoVendedor" Relationship="COMISIONESModel.FK__com_Docum__idCod__0AF29B96" FromRole="com_vendedores" ToRole="com_DocumentoVendedor" />
     <NavigationProperty Name="com_DescuentoConceptoVendedor" Relationship="COMISIONESModel.FK_com_AgregarDescuento_com_vendedores" FromRole="com_vendedores" ToRole="com_DescuentoConceptoVendedor" />
   </EntityType>
   <Association Name="FK_com_periodos_com_vendedores">
@@ -434,6 +445,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="com_HistorialDescuentoVendedor">
+    <Key>
+      <PropertyRef Name="idRow" />
+    </Key>
+    <Property Name="idRow" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idDescuentoConceptoVendedor" Type="Int32" Nullable="false" />
+    <Property Name="idCodigoVendedor" Type="Int32" Nullable="false" />
+    <Property Name="idPeriodo" Type="Int32" Nullable="false" />
+    <Property Name="Descuento" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="SaldoTotal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="idEmpresa" Type="Int32" />
+    <Property Name="FechaInicioPeriodo" Type="DateTime" Precision="0" />
+    <Property Name="FechaFinPeriodo" Type="DateTime" Precision="0" />
+  </EntityType>
   <EntityType Name="com_UsuarioVendedor">
     <Key>
       <PropertyRef Name="IdRow" />
@@ -446,6 +471,50 @@
     <Property Type="String" Name="GRPID" Nullable="false" MaxLength="15" />
     <Property Type="String" Name="GRPDESCE" Nullable="false" MaxLength="255" />
   </ComplexType>
+  <EntityType Name="com_Documentos">
+    <Key>
+      <PropertyRef Name="idDocumento" />
+    </Key>
+    <Property Name="idDocumento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="contentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="data" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="com_DocumentoVendedor" Relationship="COMISIONESModel.FK__com_Docum__idDoc__09FE775D" FromRole="com_Documentos" ToRole="com_DocumentoVendedor" />
+  </EntityType>
+  <EntityType Name="com_DocumentoVendedor">
+    <Key>
+      <PropertyRef Name="idDocumentoVendedor" />
+    </Key>
+    <Property Name="idDocumentoVendedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idDocumento" Type="Int32" Nullable="false" />
+    <Property Name="idCodigoVendedor" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="com_Documentos" Relationship="COMISIONESModel.FK__com_Docum__idDoc__09FE775D" FromRole="com_DocumentoVendedor" ToRole="com_Documentos" />
+    <NavigationProperty Name="com_vendedores" Relationship="COMISIONESModel.FK__com_Docum__idCod__0AF29B96" FromRole="com_DocumentoVendedor" ToRole="com_vendedores" />
+  </EntityType>
+  <Association Name="FK__com_Docum__idDoc__09FE775D">
+    <End Type="COMISIONESModel.com_Documentos" Role="com_Documentos" Multiplicity="1" />
+    <End Type="COMISIONESModel.com_DocumentoVendedor" Role="com_DocumentoVendedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_Documentos">
+        <PropertyRef Name="idDocumento" />
+      </Principal>
+      <Dependent Role="com_DocumentoVendedor">
+        <PropertyRef Name="idDocumento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__com_Docum__idCod__0AF29B96">
+    <End Type="COMISIONESModel.com_vendedores" Role="com_vendedores" Multiplicity="1" />
+    <End Type="COMISIONESModel.com_DocumentoVendedor" Role="com_DocumentoVendedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="com_vendedores">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Principal>
+      <Dependent Role="com_DocumentoVendedor">
+        <PropertyRef Name="idCodigoVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityType Name="com_DescuentoConceptoVendedor">
     <Key>
       <PropertyRef Name="idDescuentoConceptoVendedor" />
@@ -463,20 +532,6 @@
     <Property Name="vigenciaFin" Type="DateTime" Precision="0" />
     <NavigationProperty Name="com_empresas" Relationship="COMISIONESModel.FK_com_AgregarDescuento_com_empresas" FromRole="com_DescuentoConceptoVendedor" ToRole="com_empresas" />
     <NavigationProperty Name="com_vendedores" Relationship="COMISIONESModel.FK_com_AgregarDescuento_com_vendedores" FromRole="com_DescuentoConceptoVendedor" ToRole="com_vendedores" />
-  </EntityType>
-  <EntityType Name="com_HistorialDescuentoVendedor">
-    <Key>
-      <PropertyRef Name="idRow" />
-    </Key>
-    <Property Name="idRow" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idEmpresa" Type="Int32" />
-    <Property Name="idDescuentoConceptoVendedor" Type="Int32" Nullable="false" />
-    <Property Name="idCodigoVendedor" Type="Int32" Nullable="false" />
-    <Property Name="idPeriodo" Type="Int32" Nullable="false" />
-    <Property Name="Descuento" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-    <Property Name="SaldoTotal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-    <Property Name="FechaInicioPeriodo" Type="DateTime" Precision="0" />
-    <Property Name="FechaFinPeriodo" Type="DateTime" Precision="0" />
   </EntityType>
   <Association Name="FK_com_AgregarDescuento_com_empresas">
     <End Type="COMISIONESModel.com_empresas" Role="com_empresas" Multiplicity="1" />

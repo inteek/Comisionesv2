@@ -6,6 +6,10 @@
 
     if (SplitPeriodos != null && idCodigoVendedor != "" && idEmpresaSelect != "") {
 
+        $('#div_DetalleNoComisionablesParcial').html('');
+        $('#div_DetalleNoComisionablesParcial2').html('');
+        $('#div_DetalleNoComisionablesParcial3').html('');
+
         $.ajax({
             url: '/comisiones/Periodos/obtenerDetalleNoComisionables',
             type: "POST",
@@ -32,7 +36,7 @@
                     tabla += '<thead>';
                     tabla += '<tr>';
                     //tabla += '<th>FACTURA</th><th>FECHA FACTURA</th><th>FECHA ENVÍO</th><th>FECHA PAGO</th><th>DÍAS</th><th>NO. CLIENTE</th><th>CLIENTE</th><th>EQUIPO</th><th>T.C.</th><th>NO. CONCEPTO</th><th>COMISIÓN</th><th>VENTA</th><th>TOTAL FACTURA</th><th>ADUANA</th><th>REFERENCIA</th><th>RENDICION</th>';
-                                        tabla += '<th>FACTURA</th><th>FECHA FACTURA</th><th>FECHA ENVÍO</th><th>FECHA PAGO</th><th>DÍAS</th><th>NO. CLIENTE</th><th>CLIENTE</th><th>EQUIPO</th><th>T.C.</th><th>NO. CONCEPTO</th><th>COMISIÓN</th><th>VENTA</th><th>ADUANA</th><th>REFERENCIA</th><th>RENDICION</th>';
+                    tabla += '<th>FACTURA</th><th>FECHA FACTURA</th><th>FECHA ENVÍO</th><th>FECHA PAGO</th><th>DÍAS TRANSCURRIDOS</th><th>NO. CLIENTE</th><th>CLIENTE</th><th>EQUIPO</th><th>T.C.</th><th>NO. CONCEPTO</th><th>COMISIÓN</th><th>VENTA</th><th>ADUANA</th><th>REFERENCIA</th><th>RENDICION</th>';
                     tabla += '</tr>';
                     tabla += '</thead>';
                     tabla += '<tbody>';
@@ -54,27 +58,35 @@
                     tabla += '</tbody></table></div>';
 
 
-                    var tabla2 = '<div><span  class="user-info" style="font-weight: bold;">Fecha Inicio: </span><span  class="user-info" id ="fechaInicio">' + fechaInicio + '</span><span class="user-info" style =" margin-left: 25px; font-weight: bold;" >Fecha Fin: </span><span  class="user-info" id ="fechaFin">' + fechaFin + '</span></div></br><div style="height: 280px; overflow-y: scroll;"><table id="table2" class="table hola table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="1" class="display" >';
+                    var tabla3 = '<div><span  class="user-info" style="font-weight: bold;">Fecha Inicio: </span><span  class="user-info" id ="fechaInicio">' + fechaInicio + '</span><span class="user-info" style =" margin-left: 25px; font-weight: bold;" >Fecha Fin: </span><span  class="user-info" id ="fechaFin">' + fechaFin + '</span></div></br><div style="height: 150px; overflow-y: hidden;">';
+                    tabla3 += '<table id="table3" class="table hola table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="1" class="display" >';
+                    tabla3 += '<thead>';
+                    tabla3 += '<tr>';
+                    tabla3 += '<th colspan = "6" rowspan="4" style="text-align: center"><img src="http://cdn2.hubspot.net/hub/2039173/hubfs/site/GrupoEi-agencia-aduanal-en-mexico-logo.png?t=1501783955921&width=190&name=GrupoEi-agencia-aduanal-en-mexico-logo.png" alt="IMAGES" /></th><th colspan = "5"  rowspan="4" style="text-align: center">Grupo EI SA de CV</th><th colspan = "5"  rowspan="4" style="text-align: center">Reporte No Comisionable</th>';
+                    tabla3 += '</tr>';
+
+                    tabla3 += '<tr>';
+                    tabla3 += '</tr>';
+
+                    tabla3 += '<tr>';
+                    tabla3 += '</tr>';
+
+                    tabla3 += '<tr>';
+                    tabla3 += '</tr>';
+
+                    tabla3 += '<tr>';
+                    tabla3 += '<th colspan = "3">Fecha Inicio: ' + fechaInicio + '</th><th colspan = "3">Fecha Fin: ' + fechaFin + '</th><th colspan = "3">Periodo: ' + SplitPeriodos[0] + '</th><th colspan = "5">Vendedor: ' + idCodigoVendedor + ' - ' + strCodigoVendedor + '</th><th colspan = "2" style="text-align: right">Pag. 1</th>';
+                    tabla3 += '</tr>';
+
+                    tabla3 += '</thead></br></table>';
+
+
+
+                    var tabla2 = '<div style="height: 280px; overflow-y: scroll;">';
+                    tabla2 += '<table id="table2" class="table hola table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="1" class="display" >';
                     tabla2 += '<thead>';
                     tabla2 += '<tr>';
-                    tabla2 += '<th colspan = "6" rowspan="4" style="text-align: center"><img src="http://cdn2.hubspot.net/hub/2039173/hubfs/site/GrupoEi-agencia-aduanal-en-mexico-logo.png?t=1501783955921&width=190&name=GrupoEi-agencia-aduanal-en-mexico-logo.png" alt="IMAGES" /></th><th colspan = "5"  rowspan="4" style="text-align: center">Grupo EI SA de CV</th><th colspan = "5"  rowspan="4" style="text-align: center">Reporte No Comisionable</th>';
-                    tabla2 += '</tr>';
-
-                    tabla2 += '<tr>';
-                    tabla2 += '</tr>';
-
-                    tabla2 += '<tr>';
-                    tabla2 += '</tr>';
-
-                    tabla2 += '<tr>';
-                    tabla2 += '</tr>';
-
-                    tabla2 += '<tr>';
-                    tabla2 += '<th colspan = "3">Fecha Inicio: ' + fechaInicio + '</th><th colspan = "3">Fecha Fin: ' + fechaFin + '</th><th colspan = "3">Periodo: ' + SplitPeriodos[0] + '</th><th colspan = "5">Vendedor: ' + idCodigoVendedor + ' - ' + strCodigoVendedor + '</th><th colspan = "2" style="text-align: right">Pag. 1</th>';
-                    tabla2 += '</tr>';
-                    tabla2 += '<tr>';
-                    //tabla2 += '<th style="text-align: center; background-color: #87b87f; color: #fff">FACTURA</th><th style="text-align: center; background-color: #87b87f; color: #fff">FECHA FACTURA</th><th style="text-align: center; background-color: #87b87f; color: #fff">FECHA ENVÍO</th><th style="text-align: center; background-color: #87b87f; color: #fff">FECHA PAGO</th><th style="text-align: center; background-color: #87b87f; color: #fff">DÍAS</th><th style="text-align: center; background-color: #87b87f; color: #fff">NO. CLIENTE</th><th style="text-align: center; background-color: #87b87f; color: #fff">CLIENTE</th><th style="text-align: center; background-color: #87b87f; color: #fff">EQUIPO</th><th style="text-align: center; background-color: #87b87f; color: #fff">T.C.</th><th style="text-align: center; background-color: #87b87f; color: #fff">NO. CONCEPTO</th><th style="text-align: center; background-color: #87b87f; color: #fff">COMISIÓN</th><th style="text-align: center; background-color: #87b87f; color: #fff">VENTA</th><th style="text-align: center; background-color: #87b87f; color: #fff">TOTAL FACTURA</th><th style="text-align: center; background-color: #87b87f; color: #fff">ADUANA</th><th style="text-align: center; background-color: #87b87f; color: #fff">REFERENCIA</th><th style="text-align: center; background-color: #87b87f; color: #fff">RENDICION</th>';
-                    tabla2 += '<th style="text-align: center; background-color: #87b87f; color: #fff">FACTURA</th><th style="text-align: center; background-color: #87b87f; color: #fff">FECHA FACTURA</th><th style="text-align: center; background-color: #87b87f; color: #fff">FECHA ENVÍO</th><th style="text-align: center; background-color: #87b87f; color: #fff">FECHA PAGO</th><th style="text-align: center; background-color: #87b87f; color: #fff">DÍAS</th><th style="text-align: center; background-color: #87b87f; color: #fff">NO. CLIENTE</th><th style="text-align: center; background-color: #87b87f; color: #fff">CLIENTE</th><th style="text-align: center; background-color: #87b87f; color: #fff">EQUIPO</th><th style="text-align: center; background-color: #87b87f; color: #fff">T.C.</th><th style="text-align: center; background-color: #87b87f; color: #fff">NO. CONCEPTO</th><th style="text-align: center; background-color: #87b87f; color: #fff">COMISIÓN</th><th style="text-align: center; background-color: #87b87f; color: #fff">VENTA</th><th style="text-align: center; background-color: #87b87f; color: #fff">ADUANA</th><th style="text-align: center; background-color: #87b87f; color: #fff">REFERENCIA</th><th style="text-align: center; background-color: #87b87f; color: #fff">RENDICION</th>';
+                    tabla2 += '<th style="text-align: center; background-color: #87b87f; color: #fff">FACTURA</th><th style="text-align: center; background-color: #87b87f; color: #fff">FECHA FACTURA</th><th style="text-align: center; background-color: #87b87f; color: #fff">FECHA ENVÍO</th><th style="text-align: center; background-color: #87b87f; color: #fff">FECHA PAGO</th><th style="text-align: center; background-color: #87b87f; color: #fff">DÍAS TRANSCURRIDOS</th><th style="text-align: center; background-color: #87b87f; color: #fff">NO. CLIENTE</th><th style="text-align: center; background-color: #87b87f; color: #fff">CLIENTE</th><th style="text-align: center; background-color: #87b87f; color: #fff">EQUIPO</th><th style="text-align: center; background-color: #87b87f; color: #fff">T.C.</th><th style="text-align: center; background-color: #87b87f; color: #fff">NO. CONCEPTO</th><th style="text-align: center; background-color: #87b87f; color: #fff">COMISIÓN</th><th style="text-align: center; background-color: #87b87f; color: #fff">VENTA</th><th style="text-align: center; background-color: #87b87f; color: #fff">ADUANA</th><th style="text-align: center; background-color: #87b87f; color: #fff">REFERENCIA</th><th style="text-align: center; background-color: #87b87f; color: #fff">RENDICION</th>';
                     tabla2 += '</tr>';
                     tabla2 += '</thead>';
                     tabla2 += '<tbody>';
@@ -98,6 +110,75 @@
                     $('#div_DetalleNoComisionablesParcial').html(tabla);
 
                     $('#div_DetalleNoComisionablesParcial2').html(tabla2);
+
+                    $('#div_DetalleNoComisionablesParcial3').html(tabla3);
+
+
+                    $('#table2')
+                    .dataTable({
+                        "paging": false,
+                        language: {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": true,
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        },
+                        dom: 'Bfrtlip',
+                        buttons: [
+                        ],
+                        Columns: [
+                                   { "data": "SOPNUMBE" },
+                                   { "data": "DATEFACTURA" },
+                                   { "data": "DATEENVIO" },
+                                   { "data": "DATEPAGO" },
+                                   { "data": "DIAS" },
+                                   { "data": "CUSTNMBR" },
+                                   { "data": "CUSTNAME" },
+                                   { "data": "GrupoNombre" },
+                                   { "data": "TCPED" },
+                                   { "data": "ITEMNMBR" },
+                                   { "data": "COMISION" },
+                                   { "data": "XTNDPRCE" },
+                                   { "data": "ADUASECC" },
+                                   { "data": "REFRENCE" },
+                                   { "data": "RENDICION" }
+                        ],
+                        bAutoWidth: true,
+                        aoColumns: [
+                            { sTitle: "FACTURA", mData: "SOPNUMBE", bSortable: true },
+                            { sTitle: "FECHA FACTURA", mData: "DATEFACTURA", bSortable: true },
+                            { sTitle: "FECHA ENVÍO", mData: "DATEENVIO", bSortable: true },
+                            { sTitle: "FECHA PAGO", mData: "DATEPAGO", bSortable: true },
+                            { sTitle: "DÍAS TRANSCURRIDOS", mData: "DIAS", bSortable: true },
+                            { sTitle: "NO. CLIENTE", mData: "CUSTNMBR", bSortable: true },
+                            { sTitle: "CLIENTE", mData: "CUSTNAME", bSortable: true },
+                            { sTitle: "EQUIPO", mData: "GrupoNombre", bSortable: true },
+                            { sTitle: "T.C.", mData: "TCPED", bSortable: true },
+                            { sTitle: "NO. CONCEPTO", mData: "ITEMNMBR", bSortable: true },
+                            { sTitle: "COMISIÓN", mData: "COMISION", bSortable: true },
+                            { sTitle: "VENTA", mData: "XTNDPRCE", bSortable: true },
+                            { sTitle: "ADUANA", mData: "ADUASECC", bSortable: true },
+                            { sTitle: "REFERENCIA", mData: "REFRENCE", bSortable: true },
+                            { sTitle: "RENDICION", mData: "RENDICION", bSortable: true }
+                        ],
+                        /* inside datatable initialization */
+                        "aoColumnDefs": [
+                        ],
+                        "aaSorting": []
+                    });
 
                     $("#cmd").show();
                     $("#cmd_excel").show();

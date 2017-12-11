@@ -98,10 +98,47 @@ $('#dynamic-table')
                "mRender": function (data, type, full) {
                    var hdnRolID = $("#hdnRolID").val();
                    if (hdnRolID == "Administrador") {
-                       return '<a href="/comisiones/Vendedores/Edit/' + data['idVendedor'] + '" class="edit-row tooltip-success" data-rel="tooltip" title="Editar" onclick="updateVendedores(' + data['idVendedor'] + ');"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a> <a href="#" class="delete-row tooltip-error" data-rel="tooltip" title="Eliminar" onclick="deleteVendedores(\'' + data['idVendedor'] + '\');"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a>';
+                       return '<a href="#evidenciaModal" data-id="' + data['idVendedor'] + '" data-toggle="modal" data-target="#evidenciaModal" class="evidencias-row tooltip-primary" data-rel="tooltip" title="Evidencias">' +
+                                '<span style="color: black">' +
+                                    '<i class="ace-icon fa fa-folder-open bigger-120"></i>' +
+                                '</span>' +
+                              '</a>&nbsp;&nbsp;' +
+                              '<a href="/comisiones/Vendedores/Edit/' + data['idVendedor'] + '" class="edit-row tooltip-success" data-rel="tooltip" title="Editar" onclick="updateVendedores(' + data['idVendedor'] + ');">' +
+                                '<span class="green">' +
+                                    '<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>' +
+                                '</span>' +
+                              '</a>&nbsp;' +
+                              '<a href="#" class="delete-row tooltip-error" data-rel="tooltip" title="Eliminar" onclick="deleteVendedores(\'' + data['idVendedor'] + '\');">' +
+                                '<span class="red">' +
+                                    '<i class="ace-icon fa fa-trash-o bigger-120"></i>' +
+                                '</span>' +
+                              '</a>';
                    }
                    else {
-                       return '<a href="/comisiones/Vendedores/Edit/' + data['idVendedor'] + '" class="edit-row tooltip-success" data-rel="tooltip" title="Editar" onclick="updateVendedores(' + data['idVendedor'] + ');"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a>';
+                       if (hdnRolID == "Operador") {
+                           return '<a href="#evidenciaModal" data-id="' + data['idVendedor'] + '" data-toggle="modal" data-target="#evidenciaModal" class="evidencias-row tooltip-primary" data-rel="tooltip" title="Evidencias">' +
+                                    '<span style="color: black">' +
+                                        '<i class="ace-icon fa fa-folder-open bigger-120"></i>' +
+                                    '</span>' +
+                                  '</a>&nbsp;&nbsp;' +
+                                  '<a href="/comisiones/Vendedores/Edit/' + data['idVendedor'] + '" class="edit-row tooltip-success" data-rel="tooltip" title="Editar" onclick="updateVendedores(' + data['idVendedor'] + ');">' +
+                                    '<span class="green">' +
+                                        '<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>' +
+                                    '</span>' +
+                                  '</a>&nbsp;' +
+                                  '<a href="#" class="delete-row tooltip-error" data-rel="tooltip" title="Eliminar" onclick="deleteVendedores(\'' + data['idVendedor'] + '\');">' +
+                                    '<span class="red">' +
+                                        '<i class="ace-icon fa fa-trash-o bigger-120"></i>' +
+                                    '</span>' +
+                                  '</a>';
+                       }
+                       else {
+                           return '<a href="/comisiones/Vendedores/Edit/' + data['idVendedor'] + '" class="edit-row tooltip-success" data-rel="tooltip" title="Editar" onclick="updateVendedores(' + data['idVendedor'] + ');">' +
+                                    '<span class="green">' +
+                                        '<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>' +
+                                    '</span>' +
+                                  '</a>';
+                       }
                    }
                }
            }
@@ -408,6 +445,146 @@ function tooltip_placement(context, source) {
     if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
     return 'left';
 }
+
+function fnCerrarPopup() {
+    $('#evidenciaModal').modal('toggle');
+}
+
+function fnDescargarDocEvidencia(val) {
+    window.location = '/comisiones/vendedores/DownloadDoc?IdDoc=' + val;
+}
+
+function fnEliminarDocEvidencia(val) {
+    swal({
+        title: "Estas seguro?",
+        text: "Usted no será capaz de recuperar este documento si lo elimina!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: 'btn-danger',
+        confirmButtonText: 'Si, estoy seguro!',
+        cancelButtonText: "No, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+             function (isConfirm) {
+                 if (isConfirm) {
+
+                     var param = {
+                         IdDoc: val
+                     }
+
+                     $.ajax({
+                         type: 'POST',
+                         url: '/comisiones/vendedores/DeleteDoc',
+                         data: JSON.stringify(param),
+                         contentType: "application/json; charset=utf-8",
+                         success: function SuccessCallback(param) {
+                             if (!param.error) {
+                                 swal({
+                                     title: "Documento eliminado!",
+                                     text: param.msg,
+                                     type: "success",
+                                     confirmButtonClass: 'btn-success',
+                                     confirmButtonText: 'ok!'
+                                 },
+                                               function (isConfirm) {
+                                                   window.location.href = "/comisiones/Vendedores/";
+
+                                               });
+                             } else {
+                                 swal("Error!", param.msg, "error");
+                             }
+                         },
+                         error: function FailureCallback(param) {
+                             swal("Error!", param.msg, "error");
+
+                         }
+                     });
+                 } else {
+                     swal("Cancelado", "No se elimino el documento.", "error");
+                 }
+             });
+
+}
+
+$('#evidenciaModal').on('show.bs.modal', function (e) {
+    var idVendedor = $(e.relatedTarget).attr('data-id');
+    var param = {
+        IdVendedor: idVendedor
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/comisiones/vendedores/GetDocsEvidencia',
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8",
+        success: function SuccessCallback(param) {
+            if (!param.error) {
+
+                $('#tblEvidencias').empty();
+                if (param.data.length > 0) {
+
+
+                    $.each(param.data, function (i, v) {
+                        console.log(v.Text)
+                        $('#tblEvidencias').append('<tr id="' + v.Value + '">' +
+                        '<td>' + v.Text + '</td>' +
+                        '<td style="width: 10px;">' +
+                            //'<a href="/comisiones/Vendedores/DownloadDoc/' + v.Value + '" class="edit-row tooltip-success" data-rel="tooltip" title="Editar" onclick="updateVendedores(' + data['idVendedor'] + ');">' +
+                            //  '<span class="green">' +
+                            //      '<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>' +
+                            //  '</span>' +
+                            //'</a>&nbsp;' +
+
+                            '<button class="btn btn-succes btn-xs success-row tooltip-success" data-rel="tooltip" title="Descargar" onclick="fnDescargarDocEvidencia(&quot;' + v.Value + '&quot;)">' +
+                                '<i class="ace-icon fa fa-download bigger-120"></i>' +
+                            '</button>' +
+                        '</td>' +
+                        '<td style="width: 10px;">' +
+                            //'<a href="/comisiones/Vendedores/DeleteDoc/' + v.Value + '" class="delete-row tooltip-error" data-rel="tooltip" title="Eliminar" onclick="deleteVendedores(\'' + data['idVendedor'] + '\');">' +
+                            //  '<span class="red">' +
+                            //      '<i class="ace-icon fa fa-trash-o bigger-120"></i>' +
+                            //  '</span>' +
+                            //'</a>' +
+
+                            '<button class="btn btn-danger btn-xs delete-row tooltip-error" data-rel="tooltip" title="Eliminar" onclick="fnEliminarDocEvidencia(&quot;' + v.Value + '&quot;)">' +
+                                '<i class="ace-icon fa fa-trash-o bigger-120"></i>' +
+                            '</button>' +
+                        '</td>' +
+                        '</tr>');
+
+
+                        //'<a href="/comisiones/Vendedores/Edit/' + data['idVendedor'] + '" class="edit-row tooltip-success" data-rel="tooltip" title="Editar" onclick="updateVendedores(' + data['idVendedor'] + ');">' +
+                        //  '<span class="green">' +
+                        //      '<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>' +
+                        //  '</span>' +
+                        //'</a>&nbsp;' +
+                        //'<a href="#" class="delete-row tooltip-error" data-rel="tooltip" title="Eliminar" onclick="deleteVendedores(\'' + data['idVendedor'] + '\');">' +
+                        //  '<span class="red">' +
+                        //      '<i class="ace-icon fa fa-trash-o bigger-120"></i>' +
+                        //  '</span>' +
+                        //'</a>';
+                    });
+                } else {
+                    console.log("No se han cargado evidencias");
+                    $('#tblEvidencias').append('<tr colspan="3">' +
+                        '<td>No se han cargado evidencias</td>' +
+                        '</tr>');
+                }
+
+                //$("#evidenciaModal").modal('toggle');
+
+            } else {
+                swal("Error!", param.msg, "error");
+            }
+        },
+        error: function FailureCallback(param) {
+            //debugger;
+            swal("Error!", param.msg, "error");
+
+        }
+    });
+})
 
 function updateVendedores(id_vendedor) {
     var url = window.location.host + '/comisiones/Vendedores/Edit/' + id_vendedor;

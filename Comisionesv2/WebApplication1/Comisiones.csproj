@@ -763,6 +763,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.base64.js" />
+    <Content Include="Scripts\jquery.linq.js" />
+    <Content Include="Scripts\jquery.linq.min.js" />
     <Content Include="Scripts\jquery.maxlength.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -1025,6 +1027,8 @@
     <Content Include="Scripts\jsVendedores\jsVendedores.js" />
     <Content Include="Scripts\jsVendedores\jsVendedoresCreate.js" />
     <Content Include="Scripts\jsVendedores\jsVendedoresEdit.js" />
+    <Content Include="Scripts\linq.js" />
+    <Content Include="Scripts\linq.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -1226,7 +1230,7 @@
     <Content Include="Views\Periodos\PagoComisionCuentaBancaria.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\TempDocs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1287,7 +1291,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50912</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50914/comisiones</IISUrl>
+          <IISUrl>http://localhost:50916/comisiones</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

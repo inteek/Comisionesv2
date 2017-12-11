@@ -1,4 +1,108 @@
-﻿var TableDataVendedoresCreate = function () {
+﻿//$(document).on('change', ':file', function () {
+
+//    var input = $(this);
+//    var numFiles = input.get(0).files ? input.get(0).files.length : 1;
+//    var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+//    console.log(input.mozFullPath);
+//    input.trigger('fileselect', [numFiles, label, input.val()]);
+//});
+
+//$(':file').on('fileselect', function (event, numFiles, label, dirFile) {
+    
+//    var input = $(this).parents('.input-group').find(':text'),
+//        log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+//    if (input.length) {
+//        //debugger;
+//        input.val(log);
+//    } else {
+//        var param = {
+//            file: dirFile
+//        }
+
+//        $.ajax({
+//            type: 'POST',
+//            url: '/comisiones/vendedores/ValidarArchivo_Abierto',
+//            data: JSON.stringify(param),
+//            contentType: "application/json; charset=utf-8",
+//            success: function SuccessCallback(param) {
+//                label = label.replace(".", "").replace(/ /g, "");
+//                if (!param.error) {
+//                    $('#simple-table').append('<tr id="' + label + '">' +
+//                    '<td>' + dirFile + '</td>' +
+//                    '<td style="width: 10px;"><button id="aa" class="btn btn-danger btn-xs" onclick="fnEliminarDocumento(&quot;' + label + '&quot;)"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></td>' +
+//                    '</tr>');
+//                } else {
+//                    swal("Error!", param.msg, "error");
+//                }
+//            },
+//            error: function FailureCallback(param) {
+//                //debugger;
+//                swal("Error!", param.msg, "error");
+
+//            }
+//        });
+//    }
+//});
+
+$('#txtUploadFile').on('change', function (e) {
+    var files = e.target.files;
+
+    if (files.length > 0) {
+        if (window.FormData !== undefined) {
+            var data = new FormData();
+            debugger;
+            for (var x = 0; x < files.length; x++) {
+
+    data.append(files[x].name, files[x]);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '/comisiones/Vendedores/UploadFile',
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (data) {
+                    var label = data.msg.replace(".", "").replace(/ /g, "");
+                    if (!data.error) {
+                        $('#simple-table').append('<tr id="' + label + '">' +
+                        '<td>' + data.msg + '</td>' +
+                        '<td style="width: 10px;"><button id="aa" class="btn btn-danger btn-xs" onclick="fnEliminarDocumento(&quot;' + label + '&quot;)"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></td>' +
+                        '</tr>');
+                    } else {
+                        swal("Error!", data.msg, "error");
+                    }
+                },
+                error: function (xhr, status, p3, p4) {
+                    swal("Error!", data.msg, "error");
+                }
+            });
+        } else {
+            alert("This browser doesn't support HTML5 file uploads!");
+            swal("Error!", "Este navegador no soporta la carga de archivos vía HTML5!", "error");
+        }
+    }
+});
+
+function fnCerrarPopup() {
+    $('#adjuntarEvidenciaModal').modal('toggle');
+}
+
+
+function fnAdjuntarEvidencia() {
+    $("#adjuntarEvidenciaModal").modal('toggle');
+}
+
+function fnEliminarDocumento(val) {
+    $("#" + val).remove();
+}
+
+function fnGuardarEvidencias() {
+
+}
+
+var TableDataVendedoresCreate = function () {
     "use strict";
 
     $(".select2").select2({ allowClear: true })
@@ -41,16 +145,22 @@
             }
         })
         .on('finished.fu.wizard', function (e) {
-
+            var strNombre = $("#strNombre").val();
+            var strApellidoP = $("#strApellidoP").val();
+            var strApellidoM = $("#strApellidoM").val();
+            var strDireccion = $("#strDireccion").val();
+            var strTipoVendedor = $('#strTipoVendedor option:selected').text();
+            var strTelefono = $("#strTelefono").val();
+            var strEmail = $("#strEmail").val();
 
             var dataNewVendedores = {
-                strNombre: strNombre.value,
-                strApellidoP: strApellidoP.value,
-                strApellidoM: strApellidoM.value,
-                strDireccion: strDireccion.value,
-                strTipoVendedor: $('#strTipoVendedor option:selected').text().trim(),
-                strTelefono: strTelefono.value,
-                strEmail: strEmail.value
+                strNombre: strNombre,
+                strApellidoP: strApellidoP,
+                strApellidoM: strApellidoM,
+                strDireccion: strDireccion,
+                strTipoVendedor: strTipoVendedor,
+                strTelefono: strTelefono,
+                strEmail: strEmail
             };
 
             $.ajax({
@@ -61,20 +171,80 @@
                 success: function SuccessCallback(dataNewVendedores) {
                     if (!dataNewVendedores.error) {
 
-                        swal({
-                            title: "Guardar!",
-                            text: dataNewVendedores.msg,
-                            type: "success",
-                            confirmButtonClass: 'btn-success',
-                            confirmButtonText: 'ok!'
-                        },
-                        function (isConfirm) {
-                            if (isConfirm) {
-                                window.location.href = "/comisiones/Vendedores/";
-                            }
-                        });
+                        debugger;
+                        var dataFilesEvidencia = {
+                            Files: [],
+                            IdVendedor: dataNewVendedores.Id
+                        };
 
+                        var hdnRolID = $("#hdnRolID").val();
 
+                        if (hdnRolID == "Operador" || hdnRolID == "Administrador") {
+                            var table = $("#simple-table tbody");
+
+                            table.find('tr').each(function (i, el) {
+                                var tds = $(this).find('td');
+                                dataFilesEvidencia.Files.push(tds.eq(0).text());
+                            });
+                        }
+
+                        debugger;
+                        if (dataFilesEvidencia.Files.length > 0) {
+                            swal({
+                                title: "Guardar!",
+                                text: dataNewVendedores.msg,
+                                type: "success",
+                                confirmButtonClass: 'btn-success',
+                                confirmButtonText: 'ok!'
+                            });
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '/comisiones/vendedores/GuardarEvidencias',
+                                data: JSON.stringify(dataFilesEvidencia),
+                                contentType: "application/json; charset=utf-8",
+                                success: function SuccessCallback(dataFilesEvidencia) {
+                                    debugger;
+                                    if (!dataFilesEvidencia.error) {
+                                        swal({
+                                            title: "Guardar evidencia!",
+                                            text: dataFilesEvidencia.msg,
+                                            type: "success",
+                                            confirmButtonClass: 'btn-success',
+                                            confirmButtonText: 'ok!'
+                                        },
+                                    function (isConfirm) {
+                                        if (isConfirm) {
+                                            window.location.href = "/comisiones/Vendedores/";
+                                        }
+                                    });
+                                    } else {
+                                        swal("Error!", dataFilesEvidencia.msg, "error");
+                                        window.location.href = "/comisiones/Vendedores/";
+                                    }
+                                },
+                                error: function FailureCallback(dataFilesEvidencia) {
+                                    debugger;
+                                    swal("Error!", dataFilesEvidencia.msg, "error");
+                                    window.location.href = "/comisiones/Vendedores/";
+                                }
+                            });
+                        } else {
+
+                            swal({
+                                title: "Guardar!",
+                                text: dataNewVendedores.msg,
+                                type: "success",
+                                confirmButtonClass: 'btn-success',
+                                confirmButtonText: 'ok!'
+                            },
+                                    function (isConfirm) {
+                                        if (isConfirm) {
+                                            window.location.href = "/comisiones/Vendedores/";
+                                        }
+                                    });
+
+                        }
                     } else {
                         swal("Error!", dataNewVendedores.msg, "error");
                     }

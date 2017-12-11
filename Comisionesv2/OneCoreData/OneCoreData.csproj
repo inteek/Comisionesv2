@@ -89,6 +89,12 @@
     <Compile Include="com_Descuentos.cs">
       <DependentUpon>DataModelComisiones.tt</DependentUpon>
     </Compile>
+    <Compile Include="com_Documentos.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="com_DocumentoVendedor.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
     <Compile Include="com_EmpresaConceptos.cs">
       <DependentUpon>DataModelComisiones.tt</DependentUpon>
     </Compile>

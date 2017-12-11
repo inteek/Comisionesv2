@@ -28,9 +28,9 @@ table.strValues thead tr {
 }
 
 </style>
-<img style='border: 0; margin: 0; padding: 0; display: block; text - decoration:none; ' src='http://www.onecore.mx/hubfs/sitio/img/header/Sistema-Integral-de-Comercio-Exterior-logo-onecore-2.png?t=1494426584346' alt='Sistema Integral de Comercio Exterior - OneCore' class='hs-site-logo'>
-
-<table class='body-wrap'>
+<img style='border: 0; margin: 0; padding: 0; display: block; text - decoration:none; position: relative; float: left; margin-left: 10px;' src='http://www.onecore.mx/hubfs/sitio/img/header/Sistema-Integral-de-Comercio-Exterior-logo-onecore-2.png?t=1494426584346' alt='Sistema Integral de Comercio Exterior - OneCore' class='hs-site-logo'>
+<img style='border: 0; margin: 0; padding: 0; display: block; text - decoration:none; position: relative; float: right; margin - right: 10px; ' src='http://cdn2.hubspot.net/hub/2039173/hubfs/site/GrupoEi-agencia-aduanal-en-mexico-logo.png?t=1501783955921&amp;width=190&amp;name=GrupoEi-agencia-aduanal-en-mexico-logo.png' alt='Sistema Integral de Comercio Exterior - Grupo Ei' class='hs-site-logo'>
+<table class='body-wrap' style='margin-top: 70px; position: absolute; margin-right: 10px;'>
 	<tr>
 		<td></td>
 		<td class='container' bgcolor='#FFFFFF'>

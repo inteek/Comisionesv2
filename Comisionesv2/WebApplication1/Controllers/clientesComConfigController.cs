@@ -435,7 +435,7 @@ namespace WebApplication1.Controllers
                             OldIntercia = ClienteOriginal.strIntercia;
                             OldNotificacion = ClienteOriginal.strNotificacion;
                             //OldDescuentoFijo = Convert.ToString(ClienteOriginal.dDescuentoFijo);
-                            OldTipoCambio = ClienteOriginal.strTipoCambio;
+                            //OldTipoCambio = ClienteOriginal.strTipoCambio;
 
 
                             com_clientesComConfig.boolActivo = true;

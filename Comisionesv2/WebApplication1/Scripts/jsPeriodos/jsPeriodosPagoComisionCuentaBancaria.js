@@ -7,6 +7,10 @@
     //if (SplitPeriodos != null && idCodigoVendedor != "" && idEmpresaSelect != "") {
     if (SplitPeriodos != null && idEmpresaSelect != "") {
 
+        $('#div_ResumenPagoComisionesParcial').html('');
+        $('#div_ResumenPagoComisionesParcial2').html('');
+        $('#div_ResumenPagoComisionesParcial3').html('');
+
         $.ajax({
             url: '/comisiones/Periodos/obtenerResumenPagoComisiones',
             type: "POST",
@@ -71,28 +75,31 @@
                     tabla += '</tbody></table></div>';
 
 
-                    var tabla2 = '<div><span  class="user-info" style="font-weight: bold;">Fecha Inicio: </span><span  class="user-info" id ="fechaInicio">' + fechaInicio + '</span><span class="user-info" style =" margin-left: 25px; font-weight: bold;" >Fecha Fin: </span><span  class="user-info" id ="fechaFin">' + fechaFin + '</span></div></br><div style="height: 280px; overflow-y: scroll;">';
+                    var tabla3 = '<div><span  class="user-info" style="font-weight: bold;">Fecha Inicio: </span><span  class="user-info" id ="fechaInicio">' + fechaInicio + '</span><span class="user-info" style =" margin-left: 25px; font-weight: bold;" >Fecha Fin: </span><span  class="user-info" id ="fechaFin">' + fechaFin + '</span></div></br><div style="height: 280px; overflow-y: scroll;">';
+                    tabla3 += '<table id="table3" class="table hola table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="1" class="display" >';
+                    tabla3 += '<thead>';
+                    tabla3 += '<tr>';
+                    tabla3 += '<th colspan = "6" rowspan="4" style="text-align: center"><img src="http://cdn2.hubspot.net/hub/2039173/hubfs/site/GrupoEi-agencia-aduanal-en-mexico-logo.png?t=1501783955921&width=190&name=GrupoEi-agencia-aduanal-en-mexico-logo.png" alt="IMAGES" /></th><th colspan = "5"  rowspan="4" style="text-align: center">Grupo EI SA de CV</th><th colspan = "5"  rowspan="4" style="text-align: center">Resumen de Pago de Comisiones</th>';
+                    tabla3 += '</tr>';
+
+                    tabla3 += '<tr>';
+                    tabla3 += '</tr>';
+
+                    tabla3 += '<tr>';
+                    tabla3 += '</tr>';
+
+                    tabla3 += '<tr>';
+                    tabla3 += '</tr>';
+
+                    tabla3 += '<tr>';
+                    tabla3 += '<th colspan = "3">Fecha Inicio: ' + fechaInicio + '</th><th colspan = "3">Fecha Fin: ' + fechaFin + '</th><th colspan = "5">Periodo: ' + SplitPeriodos[0] + '</th><th colspan = "2" style="text-align: right">Pag. 1</th>';
+                    tabla3 += '</tr>';
+                    tabla3 += '</thead></br></table>';
+
+                    var tabla2 = '<div style="height: 280px; overflow-y: scroll;">';
                     tabla2 += '<table id="table2" class="table hola table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="1" class="display" >';
                     tabla2 += '<thead>';
                     tabla2 += '<tr>';
-                    tabla2 += '<th colspan = "6" rowspan="4" style="text-align: center"><img src="http://cdn2.hubspot.net/hub/2039173/hubfs/site/GrupoEi-agencia-aduanal-en-mexico-logo.png?t=1501783955921&width=190&name=GrupoEi-agencia-aduanal-en-mexico-logo.png" alt="IMAGES" /></th><th colspan = "5"  rowspan="4" style="text-align: center">Grupo EI SA de CV</th><th colspan = "5"  rowspan="4" style="text-align: center">Resumen de Pago de Comisiones</th>';
-                    tabla2 += '</tr>';
-
-                    tabla2 += '<tr>';
-                    tabla2 += '</tr>';
-
-                    tabla2 += '<tr>';
-                    tabla2 += '</tr>';
-
-                    tabla2 += '<tr>';
-                    tabla2 += '</tr>';
-
-                    tabla2 += '<tr>';
-                    //tabla2 += '<th colspan = "3">Fecha Inicio: ' + fechaInicio + '</th><th colspan = "3">Fecha Fin: ' + fechaFin + '</th><th colspan = "3">Periodo: ' + SplitPeriodos[0] + '</th><th colspan = "5">Vendedor: ' + idCodigoVendedor + ' - ' + strCodigoVendedor + '</th><th colspan = "2" style="text-align: right">Pag. 1</th>';
-                    tabla2 += '<th colspan = "3">Fecha Inicio: ' + fechaInicio + '</th><th colspan = "3">Fecha Fin: ' + fechaFin + '</th><th colspan = "3">Periodo: ' + SplitPeriodos[0] + '</th><th colspan = "2" style="text-align: right">Pag. 1</th>';
-                    tabla2 += '</tr>';
-                    tabla2 += '<tr>';
-                    //tabla2 += '<th style="text-align: center; background-color: #87b87f; color: #fff">FACTURA</th><th style="text-align: center; background-color: #87b87f; color: #fff">FECHA FACTURA</th><th style="text-align: center; background-color: #87b87f; color: #fff">FECHA ENVÍO</th><th style="text-align: center; background-color: #87b87f; color: #fff">FECHA PAGO</th><th style="text-align: center; background-color: #87b87f; color: #fff">DÍAS</th><th style="text-align: center; background-color: #87b87f; color: #fff">NO. CLIENTE</th><th style="text-align: center; background-color: #87b87f; color: #fff">CLIENTE</th><th style="text-align: center; background-color: #87b87f; color: #fff">EQUIPO</th><th style="text-align: center; background-color: #87b87f; color: #fff">T.C.</th><th style="text-align: center; background-color: #87b87f; color: #fff">NO. CONCEPTO</th><th style="text-align: center; background-color: #87b87f; color: #fff">COMISIÓN</th><th style="text-align: center; background-color: #87b87f; color: #fff">VENTA</th><th style="text-align: center; background-color: #87b87f; color: #fff">TOTAL FACTURA</th><th style="text-align: center; background-color: #87b87f; color: #fff">ADUANA</th><th style="text-align: center; background-color: #87b87f; color: #fff">REFERENCIA</th><th style="text-align: center; background-color: #87b87f; color: #fff">RENDICION</th>';
                     tabla2 += '<th style="text-align: center; background-color: #87b87f; color: #fff">ID CODIGO VENDEDOR</th>'
                     tabla2 += '<th style="text-align: center; background-color: #87b87f; color: #fff">VENDEDOR</th>'
                     tabla2 += '<th style="text-align: center; background-color: #87b87f; color: #fff">PERIODO</th>'
@@ -130,8 +137,71 @@
                     tabla2 += '</tbody></table></div>';
 
                     $('#div_ResumenPagoComisionesParcial').html(tabla);
-
                     $('#div_ResumenPagoComisionesParcial2').html(tabla2);
+                    $('#div_ResumenPagoComisionesParcial3').html(tabla3);
+
+                    $('#table2')
+                    .dataTable({
+                        "paging": false,
+                        language: {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": true,
+                            //"oPaginate": {
+                            //    "sFirst": "Primero",
+                            //    "sLast": "Último",
+                            //    "sNext": "Siguiente",
+                            //    "sPrevious": "Anterior"
+                            //},
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        },
+                        dom: 'Bfrtlip',
+                        buttons: [
+                        ],
+                        Columns: [
+                                   { "data": "IDCODIGOVENDEDOR" },
+                                   { "data": "VENDEDOR" },
+                                   { "data": "PERIODO" },
+                                   { "data": "FECHAINICIO" },
+                                   { "data": "FECHAFIN" },
+                                   { "data": "TOTALPAGAR" },
+                                   { "data": "CLABEINTERBANCARIA" },
+                                   { "data": "BANCO" },
+                                   { "data": "ESQUEMA" },
+                                   { "data": "CORREO" }
+                        ],
+                        bAutoWidth: true,
+                        aoColumns: [
+                            { sTitle: "ID CODIGO VENDEDOR", mData: "IDCODIGOVENDEDOR", bVisible: true, bSortable: true },
+                            { sTitle: "VENDEDOR", mData: "VENDEDOR", bVisible: true, bSortable: true },
+                            { sTitle: "PERIODO", mData: "PERIODO", bVisible: true, bSortable: true },
+                            { sTitle: "FECHA INICIO", mData: "FECHAINICIO", bVisible: true, bSortable: true },
+                            { sTitle: "FECHA FIN", mData: "FECHAFIN", bVisible: true, bSortable: true },
+                            { sTitle: "DEPOSITO", mData: "TOTALPAGAR", bVisible: true, bSortable: true },
+                            { sTitle: "CLABE INTERBANCARIA", mData: "CLABEINTERBANCARIA", bVisible: true, bSortable: true },
+                            { sTitle: "BANCO", mData: "BANCO", bVisible: true, bSortable: true },
+                            { sTitle: "ESQUEMA", mData: "ESQUEMA", bVisible: true, bSortable: true },
+                            { sTitle: "CORREO", mData: "CORREO", bVisible: true, bSortable: true }
+
+                        ],
+                        /* inside datatable initialization */
+                        "aoColumnDefs": [
+                        ],
+                        "aaSorting": []
+                    });
 
                     $("#cmd").show();
                     $("#cmd_excel").show();
