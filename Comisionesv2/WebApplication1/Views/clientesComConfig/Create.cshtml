@@ -355,7 +355,7 @@
                                                                                                 @Html.Label("lblDescuentoFijo", "Descuento:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-4 no-padding-right" })
                                                                                                 <div class="col-xs-12 col-sm-9">
                                                                                                     <div class="input-group" style="width:100%;">
-                                                                                                        @Html.Editor("dDescuentoFijo", new { htmlAttributes = new { @class = "col-xs-12 col-sm-4", @type = "number", @min = "1", @max = "100", @Value = 1 } }) &nbsp;&nbsp;
+                                                                                                        @Html.Editor("dDescuentoFijo", new { htmlAttributes = new { @class = "col-xs-12 col-sm-4", @type = "decimal", @Value = 1 } }) &nbsp;&nbsp;
                                                                                                         @{
                                                                                                             var selectListM = new SelectList(
                                                                                                             new List<SelectListItem>
@@ -726,7 +726,7 @@
                                                 @Html.Label("lblDescuentoFijoEdit", "Descuento:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
                                                 <div class="col-xs-12 col-sm-9">
                                                     <div class="input-group" style="width:100%;">
-                                                        @Html.Editor("dDescuentoFijoEdit", new { htmlAttributes = new { @class = "col-xs-12 col-sm-6", @type = "number", @min = "1", @max = "100", @Value = 1 } })&nbsp;&nbsp;
+                                                        @Html.Editor("dDescuentoFijoEdit", new { htmlAttributes = new { @class = "col-xs-12 col-sm-6", @type = "decimal",  @Value = 1 } })&nbsp;&nbsp;
                                                         @{
                                                             var selectListMEdit = new SelectList(
                                                             new List<SelectListItem>

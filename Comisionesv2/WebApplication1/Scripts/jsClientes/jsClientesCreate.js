@@ -645,7 +645,7 @@ var TableDataVendedoresCreate = function () {
                                     }
                                 })
 
-                                $("#simple-table2 tbody").append("<tr><td style='display: none;'>" + id + "</td><td>" + campo1 + "</td><td>" + campo2 + "</td><td>" + campo3 + "%</td><td>" + campo4 + "%</td><td>" + campo5 + "</td></tr>");
+                                $("#simple-table2 tbody").append("<tr><td style='display: none;'>" + id + "</td><td>" + campo1 + "</td><td>" + campo2 + "</td><td>" + campo3 + "%</td><td>" + campo4 + "</td><td>" + campo5 + "</td></tr>");
                             })
 
                         }
