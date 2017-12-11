@@ -16,7 +16,7 @@ var TableDataPeriodosCreate = function () {
         'applyClass': 'btn-sm btn-success',
         'cancelClass': 'btn-sm btn-default',
         locale: {
-            format: 'DD-MM-YYYY',
+            format: 'DD/MM/YYYY',
             applyLabel: 'Aplicar',
             cancelLabel: 'Cancelar',
             daysOfWeek: [
@@ -75,6 +75,16 @@ var TableDataPeriodosCreate = function () {
                     $("#lblFechas").html($("#id-date-range-picker-1").val())
 
                     // Notificamos por via AJAX a los clientes que no están configurados pero son nuevos
+
+                     var a = new Date(dtFechaInicio);
+                    //dtFechaInicio  = a.format("DD-MMM-YYYY");
+                    dtFechaInicio: moment(a).format("YYYY/MM/DD HH:mm:ss")
+
+                    var b = new Date(dtFechaFin);
+                    //dtFechaFin = b.format("DD-MMM-YYYY");
+                    dtFechaFin: moment(b).format("YYYY/MM/DD HH:mm:ss")
+
+                    //$('#box-clientes').load("/comisiones/Periodos/ARVResumenClientesFaltantes/?idCodigoVendedor=" + idCodigoVendedor + "&intPeriodo=" + SplitPeriodos[0].trim() + "&intYear=" + SplitPeriodos[1].trim() + "&dtFechaInicio=" + dtFechaInicio + "&tdFechaFin=" + dtFechaFin);
 
                     var SplitPeriodos = $("#strPeriodo option:selected").text().trim().split('-')
                     var idCodigoVendedor = $('#idCodigoVendedor').val();

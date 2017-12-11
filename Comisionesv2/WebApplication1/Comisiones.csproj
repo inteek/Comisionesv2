@@ -230,6 +230,7 @@
     <Compile Include="Models\comisionesEquipoPie.cs" />
     <Compile Include="Models\comisionRetenciones.cs" />
     <Compile Include="Models\DatatablesViewModel.cs" />
+    <Compile Include="Models\Descuentos.cs" />
     <Compile Include="Models\detalleComisiones.cs" />
     <Compile Include="Models\EmpresasClientes.cs" />
     <Compile Include="Models\facturasComisionables.cs" />
@@ -1023,8 +1024,10 @@
     <Content Include="Scripts\jsPatentes\jsPatentes.js" />
     <Content Include="Scripts\jsPatentes\jsPatentesCreate.js" />
     <Content Include="Scripts\jsPatentes\jsPatentesEdit.js" />
+    <Content Include="Scripts\jsVendedores\jsAltaDescuentos.js" />
     <Content Include="Scripts\jsVendedores\jsDescuentos.js" />
     <Content Include="Scripts\jsVendedores\jsDescuentosEdit.js" />
+    <Content Include="Scripts\jsVendedores\jsIndexDescuentos.js" />
     <Content Include="Scripts\jsVendedores\jsVendedores.js" />
     <Content Include="Scripts\jsVendedores\jsVendedoresCreate.js" />
     <Content Include="Scripts\jsVendedores\jsVendedoresEdit.js" />
@@ -1229,6 +1232,8 @@
     <Content Include="Views\Patentes\Index.cshtml" />
     <Content Include="Views\Patentes\Edit.cshtml" />
     <Content Include="Views\Periodos\PagoComisionCuentaBancaria.cshtml" />
+    <Content Include="Views\vendedores\CreateDescuentos.cshtml" />
+    <Content Include="Views\vendedores\IndexDescuentos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\TempDocs\" />

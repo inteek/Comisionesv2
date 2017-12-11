@@ -80,28 +80,20 @@
                                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                                     @Html.HiddenFor(model => model.idDescuentoConceptoVendedor)
                                                     <input type="hidden" value="@ViewBag.hdnRolID" id="hdnRolID" />
-                                                    <div class="form-group col-xs-4">
+
+                                                    <div class="form-group col-xs-6" style="margin-left:-50px;">
                                                         @Html.LabelFor(model => model.idDescuentoConceptoVendedor, "Id Descuento", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
 
                                                         <div class="col-xs-12 col-sm-9">
                                                             <div class="clearfix">
-                                                                @Html.EditorFor(model => model.idDescuentoConceptoVendedor, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12", @disabled = "disabled" } })
+                                                                @Html.EditorFor(model => model.idDescuentoConceptoVendedor, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12", @disabled = "disabled", @style = "width:50px;" } })
                                                                 @Html.ValidationMessageFor(model => model.idDescuentoConceptoVendedor, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group col-xs-6">
-                                                        @Html.LabelFor(model => model.idCodigoVendedor, "Id Vendedor", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
 
-                                                        <div class="col-xs-12 col-sm-9">
-                                                            <div class="clearfix">
-                                                                @Html.EditorFor(model => model.idCodigoVendedor, new { htmlAttributes = new { @class = "col-xs-12 col-sm-6", @disabled = "disabled" } })
-                                                                @Html.ValidationMessageFor(model => model.idCodigoVendedor, "", new { @class = "text-danger" })
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                     <div style="clear:both;"></div>
-                                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
                                                     <div style="float:left;" class="col-xs-4 col-xs-4">
                                                         <div class="form-group">
                                                             @Html.LabelFor(model => model.idEmpresa, "Empresa", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
@@ -112,22 +104,37 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div style="float:left;" class="col-xs-5 col-xs-5">
+
+                                                    <div class="col-xs-4 col-xs-4">
+                                                        @Html.LabelFor(model => model.idCodigoVendedor, "Vendedor", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+
+                                                        <div class="col-xs-12 col-sm-9">
+                                                            <div class="clearfix">
+                                                                @Html.DropDownListFor(model => model.idCodigoVendedor, (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @class = "select2 fixed-width" })
+
+                                                                @*@Html.EditorFor(model => model.idCodigoVendedor, new { htmlAttributes = new { @class = "col-xs-12 col-sm-6", @disabled = "disabled" } })*@
+                                                                @Html.ValidationMessageFor(model => model.idCodigoVendedor, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+
+                                                    <div style="float:left;" class="col-xs-4 col-xs-4">
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 @Html.Label("idConcepto", "Concepto", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
                                                                 <div class="col-xs-4 col-sm-6">
                                                                     <div class="input-group" style="width:100%;">
-                                                                        @Html.EditorFor(model => model.idConcepto, new { htmlAttributes = new { @class = "col-xs-11 col-sm-10", @disabled = "disabled" } })
+                                                                        @*@Html.EditorFor(model => model.idConcepto, new { htmlAttributes = new { @class = "col-xs-11 col-sm-10", @disabled = "disabled" } })*@
+
+                                                                        @Html.DropDownListFor(model => model.idConcepto, (SelectList)ViewBag.BagConceptos, "-- Selecciona Concepto --", new { @class = "select2 fixed-width" })
                                                                         @Html.ValidationMessageFor(model => model.idConcepto, "", new { @class = "text-danger" })
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-xs-1 col-sm-1">
-                                                                    <a id="Editarconcepto" style="cursor:pointer; font-size:13px;">Cambiar concepto</a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div style="clear:both;"></div>
                                                     <div class="form-group col-xs-4">
                                                         @Html.LabelFor(model => model.totalAdeudo, "Total adeudo", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
@@ -140,18 +147,18 @@
                                                         </div>
                                                     </div>
 
-                                                        <div class="form-group col-xs-6">
-                                                            @Html.LabelFor(model => model.cantidadDescontar, "Cantidad Descontar", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                    <div class="form-group col-xs-6">
+                                                        @Html.LabelFor(model => model.cantidadDescontar, "Cantidad Descontar", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
 
-                                                            <div class="col-xs-12 col-sm-9">
-                                                                <div class="clearfix">
-                                                                    @Html.EditorFor(model => model.cantidadDescontar, new { htmlAttributes = new { @class = "col-xs-12 col-sm-6", @type = "number", @step = ".01", @min = "0" } })
-                                                                    @Html.ValidationMessageFor(model => model.cantidadDescontar, "", new { @class = "text-danger" })
-                                                                </div>
+                                                        <div class="col-xs-12 col-sm-9">
+                                                            <div class="clearfix">
+                                                                @Html.EditorFor(model => model.cantidadDescontar, new { htmlAttributes = new { @class = "col-xs-12 col-sm-6", @type = "number", @step = ".01", @min = "0" } })
+                                                                @Html.ValidationMessageFor(model => model.cantidadDescontar, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
+                                                    </div>
                                                         <div style="clear:both;"></div>
-                                                        <div style="float:left;" class="col-sm-4 col-xs-3">
+                                                        <div style="float:left;" class="col-sm-4 col-xs-4">
                                                             <div class="form-group">
                                                                 @Html.LabelFor(model => model.vigenciaInicio, "Vigencia inicio ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
                                                                 <div class="col-xs-6 col-sm-9">
@@ -164,7 +171,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div style="float:left;" class="col-sm-4 col-xs-3">
+                                                        <div style="float:left;" class="col-sm-4 col-xs-4">
                                                             <div class="form-group">
                                                                 @Html.LabelFor(model => model.vigenciaFin, "Al ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
                                                                 <div class="col-xs-6 col-sm-9">
@@ -176,30 +183,10 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div style="clear:both;"></div>
-                                                        <div class="form-group col-xs-6">
-                                                            <div class="col-xs-10 col-sm-9">
-                                                                <label>
-                                                                    @{
-                                                                        if ((Model.status).Equals(true))
-                                                                        {
 
-                                                                            <input id="status" name="status" value="true" type="checkbox" class="ace" checked="checked" />
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            <input id="status" name="status" value="false" type="checkbox" class="ace" />
+                                                        <div style="float:left;" class="col-sm-4 col-xs-4">
 
-                                                                        }
-                                                                    }
-
-                                                                    <span class="lbl"> status</span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group col-xs-6">
-
-                                                            <div class="col-xs-12 col-sm-9">
+                                                            <div class="form-group">
                                                                 <label>
                                                                     @{
                                                                         if ((Model.vigenciaIndefinida).Equals(true))
@@ -218,7 +205,32 @@
                                                                 </label>
                                                             </div>
                                                         </div>
+
                                                         <div style="clear:both;"></div>
+
+                                                        <div style="float:left;margin-left:35px" class="col-sm-4 col-xs-4">
+                                                            <div class="form-group" style="margin-left:5px;">
+
+                                                                <label> <span class="lbl"> Activo</span></label>
+                                                                <label>
+
+                                                                    @{
+                                                                        if ((Model.status).Equals(true))
+                                                                        {
+
+                                                                            <input id="status" name="status" value="true" type="checkbox" class="ace" checked="checked" />
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input id="status" name="status" value="false" type="checkbox" class="ace"/>
+
+                                                                        }
+                                                                    }
+                                                                    <span class="lbl"></span>
+
+                                                                </label>
+                                                            </div>
+                                                        </div>
 
 
                                                                         }
@@ -336,16 +348,16 @@
                                     </div>
 
                                     <hr />
-                                        <div class="wizard-actions">
-                                            <button class="btn btn-prev">
-                                                <i class="ace-icon fa fa-arrow-left"></i>
-                                                Anterior
-                                            </button>
-                                            <button id="btnConfirmaVendedor" class="btn btn-success btn-next" data-last="Guardar">
-                                                Siguiente
-                                                <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-                                            </button>
-                                        </div>
+                                    <div class="wizard-actions">
+                                        <button class="btn btn-prev" id="anterior">
+                                            <i class="ace-icon fa fa-arrow-left"></i>
+                                            Anterior
+                                        </button>
+                                        <button id="btnConfirmaVendedor" class="btn btn-success btn-next" data-last="Guardar">
+                                            Siguiente
+                                            <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                        </button>
+                                    </div>
                                 </div><!-- /.widget-main -->
                             </div><!-- /.widget-body -->
                         </div>
@@ -449,7 +461,6 @@
                         </div><!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
-
                 <!-- Modal Concepto Cambiar-->
                 <div class="modal fade" id="asociarModal" tabindex="-1" role="dialog" aria-labelledby="waitModalLabel" data-keyboard="false" data-backdrop="static">
                     <div id="" class="modal-lg center-block" role="document" style="width:500px; margin-top:20px;">
@@ -478,7 +489,7 @@
                                         <button class="btn btn-default btn-sm" id="cerrarAsociacion" data-dismiss="modal">Cancelar</button>
                                     </div>
                                     <div class="col-lg-2">
-                                        <button class="btn btn-primary btn-sm" id="guardarConceptoEditar" >Guardar</button>
+                                        <button class="btn btn-primary btn-sm" id="guardarConceptoEditar">Guardar</button>
                                     </div>
                                 </div>
                             </div>
@@ -508,7 +519,7 @@
 
 *@
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
 
 
@@ -526,20 +537,19 @@
                 }
             });
 			//if('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
-    </script>
-    <script src="@Url.Content("~/assets/js/jquery.js")"></script>
-    <script src="@Url.Content("~/assets/js/bootstrap.js")"></script>
+</script>
+<script src="@Url.Content("~/assets/js/jquery.js")"></script>
+<script src="@Url.Content("~/assets/js/bootstrap.js")"></script>
 
-    <!-- page specific plugin scripts -->
-    <script src="@Url.Content("~/assets/js/select2.js")"></script>
-    <script src="@Url.Content("~/assets/js/fuelux/fuelux.wizard.js")"></script>
-    <script src="@Url.Content("~/assets/js/jquery.validate.js")"></script>
-    <script src="@Url.Content("~/assets/js/additional-methods.js")"></script>
-    <script src="@Url.Content("~/assets/js/bootbox.js")"></script>
-    <script src="@Url.Content("~/assets/js/jquery.maskedinput.js")"></script>
-    <script src="@Url.Content("~/assets/js/dataTables/jquery.dataTables.js")"></script>
-    <script src="@Url.Content("~/assets/js/dataTables/jquery.dataTables.bootstrap.js")"></script>
-    <script src="@Url.Content("~/Scripts/jsVendedores/jsDescuentosEdit.js?v=2")"></script>
+<!-- page specific plugin scripts -->
+<script src="@Url.Content("~/assets/js/select2.js")"></script>
+<script src="@Url.Content("~/assets/js/fuelux/fuelux.wizard.js")"></script>
+<script src="@Url.Content("~/assets/js/jquery.validate.js")"></script>
+<script src="@Url.Content("~/assets/js/additional-methods.js")"></script>
+<script src="@Url.Content("~/assets/js/bootbox.js")"></script>
+<script src="@Url.Content("~/assets/js/jquery.maskedinput.js")"></script>
+<script src="@Url.Content("~/assets/js/dataTables/jquery.dataTables.js")"></script>
+<script src="@Url.Content("~/assets/js/dataTables/jquery.dataTables.bootstrap.js")"></script>
 <script src="@Url.Content("~/assets/js/ace/elements.wizard.js")"></script>
 <script src="@Url.Content("~/assets/js/date-time/bootstrap-datepicker.js")"></script>
 <script src="@Url.Content("~/assets/js/DatePickerReady.js")"></script>
@@ -547,12 +557,16 @@
 <script src="@Url.Content("~/assets/js/date-time/bootstrap-datetimepicker.js")"></script>
 <script src="@Url.Content("~/assets/js/DatePickerReady.js")"></script>
 <script src="@Url.Content("~/assets/js/jquery-ui.js")"></script>
-    <script>
+
+<script src="@Url.Content("~/Scripts/jsVendedores/jsDescuentosEdit.js?v=6")"></script>
+
+
+<script>
         function AddAntiForgeryToken(data) {
             data.__RequestVerificationToken = $('#vendedores-form input[name=__RequestVerificationToken]').val();
             return data;
         };
-    </script>
+</script>
 
 <script type="text/javascript">
 

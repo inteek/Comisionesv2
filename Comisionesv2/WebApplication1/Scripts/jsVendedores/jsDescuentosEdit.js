@@ -68,36 +68,39 @@ function gridConceptos(dataSet) {
 
 function GetEmpresa(idEmpresa) {
     if (idEmpresa != "") {
+        $("#module").text("Buscando conceptos...");
+        $('#waitModal').modal('toggle')
 
-        $('#simple-table tbody').remove();
         $.ajax({
-            url: '/comisiones/vendedores/getCliente',
+            url: '/comisiones/vendedores/getConceptos',
             type: "GET",
             dataType: "JSON",
             data: { id_empresa: idEmpresa },
-            success: function (clientes) {
-                var select = $("#idCliente");
+            success: function (conceptos) {
+                var select = $("#idConcepto");
                 select.empty();
                 select.append($('<option/>', {
                     value: "",
-                    text: "-- Selecciona un cliente --"
+                    text: "-- Selecciona un concepto --"
                 }));
-                $.each(clientes.Cliente, function (i, cliente) {
+                $.each(conceptos.Conceptos, function (i, conceptos) {
                     select.append(
-                        $('<option></option>').val(cliente.Value.trim()).html(cliente.Text));
+                        $('<option></option>').val(conceptos.Value.trim()).html(conceptos.Text.trim()));
                 });
 
-                $("#idCliente").select2("val", "")
-                $("#idCliente option[value='0']").attr("selected", "selected");                    
+                $("#idConcepto").select2("val", "")
+                $("#idConcepto option[value='0']").attr("selected", "selected");
+
+
+                $('#waitModal').modal('toggle');
             },
             error: function (reponse) {
                 $('#waitModal').modal('toggle');
                 alert("error : " + reponse);
             }
-
         });
-    }
 
+    }
 }
 
 function GetEmpresayConcepto(idEmpresa) {
@@ -281,7 +284,7 @@ jQuery(function ($) {
                 var statust = "false";
                 var vigenciaind = "false";
                 if ($('#status').is(':checked')) {
-                   statust = "true";
+                    statust = "true";
                 }
                 if ($('#vigenciaindefinida').is(':checked')) {
                     vigenciaind = "true";
@@ -289,7 +292,30 @@ jQuery(function ($) {
                 $("#idRegistro").html($("#idDescuentoConceptoVendedor").val().trim())
                 $("#totaladeudo").html($("#totalAdeudo").val().trim())
                 $("#empresa").html($('#idEmpresa option:selected').val().trim())
-                $("#concepto").html($("#idConcepto").val().trim())        
+                $("#concepto").html($("#idConcepto").val().trim())
+                if (parseInt($("#totalAdeudo").val()) == 0) {
+                    swal("Advertencia", "El total de adeudo debe ser mayor a 0.", "warning");
+                    e.preventDefault();
+                    return;
+                }
+
+                if (parseInt($("#totalAdeudo").val()) < parseInt($("#cantidadDescontar").val())) {
+                    swal("Advertencia", "El total de adeudo debe ser mayor al descuento.", "warning");
+                    e.preventDefault();
+                    return;
+                }
+                if (parseInt($("#cantidadDescontar").val()) == 0) {
+                    swal("Advertencia", "La cantidad a descontar debe ser mayor a 0.", "warning");
+                    e.preventDefault();
+                    return;
+                }
+                if (vigenciaind != true) {
+                    if (!validate_fechaMayorQue($("#vigenciaInicio").val(), $("#vigenciaFin").val())) {
+                        swal("Advertencia", "La fecha de vigencia no puede ser mayor a la fecha final.", "warning");
+                        e.preventDefault();
+                        return;
+                    }
+                }
                 $("#cantidaddescontar").html($("#cantidadDescontar").val().trim())
                 $("#vigenciainicio").html($("#vigenciaInicio").val().trim())
                 $("#vigenciafin").html($("#vigenciaFin").val().trim())

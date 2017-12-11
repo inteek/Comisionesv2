@@ -68,6 +68,9 @@
     <Compile Include="COMISIONES_PATENTE.cs">
       <DependentUpon>DataModelRPF.tt</DependentUpon>
     </Compile>
+    <Compile Include="com_bancos.cs">
+      <DependentUpon>DataModelComisiones.tt</DependentUpon>
+    </Compile>
     <Compile Include="com_bitacora.cs">
       <DependentUpon>DataModelComisiones.tt</DependentUpon>
     </Compile>

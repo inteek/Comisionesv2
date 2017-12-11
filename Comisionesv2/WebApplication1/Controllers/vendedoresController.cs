@@ -517,11 +517,7 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
-
-
-
-   
-
+        
         //Metodos Nuevos
         public SelectList ListaPersonalizadaVendedor()
         {
@@ -859,16 +855,25 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+            var empresa = db.com_DescuentoConceptoVendedor.Where(s => s.idDescuentoConceptoVendedor == id).Select(s => s.idEmpresa).FirstOrDefault().ToString();
             List<SelectListItem> ListaEmpresas = new List<SelectListItem>();
             SelectListItem ListaItemEmpresas = new SelectListItem();
             List<SelectListItem> ListConcepto = new List<SelectListItem>();
 
             ListaEmpresas = new SelectList(db.com_empresas, "IdEmpresa", "strNombreEmpresa").ToList();
-            ListConcepto = new SelectList(db.com_Conceptos, "GRPID", "GRPDESCE").ToList();
+            var mtdListarPorEmpresa = (from a in db.com_Conceptos
+                                       join b in db.com_EmpresaConceptos on a.GRPID equals b.GRPID
+                                       where b.IdEmpresa.ToString() == empresa
+                                       select new { a.GRPID, a.GRPDESCE }).ToList();
+            var conceptos = mtdListarPorEmpresa.Select(x => new SelectListItem
+            {
+                Value = x.GRPID.Trim(),
+                Text = "[" + x.GRPID.Trim() + "] " + x.GRPDESCE.Trim()
+            });
 
-            ViewBag.BagVendedores = new SelectList(ListaPersonalizadaVendedores(), "Value", "Text");
-            ViewBag.BagConceptos = new SelectList(ListConcepto, "Value", "Text");
             ViewBag.BagEmpresas = new SelectList(ListaEmpresas, "Value", "Text");
+            ViewBag.BagVendedores = new SelectList(ListaPersonalizadaVendedores(), "Value", "Text");
+            ViewBag.BagConceptos = new SelectList(conceptos, "Value", "Text");
 
             return View(com_DescuentoConceptoVendedor);
         }
@@ -1008,7 +1013,7 @@ namespace WebApplication1.Controllers
             com_DescuentoHistorial = (from HIS in db.com_HistorialDescuentoVendedor
                                       join DESCU in db.com_DescuentoConceptoVendedor on HIS.idDescuentoConceptoVendedor equals DESCU.idDescuentoConceptoVendedor
                                       where (HIS.idDescuentoConceptoVendedor.ToString() == id_descuento)
-                                      select new { HIS.idPeriodo, HIS.Descuento, HIS.SaldoTotal }).ToList();
+                                      select new { HIS.idPeriodo, HIS.Descuento, HIS.FechaInicioPeriodo, HIS.FechaFinPeriodo, HIS.SaldoTotal }).ToList();
 
             //if (com_DescuentoHistorial == null)
             //{
@@ -1075,7 +1080,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                if (Session["RolID"].Equals("Administrador") || Session["RolID"].Equals("Operador"))
+                if (Session["RolID"].Equals("Administrador") || Session["RolID"].Equals("Operador") || Session["RolID"].Equals("Vendedor"))
                 {
                     if (!Session["RolID"].Equals("Vendedor"))
                     {

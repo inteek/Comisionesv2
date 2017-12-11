@@ -538,12 +538,12 @@
                                                                                                                 <td>@Html.DisplayFor(modelItem => item.strConcepto)</td>
                                                                                                                 <td>@Html.DisplayFor(modelItem => item.strCostoVenta)</td>
                                                                                                                 <td>@Html.DisplayFor(modelItem => item.dcmComision)</td>
-                                                                                                                <td>@Html.DisplayFor(modelItem => item.dDescuentoFijo)</td>
+                                                                                                                <td>@Html.DisplayFor(modelItem => item.descuento)</td>
                                                                                                                 <td>@Html.DisplayFor(modelItem => item.strTipoCambio)</td>
 
                                                                                                                 <td>
                                                                                                                     <button class="btn btn-xs btn-danger btnActionConcepto" type="button" onclick="fnEliminarConcepto('@Html.DisplayFor(modelItem => item.idConcepto)')"><i class="ace-icon fa fa-trash-o bigger-120"></i></button>
-                                                                                                                    <button class="btn btn-xs btn-success btnActionConcepto" type="button" onclick="fnEditarConcepto('@Html.DisplayFor(modelItem => item.idConcepto)','@Html.DisplayFor(modelItem => item.strCostoVenta)','@Html.DisplayFor(modelItem => item.idRelConceptoVendedor)','@Html.DisplayFor(modelItem => item.dcmComision)','@Html.DisplayFor(modelItem => item.dDescuentoFijo)','@Html.DisplayFor(modelItem => item.strTipoCambio)')"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></button>
+                                                                                                                    <button class="btn btn-xs btn-success btnActionConcepto" type="button" onclick="fnEditarConcepto('@Html.DisplayFor(modelItem => item.idConcepto)','@Html.DisplayFor(modelItem => item.strCostoVenta)','@Html.DisplayFor(modelItem => item.idRelConceptoVendedor)','@Html.DisplayFor(modelItem => item.dcmComision)','@Html.DisplayFor(modelItem => item.descuento)','@Html.DisplayFor(modelItem => item.strTipoCambio)')"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></button>
                                                                                                                 </td>
 
                                                                                                             </tr>

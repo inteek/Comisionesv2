@@ -333,7 +333,7 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="">
+                            @*<li class="">
 
                                 <a href="@Url.Action("DescuentosV", "Vendedores")">
                                     <i class="menu-icon fa fa-caret-right"></i>
@@ -341,10 +341,32 @@
                                 </a>
 
                                 <b class="arrow"></b>
+                            </li>*@
+
+                            <li class="">
+
+                                <a href="@Url.Action("IndexDescuentos", "Vendedores")">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    Resumen Descuentos
+                                </a>
+
+                                <b class="arrow"></b>
                             </li>
+
+                            <li class="">
+
+                                <a href="@Url.Action("CreateDescuentos", "Vendedores")">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    Alta de Descuentos
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+
                         </ul>
                     </li>
                 }
+
                 @if (Session["RolID"].ToString().Equals("Vendedor"))
                 {
                     <li class="">
@@ -360,9 +382,9 @@
                         <ul class="submenu">
                             <li class="">
 
-                                <a href="@Url.Action("DescuentosV", "Vendedores")">
+                                <a href="@Url.Action("IndexDescuentos", "Vendedores")">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                    Descuentos
+                                    Resumen de Descuentos
                                 </a>
 
                                 <b class="arrow"></b>

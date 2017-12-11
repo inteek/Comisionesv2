@@ -1,0 +1,190 @@
+﻿@using WebApplication1.Models
+@model IEnumerable<WebApplication1.Models.Descuentos>
+
+
+@{
+    ViewBag.Title = "Resumen de Descuentos";
+}
+
+<div class="main-content">
+
+
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="@Url.Action("Index", "Home")">Principal</a>
+                </li>
+
+                <li>
+                    <a href="#">Resumen de Patentes</a>
+                </li>
+            </ul><!-- /.breadcrumb -->
+            @*<div class="nav-search" id="nav-search">
+                    <form class="form-search">
+                        <span class="input-icon">
+                            <input type="text" placeholder="Buscar ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                            <i class="ace-icon fa fa-search nav-search-icon"></i>
+                        </span>
+                    </form>
+                </div>*@
+        </div>
+
+        <div class="page-content">
+
+            <div class="page-header">
+                <h1>
+                    Resumen Descuentos
+                    @*<small>
+                            <i class="ace-icon fa fa-angle-double-right"></i>
+                            Comisiones
+                        </small>*@
+                </h1>
+            </div><!-- /.page-header -->
+
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="clearfix">
+                        <button id="btnXLS" class="pull-right DTTT_button btn btn-white btn-primary  btn-bold" title="Alt. Exportar Excel" style="padding: 4px 8px; display:none;">
+                            <img src="~/assets/images/icons8-Microsoft Excel-48.png" style="width: 24px;" />
+                        </button>
+                        <div class="pull-right tableTools-container">
+
+                        </div>
+                    </div>
+                    <div class="table-header">
+                        Resultados obtenidos
+                    </div>
+
+                    <!-- div.table-responsive -->
+                    <!-- div.dataTables_borderWrap -->
+                    <div style="margin-top:20px;">
+                        <div style="float:right;" class="col-xs-10 col-xs-10">
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-9">
+                                    <div class="input-group" style="width:100%;">
+                                        @if (Session["RolID"].ToString().Equals("Administrador") || Session["RolID"].ToString().Equals("Operador"))
+                                        {
+                                            @Html.DropDownList("idVendedor", (SelectList)ViewBag.BagVendedores, "-- Selecciona Vendedor --", new { @class = "select3 fixed-width" })
+                                        }
+                                        @if (Session["RolID"].ToString().Equals("Vendedor"))
+                                        {
+                                            @Html.DropDownList("idVendedor", (SelectList)ViewBag.BagVendedores, new { @class = "select3 fixed-width" })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <input type="hidden" value="@ViewBag.hdnRolID" id="hdnRolID" />
+                        <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>idDescuentoConceptoVendedor</th>
+                                    <th>idEmpresa</th>
+                                    <th>idCodigoVendedor</th>
+                                    <th>idConcepto</th>
+                                    <th>strConcepto</th>
+                                    <th>cantidadDescontar</th>
+                                    <th>vigenciaInicio</th>
+                                    <th>vigenciaFin</th>
+                                    <th>status</th>
+                                    <th></th>
+
+                            </thead>
+
+                           
+                        </table>                     
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.page-content -->
+        <!-- Modal Resumen descuento-->
+        <div class="modal fade" id="ResumenModal" tabindex="-1" role="dialog" aria-labelledby="waitModalLabel" data-keyboard="false" data-backdrop="static">
+            <div id="" class="modal-lg center-block" role="document" style="width:700px; margin-top:20px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="waitModalLabel">Resumen</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" style="margin-top:15px;">
+                                    @*<div class="col-lg-7"></div>*@
+                                    <div class="form-group col-xs-4">
+                                        @Html.Label("aqui el id", "Vendedor: ", htmlAttributes: new { @style = "font-weight: bold;" })
+                                        @*<input id="idVende" type="text" class="ace" disabled="disabled" />*@
+                                        <label id="idVende"></label>
+                                    </div>
+
+                                    <div style="width:100%; clear:both;"></div>
+                                    <div class="form-group col-xs-4">
+                                        @Html.Label("aqui el id", "Concepto: ", htmlAttributes: new { @style = "font-weight: bold;" })
+                                        @*<input id="idConcep" type="text" class="ace" disabled="disabled" />*@
+                                        <label id="idConcep"></label>
+                                    </div>
+                                    <div style="width:100%; clear:both;"></div>
+                                    <div class="form-group col-xs-4">
+                                        @Html.Label("Aqui el id", "Total Adeudo: ", htmlAttributes: new { @style = "font-weight: bold;" })
+                                        @*<input id="idtotalad" type="text" class="ace" disabled="disabled" />*@
+                                        <label id="idtotalad"></label>
+                                    </div>
+                                    <div class="form-group col-xs-4">
+                                        @Html.Label("Aqui el id", "Saldo total: ", htmlAttributes: new { @style = "font-weight: bold;" })
+                                        @*<input id="idsaldototal" type="text" class="ace" disabled="disabled" />*@
+                                        <label id="idsaldototal"></label>
+                                    </div>
+                                </div>
+                                <table id="table_descuentohist" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>idPeriodo</th>
+                                            <th>Descuento</th>
+                                            <th>Fecha Inicio</th>
+                                            <th>Fecha Fin</th>
+                                            <th>SaldoTotal</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col-lg-7"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var Rol = '@Session["RolID"]';
+</script>
+
+<script type="text/javascript">
+            var jquerymobile = '@Url.Content("~/assets/js/jquery.mobile.custom.js")'
+            if ('ontouchstart' in document.documentElement) document.write("<script src='" + jquerymobile + "'>" + "<" + "/script>");
+</script>
+
+<!-- ace settings handler -->
+<script src="@Url.Content("~/assets/js/ace-extra.js")"></script>
+
+<script src="@Url.Content("~/assets/js/jquery.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/Exportar/datatables.js")"></script>
+<script src="@Url.Content("~/assets/js/dataTables/extensions/TableTools/js/dataTables.tableTools.js")"></script>
+<script src="@Url.Content("~/assets/js/dataTables/jquery.dataTables.js")"></script>
+<script src="@Url.Content("~/assets/js/dataTables/jquery.dataTables.bootstrap.js")"></script>
+
+<script src="@Url.Content("~/assets/js/dataTables/extensions/ColVis/js/dataTables.colVis.js")"></script>
+<script src="@Url.Content("~/assets/js/jquery.table2excel.js")"></script>
+<script src="@Url.Content("~/assets/js/bootstrap.js")"></script>
+<script src="@Url.Content("~/Scripts/jsVendedores/jsIndexDescuentos.js?v=5")"></script>
+
