@@ -709,7 +709,7 @@ var TableDataVendedoresCreate = function () {
                                             break;
                                     }
                                 })
-                                $("#simple-table2 tbody").append("<tr><td style='display: none;'>" + id + "</td><td style='display: none;'>" + idRelConceptoVendedor + "</td><td>" + strConcepto + "</td><td>" + strCostoVenta + "</td><td>" + dcmComision + "%</td><td>" + dDescuentoFijo + "%</td></tr>");
+                                $("#simple-table2 tbody").append("<tr><td style='display: none;'>" + id + "</td><td style='display: none;'>" + idRelConceptoVendedor + "</td><td>" + strConcepto + "</td><td>" + strCostoVenta + "</td><td>" + dcmComision + "%</td><td>" + dDescuentoFijo + "</td></tr>");
                             })
                         }
                     }
