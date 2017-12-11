@@ -1,4 +1,9 @@
 ﻿var vigenciaIn = false;
+var oTable2 = null;
+var GRPID = null;
+var GRPDESCE = null;
+gridConceptos(null);
+
 
 function GetCliente(idEmpresa) {
     if (idEmpresa != "") {
@@ -37,6 +42,62 @@ function GetCliente(idEmpresa) {
     }
 }
 
+function gridConceptos(dataSet) {
+    if (oTable2 != null) {
+        oTable2.destroy();
+    }
+    oTable2 = $('#table_conceptos').DataTable({
+        "lengthMenu": [5],
+        data: dataSet,
+        language: {
+            "sProcessing": "Procesando...",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de MAX registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        Columns: [
+            { "data": "GRPID" },
+            { "data": "GRPDESCE" },
+            { "data": "Asociar" }
+        ],
+        bAutoWidth: false,
+        aoColumns: [
+            { sTitle: "ID", mData: "GRPID", bVisible: true, bSortable: false },
+            { sTitle: "Descripcion", mData: "GRPDESCE", bVisible: true, bSortable: false },
+            { sTitle: "Asociar", mData: "Asociar", bVisible: true, bSortable: false }
+
+        ],
+        /* inside datatable initialization */
+        "aoColumnDefs": [
+            {
+                "aTargets": [2],
+                "mData": null,
+                "mRender": function (data, type, full) {
+                    return '<input type="radio" id="asociarCon" name="select" class="singleRadio  asociarConcepto">';
+                }
+            }
+        ],
+        "aaSorting": []
+
+        //"iDisplayLength": 50
+    });
+}
 
 function validate_fechaMayorQue(vigenciaInicio, vigenciaFin) {
     valuesStart = vigenciaInicio.split("/");
@@ -299,3 +360,275 @@ $(document).ready(function () {
 
     });
 });
+
+
+//NUEVO
+
+$("#idEmpresa").change(function () {
+    var comboEmpresa = $("#idEmpresa").val();
+    if (comboEmpresa == "") {
+        $("#nuevo").hide();
+        $("#asociar").hide();
+    }
+    else {
+        $("#nuevo").show();
+        $("#asociar").show();
+    }
+
+});
+
+$('#nuevo').on('click', function () {
+    $("#txtGRPID").val("");
+    $("#txtDesc").val("");
+    $('#nuevoModal1').modal('toggle');
+});
+
+$('#btnGuardarConcepto').on('click', function () {
+
+    var IdEmpresa = $('#idEmpresa').val();
+    var GRPID = $('#txtGRPID').val();
+    var GRPDESCE = $('#txtDesc').val();
+
+    if (GRPID == "") {
+        $("#mensaje1").show();
+        $("#mensaje2").hide();
+        return;
+    }
+    if (GRPDESCE == "") {
+        $("#mensaje1").hide();
+        $("#mensaje2").show();
+        return;
+    }
+
+    var dataNewConcepto = {
+        GRPID,
+        GRPDESCE
+    };
+
+    var dataNewEmpresaConcepto = {
+        IdEmpresa,
+        GRPID
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/comisiones/Vendedores/crearConcepto',
+        data: JSON.stringify(dataNewConcepto),
+        contentType: "application/json; charset=utf-8",
+        success: function SuccessCallback(dataNewConcepto) {
+            //$('#waitModal').modal('toggle');
+            if (!dataNewConcepto.error) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/comisiones/Vendedores/crearEmpresaConcepto',
+                    data: JSON.stringify(dataNewEmpresaConcepto),
+                    contentType: "application/json; charset=utf-8",
+                    success: function SuccessCallback(dataNewEmpresaConcepto) {
+                        //$('#waitModal').modal('toggle');
+                        if (!dataNewEmpresaConcepto.error) {
+                            swal({
+                                title: "Informacion guardada exitosamente!",
+                                text: dataNewEmpresaConcepto.msg,
+                                type: "success",
+                                confirmButtonClass: 'btn-success',
+                                confirmButtonText: 'ok!'
+                            });
+                            limpiarCoceptos();
+                            GetEmpresayConcepto(IdEmpresa);
+                            $('#nuevoModal1').modal('hide');
+                        } else {
+                            swal({
+                                title: "Registro existente",
+                                text: dataNewEmpresaConcepto.msg,
+                                type: "warning",
+                                confirmButtonClass: 'btn-error',
+                                confirmButtonText: 'ok'
+                            },
+                                function (isConfirm) {
+                                    if (isConfirm) {
+                                        //window.location.href = "/clientesComConfig/";
+                                    }
+                                });
+                            // swal("Error!", dataNewClientes.msg, "error");
+                        }
+                    },
+                    error: function FailureCallback(dataNewEmpresaConcepto) {
+                        //$('#waitModal').modal('toggle');
+                        swal("Error!", dataNewEmpresaConcepto.msg, "error");
+
+                    }
+                });
+            } else {
+                swal({
+                    title: "Registro existente",
+                    text: dataNewConcepto.msg,
+                    type: "warning",
+                    confirmButtonClass: 'btn-error',
+                    confirmButtonText: 'ok'
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            //window.location.href = "/clientesComConfig/";
+                        }
+                    });
+                // swal("Error!", dataNewClientes.msg, "error");
+            }
+        },
+        error: function FailureCallback(dataNewConcepto) {
+            //$('#waitModal').modal('toggle');
+            swal("Error!", dataNewConcepto.msg, "error");
+
+        }
+    });
+
+});
+
+$('#cerrarConcepto').on('click', function () {
+    $('#nuevoModal1').modal('hide');
+});
+
+
+//ASOCIACION
+
+$('#asociar').on('click', function () {
+
+    var idEmpresa = $('#idEmpresa').val();
+
+    $.ajax({
+        url: '/comisiones/vendedores/getAsociarConceptos',
+        type: "GET",
+        dataType: "JSON",
+        data: { idEmpresa: idEmpresa },
+        success: function (conceptos) {
+            gridConceptos(conceptos);
+        },
+        error: function (reponse) {
+            alert("error : " + reponse);
+        }
+    });
+
+
+    $('#asociarModal').modal('toggle');
+
+});
+
+$('#table_conceptos').on('click', '.asociarConcepto', function () {
+    $("#guardarAsociar").removeAttr("disabled");
+
+    $("#btnGuardar").removeAttr("disabled");
+    data_rowConcepto = oTable2.row($(this).closest('tr')).data();
+    GRPID = data_rowConcepto["GRPID"];
+    GRPDESCE = data_rowConcepto["GRPDESCE"];
+
+});
+
+$('#guardarAsociar').on('click', function () {
+
+    var idEmpresa = $('#idEmpresa').val();
+
+    var dataNewAsociarConcepto = {
+        idEmpresa,
+        GRPID
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/comisiones/Vendedores/crearAsociacionConcepto',
+        data: JSON.stringify(dataNewAsociarConcepto),
+        contentType: "application/json; charset=utf-8",
+        success: function SuccessCallback(dataNewAsociarConcepto) {
+            //$('#waitModal').modal('toggle');
+            if (!dataNewAsociarConcepto.error) {
+                swal({
+                    title: "Informacion guardada exitosamente!",
+                    text: dataNewAsociarConcepto.msg,
+                    type: "success",
+                    confirmButtonClass: 'btn-success',
+                    confirmButtonText: 'ok!'
+                });
+                GetEmpresayConcepto(idEmpresa);
+                $('#asociarModal').modal('hide');
+            } else {
+                swal({
+                    title: "Registro existente",
+                    text: dataNewAsociarConcepto.msg,
+                    type: "warning",
+                    confirmButtonClass: 'btn-error',
+                    confirmButtonText: 'ok'
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            //window.location.href = "/clientesComConfig/";
+                        }
+                    });
+                // swal("Error!", dataNewClientes.msg, "error");
+            }
+        },
+        error: function FailureCallback(dataNewAsociarConcepto) {
+            //$('#waitModal').modal('toggle');
+            swal("Error!", dataNewAsociarConcepto.msg, "error");
+
+        }
+    });
+
+});
+
+$('#cerrarAsociacion').on('click', function () {
+    $('#asociarModal').modal('hide');
+});
+
+function GetEmpresayConcepto(idEmpresa) {
+    if ($("#idEmpresa").val() != "") {
+
+
+        if (idEmpresa != "") {
+
+            $('#simple-table tbody').remove();
+
+            $.ajax({
+                url: '/comisiones/vendedores/getConceptos',
+                type: "GET",
+                dataType: "JSON",
+                data: { id_empresa: idEmpresa },
+                success: function (conceptos) {
+                    var select = $("#cbbConceptos");
+                    select.empty();
+                    select.append($('<option/>', {
+                        value: "",
+                        text: "-- Selecciona un concepto --"
+                    }));
+                    $.each(conceptos.Conceptos, function (i, conceptos) {
+                        select.append(
+                            $('<option></option>').val(conceptos.Value.trim()).html(conceptos.Text.trim()));
+                    });
+
+                    $("#cbbConceptos").select2("val", "")
+                    $("#cbbConceptos option[value='0']").attr("selected", "selected");
+
+                },
+                error: function (reponse) {
+                    $('#waitModal').modal('toggle');
+                    alert("error : " + reponse);
+                }
+            });
+        }
+    }
+}
+
+function limpiarDescuentos() {
+    $("#idEmpresa").val('0');
+    $("#idCodigoVendedor").val(0);
+    $("#cbbConceptos").val(0);
+    $("#totalAdeudo").val(0);
+    $("#cantidadDescontar").val(0);
+    $("#vigenciaInicio").val('Ingesa la fecha aquí...');
+    $("#vigenciaFin").val('Ingesa la fecha aquí...');
+    $("#strIntercia").prop('checked', false);
+}
+
+function limpiarCoceptos() {
+    $("#txtGRPID").val("");
+    $("#txtDesc").val("");
+    $('#nuevoModal').modal('hide');
+
+}
