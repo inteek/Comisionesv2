@@ -96,10 +96,10 @@
     <Property Name="strConcepto" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="totalAdeudo" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="cantidadDescontar" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="vigenciaInicio" Type="nvarchar" MaxLength="50" />
-    <Property Name="vigenciaFin" Type="nvarchar" MaxLength="50" />
     <Property Name="vigenciaIndefinida" Type="bit" Nullable="false" />
     <Property Name="status" Type="bit" />
+    <Property Name="vigenciaInicio" Type="date" />
+    <Property Name="vigenciaFin" Type="date" />
   </EntityType>
   <EntityType Name="com_Descuentos">
     <Key>
@@ -143,11 +143,14 @@
       <PropertyRef Name="idRow" />
     </Key>
     <Property Name="idRow" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idEmpresa" Type="int" />
     <Property Name="idDescuentoConceptoVendedor" Type="int" Nullable="false" />
     <Property Name="idCodigoVendedor" Type="int" Nullable="false" />
     <Property Name="idPeriodo" Type="int" Nullable="false" />
     <Property Name="Descuento" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="SaldoTotal" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="FechaInicioPeriodo" Type="date" />
+    <Property Name="FechaFinPeriodo" Type="date" />
   </EntityType>
   <EntityType Name="com_periodos">
     <Key>
