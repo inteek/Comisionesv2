@@ -72,9 +72,12 @@ $('#dynamic-table')
                { "data": "strDireccion" },
                { "data": "strTelefono" },
                { "data": "strEmail" },
-               { "data": "strTipo" },
+               { "data": "strTipoVendedor" },
                { "data": "dtFechaAlta" },
                { "data": "dtFechaModifica" },
+                { "data": "idBanco" },
+               { "data": "ClabeInterbancaria" },
+               { "data": "TipoPago" },
                { "data": "boolActivo" }
     ],
     bAutoWidth: false,
@@ -84,16 +87,19 @@ $('#dynamic-table')
         { sTitle: "Dirección", mData: "strDireccion", bSortable: true },
         { sTitle: "Telefono", mData: "strTelefono", bSortable: false },
         { sTitle: "Email", mData: "strEmail", bSortable: true },
-        { sTitle: "Tipo", mData: "strTipo", bSortable: false },
+        { sTitle: "Tipo", mData: "strTipoVendedor", bSortable: false },
         { sTitle: "Fecha Alta", mData: "dtFechaAlta", bSortable: true },
         { sTitle: "Fecha Mod", mData: "dtFechaModifica", bSortable: true },
+        { sTitle: "Banco", mData: "idBanco", bVisible: false, bSortable: false },
+        { sTitle: "Clabe", mData: "ClabeInterbancaria", bVisible: false, bSortable: false },
+        { sTitle: "Tipo de Pago", mData: "TipoPago", bVisible: false, bSortable: false },
         { sTitle: "Activo", mData: "boolActivo", bVisible: false, bSortable: false }
      
     ],
     /* inside datatable initialization */
     "aoColumnDefs": [
            {
-               "aTargets": [9],
+               "aTargets": [12],
                "mData": null,
                "mRender": function (data, type, full) {
                    var hdnRolID = $("#hdnRolID").val();

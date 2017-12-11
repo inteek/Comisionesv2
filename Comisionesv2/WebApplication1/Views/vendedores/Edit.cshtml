@@ -135,18 +135,16 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group col-xs-12">
-                                                        @Html.LabelFor(model => model.strDireccion, "Dirección:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-1 no-padding-right" })
+                                                    <div class="form-group col-xs-4">
+                                                        @Html.LabelFor(model => model.strDireccion, "Dirección:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
 
                                                         <div class="col-xs-12 col-sm-9">
                                                             <div class="clearfix">
-                                                                @Html.EditorFor(model => model.strDireccion, new { htmlAttributes = new { @class = "col-xs-12 col-sm-6" } })
+                                                                @Html.EditorFor(model => model.strDireccion, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12" } })
                                                                 @Html.ValidationMessageFor(model => model.strDireccion, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <div style="clear:both;"></div>
 
                                                     <div class="form-group col-xs-4">
                                                         @Html.LabelFor(model => model.strTipoVendedor, "Tipo Vend:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
@@ -164,8 +162,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <div style="clear:both;"></div>
-
                                                     <div class="form-group col-xs-4">
                                                         @Html.LabelFor(model => model.strTelefono, "Telefono:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
 
@@ -182,7 +178,7 @@
                                                     </div>
 
                                                     <div class="form-group col-xs-4">
-                                                        @Html.LabelFor(model => model.strTelefono, "Email:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                        @Html.LabelFor(model => model.strEmail, "Email:", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
 
                                                         <div class="col-xs-12 col-sm-9">
                                                             <div class="clearfix">
@@ -191,7 +187,57 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                }
+
+                                                    <div style="float:left;" class="col-xs-4">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idBanco, "Bancos: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right", @style = "margin-left:-7px;" })
+                                                            <div class="col-xs-12 col-sm-9">
+                                                                @Html.DropDownList("idBanco", (SelectList)ViewBag.Bancos, "-- Seleccionar --", new { @class = "select2 col-xs-12", @style = "margin-left:-10px;" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="float:left;" class="col-xs-4">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.ClabeInterbancaria, "Clabe Interbancaria: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right", @style = "margin-left:-30px; margin-top:-10px;" })
+                                                            <div class="col-xs-12 col-sm-9">
+                                                                <div class="input-group" style="width:100%;">
+                                                                    @Html.EditorFor(model => model.ClabeInterbancaria, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12", @type = "number", maxlength = 18, minlength = 18, @style = "width:275px;" } })
+                                                                    @Html.ValidationMessageFor(model => model.ClabeInterbancaria, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group col-xs-4" style="margin-top:-10px;">
+                                                        @Html.LabelFor(model => model.TipoPago, "Tipo Pago", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+
+                                                        @{
+                                                            SelectList selectList = new SelectList(new List<SelectListItem>());
+                                                            if (Model.TipoPago == "A")
+                                                            {
+                                                                selectList = new SelectList(new List<SelectListItem>
+                                                                    {
+                                                                        new SelectListItem{ Text="Asimilados", Value = "A", Selected = true },
+                                                                        new SelectListItem{ Text="Directos", Value = "D"}
+                                                                    }, "Value", "Text", Model.TipoPago);
+                                                            }
+                                                            else if (Model.TipoPago == "D")
+                                                            {
+                                                                selectList = new SelectList(new List<SelectListItem>
+                                                                    {
+                                                                        new SelectListItem{ Text="Asimilados", Value = "A"},
+                                                                        new SelectListItem{ Text="Directos", Value = "D", Selected = true }
+                                                                    }, "Value", "Text", Model.TipoPago);
+                                                            }
+                                                        }
+                                                        <div class="col-xs-12 col-sm-9">
+                                                            <div class="input-group" style="width:100%;">
+                                                                @Html.DropDownList("idTipoPago", selectList, htmlAttributes: new { @class = "select2 fixed-width" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                        }
                                             </div>
 
                                             <div class="step-pane" data-step="2">
@@ -283,6 +329,27 @@
 
                                                                             <td>
                                                                                 <label id="lblEmail"></label>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class=""><b>Banco</b></td>
+
+                                                                            <td>
+                                                                                <label id="lblBanco"></label>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class=""><b>Clabe Interbancaria</b></td>
+
+                                                                            <td>
+                                                                                <label id="lblClabe"></label>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class=""><b>Tipo de Pago</b></td>
+
+                                                                            <td>
+                                                                                <label id="lblTipoPago"></label>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>

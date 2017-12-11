@@ -237,6 +237,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Patentes.cs" />
     <Compile Include="Models\ResumenPagoComisiones.cs" />
+    <Compile Include="Models\TipoPago.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultSet.cs" />
@@ -1291,7 +1292,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50912</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50917/comisiones</IISUrl>
+          <IISUrl>http://localhost:50918/comisiones</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

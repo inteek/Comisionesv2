@@ -60,6 +60,8 @@ namespace WebApplication1.Controllers
         // GET: vendedores/Create
         public ActionResult Create()
         {
+            ViewBag.Bancos = new SelectList(ListaPersonalizadaBancos(), "Value", "Text");
+            ViewBag.TipoPago = new SelectList(ListaTipoPago(), "Value", "Text");
             ViewBag.hdnRolID = Session["RolID"].ToString();
             return View();
         }
@@ -148,7 +150,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idCodigoVendedor,strNombre,strApellidoP,strApellidoM,strDireccion,strTipoVendedor,strTelefono,strEmail,boolActivo,dtFechaAlta,dtFechaModifica,idUsuarioAlta,idUsuarioModifica")] com_vendedores com_vendedores)
+        public ActionResult Create([Bind(Include = "idCodigoVendedor,strNombre,strApellidoP,strApellidoM,strDireccion,strTipoVendedor,strTelefono,strEmail,boolActivo,dtFechaAlta,dtFechaModifica,idUsuarioAlta,idUsuarioModifica,idBanco,ClabeInterbancaria,TipoPago")] com_vendedores com_vendedores)
         {
             try
             {
@@ -179,7 +181,7 @@ namespace WebApplication1.Controllers
                         return Json(new { error = true, msg = "Ya existe un vendedor con estos datos en el sistema" });
                     }
 
-                   
+
                 }
 
                 var msgs = string.Join(" | ", ModelState.Values
@@ -398,6 +400,8 @@ namespace WebApplication1.Controllers
         // GET: vendedores/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.Bancos = new SelectList(ListaPersonalizadaBancos(), "Value", "Text");
+            ViewBag.TipoPago = new SelectList(ListaTipoPago(), "Value", "Text");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -415,18 +419,17 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public JsonResult Edit([Bind(Include = "idCodigoVendedor,strNombre,strApellidoP,strApellidoM,strDireccion,strTipoVendedor,strTelefono,strEmail,dtFechaModifica,idUsuarioModifica")] com_vendedores com_vendedores)
+        public JsonResult Edit([Bind(Include = "idCodigoVendedor,strNombre,strApellidoP,strApellidoM,strDireccion,strTipoVendedor,strTelefono,strEmail,dtFechaModifica,idUsuarioModifica,idBanco,ClabeInterbancaria,TipoPago")] com_vendedores com_vendedores)
         {
-           
             try
             {
                 if (ModelState.IsValid)
                 {
-                    
+
                     Utils.Pie_tabla utils = new Utils.Pie_tabla();
 
                     var VendedorOriginal = db.com_vendedores.Find(com_vendedores.idCodigoVendedor);
-                    
+
                     VendedorOriginal.dtFechaModifica = utils.f_actual;
                     VendedorOriginal.idUsuarioModifica = utils.IDusuario;
 
@@ -437,6 +440,9 @@ namespace WebApplication1.Controllers
                     VendedorOriginal.strDireccion = com_vendedores.strDireccion;
                     VendedorOriginal.strTipoVendedor = com_vendedores.strTipoVendedor;
                     VendedorOriginal.strTelefono = com_vendedores.strTelefono;
+                    VendedorOriginal.idBanco = com_vendedores.idBanco;
+                    VendedorOriginal.ClabeInterbancaria = com_vendedores.ClabeInterbancaria;
+                    VendedorOriginal.TipoPago = com_vendedores.TipoPago;
                     db.Entry(VendedorOriginal).State = EntityState.Modified;
                     db.SaveChanges();
                     Utilidades.Utilidades.RegistrarEvento((string)(Session["UserName"]), "Proceso", "Vendedores", "Modificación de vendedor: " + VendedorOriginal.strNombre + " " + VendedorOriginal.strApellidoP + " " + VendedorOriginal.strApellidoM);
@@ -855,10 +861,15 @@ namespace WebApplication1.Controllers
             }
             List<SelectListItem> ListaEmpresas = new List<SelectListItem>();
             SelectListItem ListaItemEmpresas = new SelectListItem();
+            List<SelectListItem> ListConcepto = new List<SelectListItem>();
 
             ListaEmpresas = new SelectList(db.com_empresas, "IdEmpresa", "strNombreEmpresa").ToList();
+            ListConcepto = new SelectList(db.com_Conceptos, "GRPID", "GRPDESCE").ToList();
 
+            ViewBag.BagVendedores = new SelectList(ListaPersonalizadaVendedores(), "Value", "Text");
+            ViewBag.BagConceptos = new SelectList(ListConcepto, "Value", "Text");
             ViewBag.BagEmpresas = new SelectList(ListaEmpresas, "Value", "Text");
+
             return View(com_DescuentoConceptoVendedor);
         }
 
@@ -1007,7 +1018,86 @@ namespace WebApplication1.Controllers
 
         }
 
+        public SelectList ListaPersonalizadaBancos()
+        {
+            var vendedores = db.com_bancos.Select(x => new SelectListItem
+            {
+                Value = x.idBanco.ToString(),
+                Text = x.Descripcion.Trim()
+            });
+            return new SelectList(vendedores, "Value", "Text");
+        }
 
+        public SelectList ListaTipoPago()
+        {
 
+            List<TipoPago> tipoPago = new List<TipoPago>();
+            TipoPago tipopago1 = new TipoPago();
+            tipopago1.Text = "Asimilados";
+            tipopago1.Value = "A";
+            tipoPago.Add(tipopago1);
+            TipoPago tipopago2 = new TipoPago();
+            tipopago2.Text = "Directos";
+            tipopago2.Value = "D";
+            tipoPago.Add(tipopago2);
+
+            return new SelectList(tipoPago, "Value", "Text");
+        }
+
+        public ActionResult CreateDescuentos()
+        {
+            if (Session["RolID"] == null)
+            {
+                return View("~/Views/Home/Login.cshtml");
+            }
+            else
+            {
+                if (Session["RolID"].Equals("Administrador") || Session["RolID"].Equals("Operador"))
+                {
+                    ViewBag.IdEmpresa = new SelectList(db.com_empresas, "IdEmpresa", "strNombreEmpresa");
+                    ViewBag.idCodigoVendedor = new SelectList(ListaPersonalizadaVendedores(), "Value", "Text");// new SelectList(db.com_vendedores.Where(p => p.boolActivo == true), "idCodigoVendedor", "strNombre");
+                    ViewBag.idVendedor = new SelectList(ListaPersonalizadaVendedores(), "Value", "Text");// new SelectList(db.com_vendedores.Where(p => p.boolActivo == true), "idCodigoVendedor", "strNombre");
+                    ViewBag.hdnRolID = Session["RolID"].ToString();
+                    return View();
+                }
+                else
+                {
+                    return View("~/Views/Home/Login.cshtml");
+                }
+            }
+        }
+
+        public ActionResult IndexDescuentos()
+        {
+            if (Session["RolID"] == null)
+            {
+                return View("~/Views/Home/Login.cshtml");
+            }
+            else
+            {
+                if (Session["RolID"].Equals("Administrador") || Session["RolID"].Equals("Operador"))
+                {
+                    if (!Session["RolID"].Equals("Vendedor"))
+                    {
+                        ViewBag.BagVendedores = new SelectList(ListaPersonalizadaVendedores(), "Value", "Text");
+                    }
+                    else
+                    {
+                        ViewBag.BagVendedores = new SelectList(ListaPersonalizadaVendedor(), "Value", "Text");
+                    }
+
+                    ViewBag.hdnRolID = Session["RolID"].ToString();
+
+                    return View();
+
+                }
+                else
+                {
+                    return View("~/Views/Home/Login.cshtml");
+                }
+
+            }
+
+        }
     }
 }

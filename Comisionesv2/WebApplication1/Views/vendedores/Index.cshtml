@@ -72,6 +72,9 @@
 
                                     <th>Fecha Alta</th>
                                     <th>Fecha Mod.</th>
+                                    <th>Banco.</th>
+                                    <th>Calbe.</th>
+                                    <th>Tipo Pago.</th>
                                     <th>Activo</th>
                                     <th></th>
                                 </tr>
@@ -113,7 +116,15 @@
                                             {
                                                 <td></td>
                                             }
-
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.idBanco)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ClabeInterbancaria)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TipoPago)
+                                            </td>   
                                             @{ 
                                                 var boolActivo = item.boolActivo==true?"SI":"NO";
                                             }

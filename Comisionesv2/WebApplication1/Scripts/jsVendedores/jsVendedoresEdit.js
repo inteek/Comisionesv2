@@ -23,6 +23,9 @@
                 $("#lblTipo").html($('#strTipoVendedor option:selected').text().trim())
                 $("#lblTelefono").html($("#strTelefono").val().trim())
                 $("#lblEmail").html($("#strEmail").val().trim())
+                $("#lblBanco").html($('#idBanco option:selected').text().trim())
+                $("#lblClabe").html($("#ClabeInterbancaria").val().trim())
+                $("#lblTipoPago").html($('#idTipoPago option:selected').text().trim())
             }
         }
     })
@@ -37,7 +40,9 @@
             strTipoVendedor: $("#lblTipo").html(),
             strTelefono: $("#lblTelefono").html(),
             strEmail: $("#lblEmail").html(),
-
+            idBanco: $('#idBanco option:selected').val().trim(),
+            ClabeInterbancaria: $("#lblClabe").html(),
+            TipoPago: $('#idTipoPago option:selected').val().trim(),
         };
         
         $.ajax({
@@ -112,6 +117,15 @@
             strEmail: {
                 required: true,
                 email: true
+            },
+            idBanco: {
+                required: true
+            },
+            ClabeInterbancaria: {
+                required: true
+            },
+            TipoPago: {
+                required: true
             }
         },
 
@@ -135,6 +149,15 @@
             },
             strTelefono: {
                 required: "El telefono es requerido."
+            },
+            idBanco: {
+                required: "Debe de seleccionar un banco."//CAMBIOS
+            },
+            ClabeInterbancaria: {
+                required: "Debe de ingresar una clabe interbancaria de 18 dijitos."//CAMBIOS
+            },
+            TipoPago: {
+                required: "Debe de seleccionar un tipo de pago."//CAMBIOS
             }
         },
 

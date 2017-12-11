@@ -115,7 +115,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                            <div style="clear:both;"></div>
+                                                       
+                                                         <div style="clear:both;"></div>
 
                                                         <div style="float:left;" class="col-xs-4 col-xs-4">
                                                             <div class="form-group">
@@ -173,6 +174,33 @@
                                                                         @Html.EditorFor(model => model.strEmail, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12", @type = "email" } })
                                                                         @Html.ValidationMessageFor(model => model.strEmail, "", new { @class = "text-danger" })
                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div style="float:left;" class="col-xs-4 col-xs-4">
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.idBanco, "Bancos: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                                <div class="col-xs-12 col-sm-9">
+                                                                    @Html.DropDownList("idBanco", (SelectList)ViewBag.Bancos, "-- Seleccionar --", new { @class = "select2 col-xs-12 zero-padding" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div style="float:left;" class="col-xs-4 col-xs-4">
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.ClabeInterbancaria, "Clabe Interbancaria: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                                <div class="col-xs-12 col-sm-9">
+                                                                    <div class="input-group" style="width:100%;">
+                                                                        @Html.EditorFor(model => model.ClabeInterbancaria, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12", @type = "number", maxlength = 18, minlength = 18 } })
+                                                                        @Html.ValidationMessageFor(model => model.ClabeInterbancaria, "", new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div style="float:left; margin-top:-15px;" class="col-xs-4 col-xs-4">
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.TipoPago, "Tipo de Pago: ", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-3 no-padding-right" })
+                                                                <div class="col-xs-12 col-sm-9">
+                                                                    @Html.DropDownListFor(m => m.TipoPago, ViewBag.TipoPago as SelectList, "-- Seleccionar --", new { @class = "select2 col-xs-12 zero-padding" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -298,6 +326,27 @@
 
                                                                         <td>
                                                                             <label id="lblEmail"></label>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class=""><b>Banco</b></td>
+
+                                                                        <td>
+                                                                            <label id="lblBanco"></label>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class=""><b>Clabe Interbancaria</b></td>
+
+                                                                        <td>
+                                                                            <label id="ClabeIner"></label>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class=""><b>Tipo de Pago</b></td>
+
+                                                                        <td>
+                                                                            <label id="lblTipoPago"></label>
                                                                         </td>
                                                                     </tr>
                                                                     <tr id="colEvidencias">
@@ -497,7 +546,7 @@
 
 <script src="@Url.Content("~/assets/js/jquery.maskedinput.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
-<script src="@Url.Content("~/Scripts/jsVendedores/jsVendedoresCreate.js")"></script>
+<script src="@Url.Content("~/Scripts/jsVendedores/jsVendedoresCreate.js?v=2")"></script>
 <script>
     jQuery(document).ready(function ( ) {
         $("#colEvidencias").hide();

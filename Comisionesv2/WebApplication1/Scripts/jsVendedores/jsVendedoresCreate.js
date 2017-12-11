@@ -141,6 +141,9 @@ var TableDataVendedoresCreate = function () {
                     $("#lblTipo").html($('#strTipoVendedor option:selected').text().trim())
                     $("#lblTelefono").html($("#strTelefono").val().trim())
                     $("#lblEmail").html($("#strEmail").val().trim())
+                    $("#lblBanco").html($('#idBanco option:selected').text().trim())
+                    $("#ClabeIner").html($("#ClabeInterbancaria").val().trim())
+                    $("#lblTipoPago").html($('#TipoPago option:selected').text().trim())
                 }
             }
         })
@@ -152,6 +155,9 @@ var TableDataVendedoresCreate = function () {
             var strTipoVendedor = $('#strTipoVendedor option:selected').text();
             var strTelefono = $("#strTelefono").val();
             var strEmail = $("#strEmail").val();
+            var idBanco = $('#idBanco option:selected').val().trim();
+            var ClabeInterbancaria = $("#ClabeInterbancaria").val();
+            var TipoPago = $('#TipoPago option:selected').val().trim()
 
             var dataNewVendedores = {
                 strNombre: strNombre,
@@ -160,7 +166,10 @@ var TableDataVendedoresCreate = function () {
                 strDireccion: strDireccion,
                 strTipoVendedor: strTipoVendedor,
                 strTelefono: strTelefono,
-                strEmail: strEmail
+                strEmail: strEmail,
+                idBanco: idBanco,
+                ClabeInterbancaria: ClabeInterbancaria,
+                TipoPago: TipoPago,
             };
 
             $.ajax({
@@ -289,6 +298,15 @@ var TableDataVendedoresCreate = function () {
                 strEmail: {
                     required: true,
                     email: true
+                },
+                ClabeInterbancaria: {
+                    required: true
+                },
+                idBanco: {
+                    required: true
+                },
+                TipoPago: {
+                    required: true
                 }
             },
 
@@ -311,6 +329,15 @@ var TableDataVendedoresCreate = function () {
                 },
                 strTelefono: {
                     required: "El telefono es requerido."
+                },
+                ClabeInterbancaria: {
+                    required: "La Clabe Interbancario es requerida."
+                },
+                idBanco: {
+                    required: "Debes de seleccionar un banco."
+                },
+                TipoPago: {
+                    required: "Debes de seleccionar un tipo de pago."
                 }
             },
 
