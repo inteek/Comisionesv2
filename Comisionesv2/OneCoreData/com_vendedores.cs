@@ -17,11 +17,11 @@ namespace OneCoreData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public com_vendedores()
         {
-            this.com_clientesComConfig = new HashSet<com_clientesComConfig>();
             this.com_DescuentoConceptoVendedor = new HashSet<com_DescuentoConceptoVendedor>();
             this.com_Descuentos = new HashSet<com_Descuentos>();
             this.com_DocumentoVendedor = new HashSet<com_DocumentoVendedor>();
             this.com_periodos = new HashSet<com_periodos>();
+            this.com_clientesComConfig = new HashSet<com_clientesComConfig>();
         }
     
         public int idCodigoVendedor { get; set; }
@@ -43,8 +43,6 @@ namespace OneCoreData
         public Nullable<int> idTipoVendedor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<com_clientesComConfig> com_clientesComConfig { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<com_DescuentoConceptoVendedor> com_DescuentoConceptoVendedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<com_Descuentos> com_Descuentos { get; set; }
@@ -52,5 +50,7 @@ namespace OneCoreData
         public virtual ICollection<com_DocumentoVendedor> com_DocumentoVendedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<com_periodos> com_periodos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<com_clientesComConfig> com_clientesComConfig { get; set; }
     }
 }

@@ -35,7 +35,6 @@ namespace OneCoreData
         public virtual DbSet<com_Descuentos> com_Descuentos { get; set; }
         public virtual DbSet<com_Conceptos> com_Conceptos { get; set; }
         public virtual DbSet<com_EmpresaConceptos> com_EmpresaConceptos { get; set; }
-        public virtual DbSet<com_clientesComConfig> com_clientesComConfig { get; set; }
         public virtual DbSet<com_HistorialDescuentoVendedor> com_HistorialDescuentoVendedor { get; set; }
         public virtual DbSet<com_UsuarioVendedor> com_UsuarioVendedor { get; set; }
         public virtual DbSet<com_Documentos> com_Documentos { get; set; }
@@ -43,6 +42,7 @@ namespace OneCoreData
         public virtual DbSet<com_DescuentoConceptoVendedor> com_DescuentoConceptoVendedor { get; set; }
         public virtual DbSet<com_bancos> com_bancos { get; set; }
         public virtual DbSet<com_vendedores> com_vendedores { get; set; }
+        public virtual DbSet<com_clientesComConfig> com_clientesComConfig { get; set; }
         public virtual DbSet<com_relConceptoVendedor> com_relConceptoVendedor { get; set; }
     
         public virtual ObjectResult<string> csp_ConsultarFacturas(Nullable<int> idEmpresa, string empresa, string idVendedor, Nullable<int> periodo, Nullable<System.DateTime> fechaInicio, Nullable<System.DateTime> fechaFin, string clientes)

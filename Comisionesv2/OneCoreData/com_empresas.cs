@@ -18,8 +18,8 @@ namespace OneCoreData
         public com_empresas()
         {
             this.com_Descuentos = new HashSet<com_Descuentos>();
-            this.com_clientesComConfig = new HashSet<com_clientesComConfig>();
             this.com_DescuentoConceptoVendedor = new HashSet<com_DescuentoConceptoVendedor>();
+            this.com_clientesComConfig = new HashSet<com_clientesComConfig>();
         }
     
         public int IdEmpresa { get; set; }
@@ -34,8 +34,8 @@ namespace OneCoreData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<com_Descuentos> com_Descuentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<com_clientesComConfig> com_clientesComConfig { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<com_DescuentoConceptoVendedor> com_DescuentoConceptoVendedor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<com_clientesComConfig> com_clientesComConfig { get; set; }
     }
 }
