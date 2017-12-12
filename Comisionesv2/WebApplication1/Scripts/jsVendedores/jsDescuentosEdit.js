@@ -374,7 +374,7 @@ jQuery(function ($) {
                     },
                     function (isConfirm) {
                         if (isConfirm) {
-                            window.location.href = "/comisiones/Vendedores/DescuentosV/";
+                            window.location.href = "/comisiones/Vendedores/IndexDescuentos/";
                         }
                     });
 
