@@ -325,26 +325,7 @@ jQuery(function ($) {
         }
     })
     .on('finished.fu.wizard', function (e) {
-        //Aquí se deberia poner el submit}
-        if ($('#empresa').html() == "") {
-            swal("Advertencia", "Debe de seleccionar una empresa.", "warning");
-            return;
-        }
-        if ($('#concepto').html() == "") {
-            swal("Advertencia", "Debe de seleccionar un concepto.", "warning");
-            return;
-        }
-
-        if ($("#totaladeudo").html() < $("#cantidaddescontar").html()) {
-            swal("Advertencia", "El aduedo no puede ser menor a la cantidad de descuento.", "warning");
-            return;
-        }
-        if ($("#vigenciaindefinida1").html() != true) {
-            if (!validate_fechaMayorQue($("#vigenciainicio").html(), $("#vigenciafin").html())) {
-                swal("Advertencia", "La fecha de vigencia no puede ser mayor a la fecha final", "warning");
-                return;
-            }
-        }
+        //Aquí se deberia poner el submit}       
         var dataNewDescuento = {
             idDescuentoConceptoVendedor: $("#idRegistro").html(),
             totalAdeudo: $("#totaladeudo").html(),
